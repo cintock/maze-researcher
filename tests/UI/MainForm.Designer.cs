@@ -3,7 +3,7 @@
  * Date: 05.01.2019
  * Created by SharpDevelop.
  */
-namespace tests
+namespace Maze.UI
 {
 	partial class MainForm
 	{
@@ -17,7 +17,7 @@ namespace tests
 		private System.Windows.Forms.Button cleanButton;
 		private System.Windows.Forms.Button buttonCheckMaze;
 		private System.Windows.Forms.Button createMazeButton;
-		private System.Windows.Forms.ComboBox mazeCreationAlgoCheckbox;
+		private System.Windows.Forms.ComboBox generatorCheckbox;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.TrackBar widthTrackbar;
 		private System.Windows.Forms.Label label3;
@@ -51,7 +51,7 @@ namespace tests
 			this.buttonCheckMaze = new System.Windows.Forms.Button();
 			this.createMazeButton = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
-			this.mazeCreationAlgoCheckbox = new System.Windows.Forms.ComboBox();
+			this.generatorCheckbox = new System.Windows.Forms.ComboBox();
 			this.label2 = new System.Windows.Forms.Label();
 			this.widthTrackbar = new System.Windows.Forms.TrackBar();
 			this.label3 = new System.Windows.Forms.Label();
@@ -65,16 +65,16 @@ namespace tests
 			// somePicture
 			// 
 			this.somePicture.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.somePicture.Location = new System.Drawing.Point(12, 247);
+			this.somePicture.Location = new System.Drawing.Point(12, 222);
 			this.somePicture.Name = "somePicture";
-			this.somePicture.Size = new System.Drawing.Size(523, 347);
+			this.somePicture.Size = new System.Drawing.Size(523, 372);
 			this.somePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
 			this.somePicture.TabIndex = 4;
 			this.somePicture.TabStop = false;
 			// 
 			// drawButton
 			// 
-			this.drawButton.Location = new System.Drawing.Point(12, 207);
+			this.drawButton.Location = new System.Drawing.Point(12, 180);
 			this.drawButton.Name = "drawButton";
 			this.drawButton.Size = new System.Drawing.Size(95, 23);
 			this.drawButton.TabIndex = 5;
@@ -84,7 +84,7 @@ namespace tests
 			// 
 			// cleanButton
 			// 
-			this.cleanButton.Location = new System.Drawing.Point(129, 207);
+			this.cleanButton.Location = new System.Drawing.Point(132, 180);
 			this.cleanButton.Name = "cleanButton";
 			this.cleanButton.Size = new System.Drawing.Size(75, 23);
 			this.cleanButton.TabIndex = 6;
@@ -94,7 +94,7 @@ namespace tests
 			// 
 			// buttonCheckMaze
 			// 
-			this.buttonCheckMaze.Location = new System.Drawing.Point(241, 207);
+			this.buttonCheckMaze.Location = new System.Drawing.Point(228, 180);
 			this.buttonCheckMaze.Name = "buttonCheckMaze";
 			this.buttonCheckMaze.Size = new System.Drawing.Size(140, 23);
 			this.buttonCheckMaze.TabIndex = 7;
@@ -120,13 +120,14 @@ namespace tests
 			this.label1.TabIndex = 9;
 			this.label1.Text = "Алгоритм создания";
 			// 
-			// mazeCreationAlgoCheckbox
+			// generatorCheckbox
 			// 
-			this.mazeCreationAlgoCheckbox.FormattingEnabled = true;
-			this.mazeCreationAlgoCheckbox.Location = new System.Drawing.Point(181, 14);
-			this.mazeCreationAlgoCheckbox.Name = "mazeCreationAlgoCheckbox";
-			this.mazeCreationAlgoCheckbox.Size = new System.Drawing.Size(354, 21);
-			this.mazeCreationAlgoCheckbox.TabIndex = 10;
+			this.generatorCheckbox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.generatorCheckbox.FormattingEnabled = true;
+			this.generatorCheckbox.Location = new System.Drawing.Point(181, 14);
+			this.generatorCheckbox.Name = "generatorCheckbox";
+			this.generatorCheckbox.Size = new System.Drawing.Size(354, 21);
+			this.generatorCheckbox.TabIndex = 10;
 			// 
 			// label2
 			// 
@@ -184,7 +185,7 @@ namespace tests
 			this.Controls.Add(this.label3);
 			this.Controls.Add(this.widthTrackbar);
 			this.Controls.Add(this.label2);
-			this.Controls.Add(this.mazeCreationAlgoCheckbox);
+			this.Controls.Add(this.generatorCheckbox);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.createMazeButton);
 			this.Controls.Add(this.buttonCheckMaze);
@@ -192,7 +193,7 @@ namespace tests
 			this.Controls.Add(this.drawButton);
 			this.Controls.Add(this.somePicture);
 			this.Name = "MainForm";
-			this.Text = "tests";
+			this.Text = "Лабиринты";
 			((System.ComponentModel.ISupportInitialize)(this.somePicture)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.widthTrackbar)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.heightTrackbar)).EndInit();

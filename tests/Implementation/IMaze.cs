@@ -5,7 +5,7 @@
  */
 using System;
 
-namespace tests
+namespace Maze.Implementation
 {
 	[Flags]
 	// todo: переименовать в "стенка ячейки лабиринта" или около того

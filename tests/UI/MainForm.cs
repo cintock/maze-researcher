@@ -7,8 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using Maze.Implementation;
 
-namespace tests
+namespace Maze.UI
 {
 	/// <summary>
 	/// Description of MainForm.
@@ -36,8 +37,8 @@ namespace tests
 				new MazeGeneratorNamed(new RandomMazeGenerator(), "Полностью случайный лабиринт")
 			};
 			
-			mazeCreationAlgoCheckbox.DataSource = mazeGeneratorList;
-			mazeCreationAlgoCheckbox.DisplayMember = "Name";
+			generatorCheckbox.DataSource = mazeGeneratorList;
+			generatorCheckbox.DisplayMember = "Name";
 			
 		}
 		
@@ -73,7 +74,7 @@ namespace tests
 		
 		void CreateMazeButtonClick(object sender, EventArgs e)
 		{
-			MazeGeneratorNamed selectedGenerator = (MazeGeneratorNamed)mazeCreationAlgoCheckbox.SelectedValue;
+			MazeGeneratorNamed selectedGenerator = (MazeGeneratorNamed)generatorCheckbox.SelectedValue;
 			
 			if (selectedGenerator != null)
 			{

@@ -4,8 +4,9 @@
  * Created by SharpDevelop.
  */
 using System;
+using Maze.Implementation;
 
-namespace tests
+namespace Maze.UI
 {
 	/// <summary>
 	/// Description of MazeGeneratorNamed.

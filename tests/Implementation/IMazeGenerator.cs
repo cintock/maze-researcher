@@ -5,7 +5,7 @@
  */
 using System;
 
-namespace tests
+namespace Maze.Implementation
 {
 	/// <summary>
 	/// Description of IMazeGenerator.

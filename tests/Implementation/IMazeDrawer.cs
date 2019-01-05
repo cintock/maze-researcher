@@ -6,7 +6,7 @@
 using System;
 using System.Drawing;
 
-namespace tests
+namespace Maze.Implementation
 {
 	/// <summary>
 	/// Description of IMazeDrawer.
