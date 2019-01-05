@@ -12,13 +12,17 @@ namespace tests
 		/// </summary>
 		private System.ComponentModel.IContainer components = null;
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.TextBox memorySizeTextbox;
-		private System.Windows.Forms.Button allocMemButton;
-		private System.Windows.Forms.Button resetMemButton;
 		private System.Windows.Forms.PictureBox somePicture;
 		private System.Windows.Forms.Button drawButton;
 		private System.Windows.Forms.Button cleanButton;
 		private System.Windows.Forms.Button buttonCheckMaze;
+		private System.Windows.Forms.Button createMazeButton;
+		private System.Windows.Forms.ComboBox mazeCreationAlgoCheckbox;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.TrackBar widthTrackbar;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.TrackBar heightTrackbar;
+		private System.Windows.Forms.Label labelMazeSize;
 		
 		/// <summary>
 		/// Disposes resources used by the form.
@@ -41,65 +45,36 @@ namespace tests
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.label1 = new System.Windows.Forms.Label();
-			this.memorySizeTextbox = new System.Windows.Forms.TextBox();
-			this.allocMemButton = new System.Windows.Forms.Button();
-			this.resetMemButton = new System.Windows.Forms.Button();
 			this.somePicture = new System.Windows.Forms.PictureBox();
 			this.drawButton = new System.Windows.Forms.Button();
 			this.cleanButton = new System.Windows.Forms.Button();
 			this.buttonCheckMaze = new System.Windows.Forms.Button();
+			this.createMazeButton = new System.Windows.Forms.Button();
+			this.label1 = new System.Windows.Forms.Label();
+			this.mazeCreationAlgoCheckbox = new System.Windows.Forms.ComboBox();
+			this.label2 = new System.Windows.Forms.Label();
+			this.widthTrackbar = new System.Windows.Forms.TrackBar();
+			this.label3 = new System.Windows.Forms.Label();
+			this.heightTrackbar = new System.Windows.Forms.TrackBar();
+			this.labelMazeSize = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.somePicture)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.widthTrackbar)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.heightTrackbar)).BeginInit();
 			this.SuspendLayout();
-			// 
-			// label1
-			// 
-			this.label1.Location = new System.Drawing.Point(45, 45);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(134, 23);
-			this.label1.TabIndex = 0;
-			this.label1.Text = "Выделить память (МБ)";
-			// 
-			// memorySizeTextbox
-			// 
-			this.memorySizeTextbox.Location = new System.Drawing.Point(185, 42);
-			this.memorySizeTextbox.Name = "memorySizeTextbox";
-			this.memorySizeTextbox.Size = new System.Drawing.Size(100, 20);
-			this.memorySizeTextbox.TabIndex = 1;
-			// 
-			// allocMemButton
-			// 
-			this.allocMemButton.Location = new System.Drawing.Point(308, 40);
-			this.allocMemButton.Name = "allocMemButton";
-			this.allocMemButton.Size = new System.Drawing.Size(75, 23);
-			this.allocMemButton.TabIndex = 2;
-			this.allocMemButton.Text = "Выделить";
-			this.allocMemButton.UseVisualStyleBackColor = true;
-			this.allocMemButton.Click += new System.EventHandler(this.AllocMemButtonClick);
-			// 
-			// resetMemButton
-			// 
-			this.resetMemButton.Location = new System.Drawing.Point(45, 82);
-			this.resetMemButton.Name = "resetMemButton";
-			this.resetMemButton.Size = new System.Drawing.Size(75, 23);
-			this.resetMemButton.TabIndex = 3;
-			this.resetMemButton.Text = "Очистить";
-			this.resetMemButton.UseVisualStyleBackColor = true;
-			this.resetMemButton.Click += new System.EventHandler(this.ResetMemButtonClick);
 			// 
 			// somePicture
 			// 
 			this.somePicture.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.somePicture.Location = new System.Drawing.Point(45, 206);
+			this.somePicture.Location = new System.Drawing.Point(12, 247);
 			this.somePicture.Name = "somePicture";
-			this.somePicture.Size = new System.Drawing.Size(467, 295);
+			this.somePicture.Size = new System.Drawing.Size(523, 347);
 			this.somePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
 			this.somePicture.TabIndex = 4;
 			this.somePicture.TabStop = false;
 			// 
 			// drawButton
 			// 
-			this.drawButton.Location = new System.Drawing.Point(45, 139);
+			this.drawButton.Location = new System.Drawing.Point(12, 207);
 			this.drawButton.Name = "drawButton";
 			this.drawButton.Size = new System.Drawing.Size(95, 23);
 			this.drawButton.TabIndex = 5;
@@ -109,7 +84,7 @@ namespace tests
 			// 
 			// cleanButton
 			// 
-			this.cleanButton.Location = new System.Drawing.Point(163, 139);
+			this.cleanButton.Location = new System.Drawing.Point(129, 207);
 			this.cleanButton.Name = "cleanButton";
 			this.cleanButton.Size = new System.Drawing.Size(75, 23);
 			this.cleanButton.TabIndex = 6;
@@ -119,7 +94,7 @@ namespace tests
 			// 
 			// buttonCheckMaze
 			// 
-			this.buttonCheckMaze.Location = new System.Drawing.Point(277, 139);
+			this.buttonCheckMaze.Location = new System.Drawing.Point(241, 207);
 			this.buttonCheckMaze.Name = "buttonCheckMaze";
 			this.buttonCheckMaze.Size = new System.Drawing.Size(140, 23);
 			this.buttonCheckMaze.TabIndex = 7;
@@ -127,22 +102,100 @@ namespace tests
 			this.buttonCheckMaze.UseVisualStyleBackColor = true;
 			this.buttonCheckMaze.Click += new System.EventHandler(this.ButtonCheckMazeClick);
 			// 
+			// createMazeButton
+			// 
+			this.createMazeButton.Location = new System.Drawing.Point(12, 137);
+			this.createMazeButton.Name = "createMazeButton";
+			this.createMazeButton.Size = new System.Drawing.Size(139, 23);
+			this.createMazeButton.TabIndex = 8;
+			this.createMazeButton.Text = "Создать лабиринт";
+			this.createMazeButton.UseVisualStyleBackColor = true;
+			this.createMazeButton.Click += new System.EventHandler(this.CreateMazeButtonClick);
+			// 
+			// label1
+			// 
+			this.label1.Location = new System.Drawing.Point(12, 17);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(149, 23);
+			this.label1.TabIndex = 9;
+			this.label1.Text = "Алгоритм создания";
+			// 
+			// mazeCreationAlgoCheckbox
+			// 
+			this.mazeCreationAlgoCheckbox.FormattingEnabled = true;
+			this.mazeCreationAlgoCheckbox.Location = new System.Drawing.Point(181, 14);
+			this.mazeCreationAlgoCheckbox.Name = "mazeCreationAlgoCheckbox";
+			this.mazeCreationAlgoCheckbox.Size = new System.Drawing.Size(354, 21);
+			this.mazeCreationAlgoCheckbox.TabIndex = 10;
+			// 
+			// label2
+			// 
+			this.label2.Location = new System.Drawing.Point(12, 49);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(132, 23);
+			this.label2.TabIndex = 11;
+			this.label2.Text = "Ширина (столбцов)";
+			// 
+			// widthTrackbar
+			// 
+			this.widthTrackbar.Location = new System.Drawing.Point(172, 41);
+			this.widthTrackbar.Maximum = 100;
+			this.widthTrackbar.Minimum = 1;
+			this.widthTrackbar.Name = "widthTrackbar";
+			this.widthTrackbar.Size = new System.Drawing.Size(363, 45);
+			this.widthTrackbar.TabIndex = 12;
+			this.widthTrackbar.Value = 25;
+			this.widthTrackbar.ValueChanged += new System.EventHandler(this.SizeTrackbarChanged);
+			// 
+			// label3
+			// 
+			this.label3.Location = new System.Drawing.Point(12, 85);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(132, 17);
+			this.label3.TabIndex = 13;
+			this.label3.Text = "Высота (строк)";
+			// 
+			// heightTrackbar
+			// 
+			this.heightTrackbar.Location = new System.Drawing.Point(172, 85);
+			this.heightTrackbar.Maximum = 100;
+			this.heightTrackbar.Minimum = 1;
+			this.heightTrackbar.Name = "heightTrackbar";
+			this.heightTrackbar.Size = new System.Drawing.Size(363, 45);
+			this.heightTrackbar.TabIndex = 14;
+			this.heightTrackbar.Value = 25;
+			this.heightTrackbar.ValueChanged += new System.EventHandler(this.SizeTrackbarChanged);
+			// 
+			// labelMazeSize
+			// 
+			this.labelMazeSize.Location = new System.Drawing.Point(172, 137);
+			this.labelMazeSize.Name = "labelMazeSize";
+			this.labelMazeSize.Size = new System.Drawing.Size(147, 23);
+			this.labelMazeSize.TabIndex = 15;
+			this.labelMazeSize.Text = "-";
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(547, 527);
+			this.ClientSize = new System.Drawing.Size(547, 606);
+			this.Controls.Add(this.labelMazeSize);
+			this.Controls.Add(this.heightTrackbar);
+			this.Controls.Add(this.label3);
+			this.Controls.Add(this.widthTrackbar);
+			this.Controls.Add(this.label2);
+			this.Controls.Add(this.mazeCreationAlgoCheckbox);
+			this.Controls.Add(this.label1);
+			this.Controls.Add(this.createMazeButton);
 			this.Controls.Add(this.buttonCheckMaze);
 			this.Controls.Add(this.cleanButton);
 			this.Controls.Add(this.drawButton);
 			this.Controls.Add(this.somePicture);
-			this.Controls.Add(this.resetMemButton);
-			this.Controls.Add(this.allocMemButton);
-			this.Controls.Add(this.memorySizeTextbox);
-			this.Controls.Add(this.label1);
 			this.Name = "MainForm";
 			this.Text = "tests";
 			((System.ComponentModel.ISupportInitialize)(this.somePicture)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.widthTrackbar)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.heightTrackbar)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

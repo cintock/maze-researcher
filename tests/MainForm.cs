@@ -15,12 +15,9 @@ namespace tests
 	/// </summary>
 	public partial class MainForm : Form
 	{
-		MemAllocator memAllocator = new MemAllocator();
-		
 		IMazeDrawer mazeDrawer = new MazeDrawer();
 
 		IMaze maze;		
-		MazeSolution solution;
 		
 		public MainForm()
 		{
@@ -32,53 +29,33 @@ namespace tests
 			//
 			// TODO: Add constructor code after the InitializeComponent() call.
 			//
+			SizeTrackbarChanged(null, null);
+			
+			List<MazeGeneratorNamed> mazeGeneratorList = new List<MazeGeneratorNamed>()
+			{
+				new MazeGeneratorNamed(new RandomMazeGenerator(), "Полностью случайный лабиринт")
+			};
+			
+			mazeCreationAlgoCheckbox.DataSource = mazeGeneratorList;
+			mazeCreationAlgoCheckbox.DisplayMember = "Name";
+			
 		}
 		
 		void ClearImageBitmap()
 		{
-			/*
-			if (imageBitmap != null)
-			{
-				using (Graphics gr = Graphics.FromImage(imageBitmap))
-				{
-					gr.Clear(Color.Transparent);
-					somePicture.Image = imageBitmap;
-				}
-			}
-			*/
 			somePicture.Image = null;
 		}
 		
-		void AllocMemButtonClick(object sender, EventArgs e)
-		{
-			const Int64 MEGABYTE = 1024 * 1024;
-			Int64 sizeMBytes;
-			if (Int64.TryParse(memorySizeTextbox.Text, out sizeMBytes))
-			{
-				memAllocator.AllocMem(sizeMBytes * MEGABYTE);
-			}
-			else
-			{
-				MessageBox.Show("Некорректное значение");
-			}
-		}
-		
-		void ResetMemButtonClick(object sender, EventArgs e)
-		{
-			memAllocator.ResetMem();
-		}
-		
+
 		void DrawButtonClick(object sender, EventArgs e)
 		{						
-			solution = null;
-			IMazeGenerator gen = new RandomMazeGenerator();
-			maze = gen.Generate(27, 27);
+
 			DrawMaze(maze);
 		}
 		
-		void DrawMaze(IMaze maze, MazeSolution solution = null)
+		void DrawMaze(IMaze drawingMaze, MazeSolution drawingSolution = null)
 		{
-			somePicture.Image = mazeDrawer.Draw(maze, solution);
+			somePicture.Image = mazeDrawer.Draw(drawingMaze, drawingSolution);
 		}		
 
 		
@@ -90,10 +67,29 @@ namespace tests
 		void ButtonCheckMazeClick(object sender, EventArgs e)
 		{
 			IMazeSolver solver = new MazeSolver();
-			solution = solver.Solve(maze);
+			MazeSolution solution = solver.Solve(maze);
 			DrawMaze(maze, solution);			
 		}
 		
+		void CreateMazeButtonClick(object sender, EventArgs e)
+		{
+			MazeGeneratorNamed selectedGenerator = (MazeGeneratorNamed)mazeCreationAlgoCheckbox.SelectedValue;
+			
+			if (selectedGenerator != null)
+			{
+				maze = selectedGenerator.Generator.Generate(heightTrackbar.Value, widthTrackbar.Value);
+				DrawMaze(maze);
+			}
+			else
+			{
+				MessageBox.Show("Не выбран алгоритм генерации лабиринта");
+			}
+		}
 
+		void SizeTrackbarChanged(object sender, EventArgs e)
+		{
+			labelMazeSize.Text = String.Format("Строк {0}; Столбцов {1}", 
+			                                   heightTrackbar.Value, widthTrackbar.Value);
+		}
 	}
 }
