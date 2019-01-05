@@ -9,7 +9,7 @@ namespace tests
 {
 	[Flags]
 	// todo: переименовать в "стенка ячейки лабиринта" или около того
-	public enum MazeCell
+	public enum MazeSide
 	{
 		None = 0,
 		Bottom = 1,
@@ -27,8 +27,6 @@ namespace tests
 		Int32 rowCount { get; }
 		Int32 colCount { get; }
 		
-		MazeCell GetCell(Int32 row, Int32 col);
-		
-		Boolean IsCellExists(Int32 row, Int32 col);
+		MazeSide GetCell(Int32 row, Int32 col);
 	}
 }

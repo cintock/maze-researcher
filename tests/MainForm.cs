@@ -73,17 +73,12 @@ namespace tests
 			solution = null;
 			IMazeGenerator gen = new RandomMazeGenerator();
 			maze = gen.Generate(27, 27);
-			DrawMaze();
+			DrawMaze(maze);
 		}
 		
-		void DrawMaze()
+		void DrawMaze(IMaze maze, MazeSolution solution = null)
 		{
-			ClearImageBitmap();
-			
-			mazeDrawer.MazeObj = maze;
-			mazeDrawer.Solution = solution;
-			
-			somePicture.Image = mazeDrawer.Draw();
+			somePicture.Image = mazeDrawer.Draw(maze, solution);
 		}		
 
 		
@@ -94,11 +89,9 @@ namespace tests
 		
 		void ButtonCheckMazeClick(object sender, EventArgs e)
 		{
-			MazeSolver solver = new MazeSolver();
-			solver.MazeObj = maze;
-			solution = solver.Solve();
-			DrawMaze();
-			
+			IMazeSolver solver = new MazeSolver();
+			solution = solver.Solve(maze);
+			DrawMaze(maze, solution);			
 		}
 		
 

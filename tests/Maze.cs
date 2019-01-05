@@ -14,7 +14,7 @@ namespace tests
 	/// </summary>
 	public class Maze : IMaze
 	{
-		MazeCell[,] mazeMatrix;
+		MazeSide[,] mazeMatrix;
 		
 		public Int32 rowCount { get; private set; }
 		public Int32 colCount { get; private set; }
@@ -24,7 +24,7 @@ namespace tests
 			CheckDimensions(row, col);
 			rowCount = row;
 			colCount = col;
-			mazeMatrix = new MazeCell[rowCount, colCount];
+			mazeMatrix = new MazeSide[rowCount, colCount];
 		}
 
 		
@@ -49,48 +49,48 @@ namespace tests
 			}
 		}
 				
-		public MazeCell GetCell(Int32 row, Int32 col)
+		public MazeSide GetCell(Int32 row, Int32 col)
 		{
 			CheckCellExists(row, col);
-			MazeCell resultCell = mazeMatrix[row, col];
+			MazeSide resultCell = mazeMatrix[row, col];
 			if (row > 0)
 			{
-				if ((mazeMatrix[row - 1, col] & MazeCell.Bottom) != MazeCell.None)
+				if ((mazeMatrix[row - 1, col] & MazeSide.Bottom) != MazeSide.None)
 				{
-					resultCell |= MazeCell.Top;
+					resultCell |= MazeSide.Top;
 				}
 			}
 			else
 			{
-				resultCell |= MazeCell.Top;
+				resultCell |= MazeSide.Top;
 			}
 			
 			if (row == rowCount - 1)
 			{
-				resultCell |= MazeCell.Bottom;
+				resultCell |= MazeSide.Bottom;
 			}
 			
 			if (col > 0)
 			{
-				if ((mazeMatrix[row, col - 1] & MazeCell.Right) != MazeCell.None)
+				if ((mazeMatrix[row, col - 1] & MazeSide.Right) != MazeSide.None)
 				{
-					resultCell |= MazeCell.Left;
+					resultCell |= MazeSide.Left;
 				}
 			}
 			else
 			{
-				resultCell |= MazeCell.Left;
+				resultCell |= MazeSide.Left;
 			}
 			
 			if (col == colCount - 1)
 			{
-				resultCell |= MazeCell.Right;
+				resultCell |= MazeSide.Right;
 			}
 			
 			return resultCell;
 		}
 		
-		public void SetCell(Int32 row, Int32 col, MazeCell cell)
+		public void SetCell(Int32 row, Int32 col, MazeSide cell)
 		{
 			CheckCellExists(row, col);
 			mazeMatrix[row, col] = cell;

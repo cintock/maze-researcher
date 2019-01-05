@@ -14,15 +14,16 @@ namespace tests
 	{
 		private Byte[,] attainableCells;
 		
-		public MazeSolution()
+		public MazeSolution(Int32 row, Int32 col)
 		{
+			attainableCells = new Byte[row, col];
 		}
 		
-		public void InitSizeFromMaze(IMaze maze)
-		{
-			attainableCells = new Byte[maze.rowCount, maze.colCount];
+		public MazeSolution(IMaze maze)
+			: this(maze.rowCount, maze.colCount)
+		{			
 		}
-		
+				
 		public Boolean IsChecked(Int32 row, Int32 col)
 		{
 			return (attainableCells[row, col] != 0);				

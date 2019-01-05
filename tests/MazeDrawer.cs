@@ -21,34 +21,7 @@ namespace tests
 		{
 		}
 		
-		IMaze maze;
-		MazeSolution solution;
-		
-		public IMaze MazeObj
-		{ 
-			get
-			{ 
-				return maze; 
-			}
-			set 
-			{ 
-				maze = value; 
-			}
-		}
-		
-		public MazeSolution Solution 
-		{
-			get 
-			{
-				return solution;
-			}
-			set 
-			{
-				solution = value;
-			}
-		}
-		
-		public Bitmap Draw()
+		public Bitmap Draw(IMaze maze, MazeSolution solution)
 		{
 			Bitmap imageBitmap = new Bitmap(maze.colCount * 10 + 1, maze.rowCount * 10 + 1);
 			using (Graphics gr = Graphics.FromImage(imageBitmap))
@@ -60,23 +33,23 @@ namespace tests
 					{
 						Single BaseX = col * 10;
 						Single BaseY = row * 10;
-						MazeCell currentCell = maze.GetCell(row, col);
-						if ((currentCell & MazeCell.Top) != MazeCell.None)
+						MazeSide currentCell = maze.GetCell(row, col);
+						if ((currentCell & MazeSide.Top) != MazeSide.None)
 						{
 							gr.DrawLine(bluePen, BaseX, BaseY, BaseX + 10, BaseY);
 						}
 
-						if ((currentCell & MazeCell.Bottom) != MazeCell.None)
+						if ((currentCell & MazeSide.Bottom) != MazeSide.None)
 						{
 							gr.DrawLine(bluePen, BaseX, BaseY + 10, BaseX + 10, BaseY + 10);
 						}
 						
-						if ((currentCell & MazeCell.Right) != MazeCell.None)
+						if ((currentCell & MazeSide.Right) != MazeSide.None)
 						{
 							gr.DrawLine(bluePen, BaseX + 10, BaseY, BaseX + 10, BaseY + 10);
 						}				
 
-						if ((currentCell & MazeCell.Left) != MazeCell.None)
+						if ((currentCell & MazeSide.Left) != MazeSide.None)
 						{
 							gr.DrawLine(bluePen, BaseX, BaseY, BaseX, BaseY + 10);
 						}	

@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="IMaze.cs" />
     <Compile Include="IMazeGenerator.cs" />
+    <Compile Include="IMazeSolver.cs" />
     <Compile Include="MainForm.cs" />
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>

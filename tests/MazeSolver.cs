@@ -10,75 +10,71 @@ namespace tests
 	/// <summary>
 	/// Description of MazeSolver.
 	/// </summary>
-	public class MazeSolver
+	public class MazeSolver : IMazeSolver
 	{
-		public IMaze MazeObj { 
-			get 
-			{
-				return maze;
-			}
-			set 
-			{
-				maze = value;
-			}
-		}
-		
-		private IMaze maze;
 		private MazeSolution solution;
+		private IMaze workMaze;
+		private Int32 rowCount;
+		private Int32 colCount;
 		
 		public MazeSolver()
 		{
 		}
 		
-		public MazeSolution Solve()
+		public MazeSolution Solve(IMaze maze)
 		{
-			Int32 row = 0;
-			Int32 col = 0;
-			solution = new MazeSolution();
-			solution.InitSizeFromMaze(maze);
-			CheckCell(row, col);
+			workMaze = maze;
+			rowCount = maze.rowCount;
+			colCount = maze.colCount;
+			solution = new MazeSolution(workMaze);
+			GoCell(0, 0);
 			return solution;
 		}
 		
-		void CheckCell(Int32 row, Int32 col)
+		Boolean IsCellExists(Int32 row, Int32 col)
 		{
-			if (maze.IsCellExists(row, col))
+			return ((row >= 0) && (row < rowCount) && (col >= 0) && (col < colCount));
+		}
+		
+		void GoCell(Int32 row, Int32 col)
+		{
+			if (IsCellExists(row, col))
 			{
 				
 				if (!solution.IsChecked(row, col))
 				{
-					MazeCell currentCell = maze.GetCell(row, col);
+					MazeSide currentCell = workMaze.GetCell(row, col);
 					solution.SetChecked(row, col);
 					
-					if (maze.IsCellExists(row - 1, col))
+					if (IsCellExists(row - 1, col))
 					{
-						if ((currentCell & MazeCell.Top) == MazeCell.None)
+						if ((currentCell & MazeSide.Top) == MazeSide.None)
 						{
-							CheckCell(row - 1, col);
+							GoCell(row - 1, col);
 						}
 					}
 					
-					if (maze.IsCellExists(row + 1, col))
+					if (IsCellExists(row + 1, col))
 					{
-						if ((currentCell & MazeCell.Bottom) == MazeCell.None)
+						if ((currentCell & MazeSide.Bottom) == MazeSide.None)
 						{
-							CheckCell(row + 1, col);
+							GoCell(row + 1, col);
 						}
 					}					
 					
-					if (maze.IsCellExists(row, col - 1))
+					if (IsCellExists(row, col - 1))
 					{
-						if ((currentCell & MazeCell.Left) == MazeCell.None)
+						if ((currentCell & MazeSide.Left) == MazeSide.None)
 						{
-							CheckCell(row, col - 1);
+							GoCell(row, col - 1);
 						}
 					}		
 
-					if (maze.IsCellExists(row, col + 1))
+					if (IsCellExists(row, col + 1))
 					{
-						if ((currentCell & MazeCell.Right) == MazeCell.None)
+						if ((currentCell & MazeSide.Right) == MazeSide.None)
 						{
-							CheckCell(row, col + 1);
+							GoCell(row, col + 1);
 						}
 					}						
 				}

@@ -26,11 +26,11 @@ namespace tests
 				{
 					if (rnd.Next() % 2 == 0)
 					{
-						maze.SetCell(i, j, MazeCell.Right);
+						maze.SetCell(i, j, MazeSide.Right);
 					}
 					if (rnd.Next() % 2 == 0)
 					{
-						maze.SetCell(i, j, maze.GetCell(i, j) | MazeCell.Bottom);
+						maze.SetCell(i, j, maze.GetCell(i, j) | MazeSide.Bottom);
 					}
 				}
 			}

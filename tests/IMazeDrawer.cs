@@ -13,9 +13,6 @@ namespace tests
 	/// </summary>
 	public interface IMazeDrawer
 	{
-		IMaze MazeObj { get; set; }
-		MazeSolution Solution { get; set; }
-		
-		Bitmap Draw();
+		Bitmap Draw(IMaze maze, MazeSolution solution = null);
 	}
 }
