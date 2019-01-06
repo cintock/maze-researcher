@@ -8,7 +8,6 @@ using System;
 namespace Maze.Implementation
 {
 	[Flags]
-	// todo: переименовать в "стенка ячейки лабиринта" или около того
 	public enum MazeSide
 	{
 		None = 0,

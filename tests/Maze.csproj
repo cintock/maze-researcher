@@ -6,7 +6,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>tests</RootNamespace>
+    <RootNamespace>Maze</RootNamespace>
     <AssemblyName>Maze</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -65,6 +65,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implementation\EmptyDummyMazeGenerator.cs" />
+    <Compile Include="Implementation\EmptyMaze.cs" />
+    <Compile Include="Implementation\EmptyMazeGenerator.cs" />
     <Compile Include="Implementation\IMaze.cs" />
     <Compile Include="Implementation\IMazeDrawer.cs" />
     <Compile Include="Implementation\IMazeGenerator.cs" />
@@ -81,6 +84,7 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\MazeGeneratorNamed.cs" />
+    <Compile Include="UI\MazeGeneratorNamedList.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

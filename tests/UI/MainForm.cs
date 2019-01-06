@@ -32,12 +32,9 @@ namespace Maze.UI
 			//
 			SizeTrackbarChanged(null, null);
 			
-			List<MazeGeneratorNamed> mazeGeneratorList = new List<MazeGeneratorNamed>()
-			{
-				new MazeGeneratorNamed(new RandomMazeGenerator(), "Полностью случайный лабиринт")
-			};
+
 			
-			generatorCheckbox.DataSource = mazeGeneratorList;
+			generatorCheckbox.DataSource = MazeGeneratorNamedList.Get();
 			generatorCheckbox.DisplayMember = "Name";
 			
 		}
