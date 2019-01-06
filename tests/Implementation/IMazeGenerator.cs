@@ -12,6 +12,6 @@ namespace Maze.Implementation
 	/// </summary>
 	public interface IMazeGenerator
 	{
-		IMaze Generate(Int32 row, Int32 col);
+		IMazeData Generate(Int32 row, Int32 col);
 	}
 }

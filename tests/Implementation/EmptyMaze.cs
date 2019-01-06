@@ -10,7 +10,7 @@ namespace Maze.Implementation
 	/// <summary>
 	/// Description of EmptyMaze.
 	/// </summary>
-	public class EmptyMaze : IMaze
+	public class EmptyMaze : IMazeData
 	{
 		public EmptyMaze(Int32 r, Int32 c)
 		{

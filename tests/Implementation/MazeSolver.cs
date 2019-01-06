@@ -26,7 +26,7 @@ namespace Maze.Implementation
 	public class MazeSolver : IMazeSolver
 	{
 		private MazeSolution solution;
-		private IMaze workMaze;
+		private IMazeData workMaze;
 		private Int32 rowCount;
 		private Int32 colCount;
 		private List<PathPoint> path; 
@@ -35,7 +35,7 @@ namespace Maze.Implementation
 		{
 		}
 		
-		public MazeSolution Solve(IMaze maze)
+		public MazeSolution Solve(IMazeData maze)
 		{
 			workMaze = maze;
 			rowCount = maze.rowCount;
@@ -68,7 +68,7 @@ namespace Maze.Implementation
 					
 					if (IsCellExists(row - 1, col))
 					{
-						if ((currentCell & MazeSide.Top) == MazeSide.None)
+						if (!currentCell.HasFlag(MazeSide.Top))
 						{
 							GoCell(row - 1, col);
 						}
@@ -76,7 +76,7 @@ namespace Maze.Implementation
 					
 					if (IsCellExists(row + 1, col))
 					{
-						if ((currentCell & MazeSide.Bottom) == MazeSide.None)
+						if (!currentCell.HasFlag(MazeSide.Bottom))
 						{
 							GoCell(row + 1, col);
 						}
@@ -84,7 +84,7 @@ namespace Maze.Implementation
 					
 					if (IsCellExists(row, col - 1))
 					{
-						if ((currentCell & MazeSide.Left) == MazeSide.None)
+						if (!currentCell.HasFlag(MazeSide.Left))
 						{
 							GoCell(row, col - 1);
 						}
@@ -92,7 +92,7 @@ namespace Maze.Implementation
 
 					if (IsCellExists(row, col + 1))
 					{
-						if ((currentCell & MazeSide.Right) == MazeSide.None)
+						if (!currentCell.HasFlag(MazeSide.Right))
 						{
 							GoCell(row, col + 1);
 						}

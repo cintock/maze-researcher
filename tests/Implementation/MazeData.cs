@@ -12,14 +12,14 @@ namespace Maze.Implementation
 	/// <summary>
 	/// Description of Maze.
 	/// </summary>
-	public class Maze : IMaze
+	public class MazeData : IMazeData
 	{
 		MazeSide[,] mazeMatrix;
 		
 		public Int32 rowCount { get; private set; }
 		public Int32 colCount { get; private set; }
 		
-		public Maze(Int32 row, Int32 col)
+		public MazeData(Int32 row, Int32 col)
 		{
 			CheckDimensions(row, col);
 			rowCount = row;

@@ -21,7 +21,7 @@ namespace Maze.Implementation
 	/// <summary>
 	/// Description of IMaze.
 	/// </summary>
-	public interface IMaze
+	public interface IMazeData
 	{
 		Int32 rowCount { get; }
 		Int32 colCount { get; }

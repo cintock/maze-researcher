@@ -19,7 +19,7 @@ namespace Maze.Implementation
 			attainableCells = new Byte[row, col];
 		}
 		
-		public MazeSolution(IMaze maze)
+		public MazeSolution(IMazeData maze)
 			: this(maze.rowCount, maze.colCount)
 		{			
 		}

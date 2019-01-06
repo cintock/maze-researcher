@@ -18,7 +18,7 @@ namespace Maze.UI
 	{
 		IMazeDrawer mazeDrawer = new MazeDrawer();
 
-		IMaze maze;		
+		IMazeData maze;		
 		
 		public MainForm()
 		{
@@ -51,7 +51,7 @@ namespace Maze.UI
 			DrawMaze(maze);
 		}
 		
-		void DrawMaze(IMaze drawingMaze, MazeSolution drawingSolution = null)
+		void DrawMaze(IMazeData drawingMaze, MazeSolution drawingSolution = null)
 		{
 			somePicture.Image = mazeDrawer.Draw(drawingMaze, drawingSolution);
 		}		

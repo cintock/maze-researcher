@@ -13,6 +13,6 @@ namespace Maze.Implementation
 	/// </summary>
 	public interface IMazeDrawer
 	{
-		Bitmap Draw(IMaze maze, MazeSolution solution = null);
+		Bitmap Draw(IMazeData maze, MazeSolution solution = null);
 	}
 }

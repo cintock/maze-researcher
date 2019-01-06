@@ -12,6 +12,6 @@ namespace Maze.Implementation
 	/// </summary>
 	public interface IMazeSolver
 	{
-		MazeSolution Solve(IMaze maze);
+		MazeSolution Solve(IMazeData maze);
 	}
 }

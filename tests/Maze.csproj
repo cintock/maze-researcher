@@ -68,11 +68,11 @@
     <Compile Include="Implementation\EmptyDummyMazeGenerator.cs" />
     <Compile Include="Implementation\EmptyMaze.cs" />
     <Compile Include="Implementation\EmptyMazeGenerator.cs" />
-    <Compile Include="Implementation\IMaze.cs" />
+    <Compile Include="Implementation\IMazeData.cs" />
     <Compile Include="Implementation\IMazeDrawer.cs" />
     <Compile Include="Implementation\IMazeGenerator.cs" />
     <Compile Include="Implementation\IMazeSolver.cs" />
-    <Compile Include="Implementation\Maze.cs" />
+    <Compile Include="Implementation\MazeData.cs" />
     <Compile Include="Implementation\MazeDrawer.cs" />
     <Compile Include="Implementation\MazeSolution.cs" />
     <Compile Include="Implementation\MazeSolver.cs" />
