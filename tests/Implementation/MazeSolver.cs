@@ -4,9 +4,22 @@
  * Created by SharpDevelop.
  */
 using System;
+using System.Collections.Generic;
 
 namespace Maze.Implementation
 {
+	public struct PathPoint
+	{
+		public PathPoint(Int32 r, Int32 c)
+		{
+			Row = r;
+			Col = c;
+		}
+		
+		public readonly Int32 Row;
+		public readonly Int32 Col;
+	}
+	
 	/// <summary>
 	/// Description of MazeSolver.
 	/// </summary>
@@ -16,6 +29,7 @@ namespace Maze.Implementation
 		private IMaze workMaze;
 		private Int32 rowCount;
 		private Int32 colCount;
+		private List<PathPoint> path; 
 		
 		public MazeSolver()
 		{
@@ -27,8 +41,14 @@ namespace Maze.Implementation
 			rowCount = maze.rowCount;
 			colCount = maze.colCount;
 			solution = new MazeSolution(workMaze);
+			path = new List<PathPoint>();
 			GoCell(0, 0);
 			return solution;
+		}
+		
+		protected IList<PathPoint> GetPath()
+		{
+			return path;
 		}
 		
 		Boolean IsCellExists(Int32 row, Int32 col)
@@ -40,7 +60,7 @@ namespace Maze.Implementation
 		{
 			if (IsCellExists(row, col))
 			{
-				
+				path.Add(new PathPoint(row, col));
 				if (!solution.IsChecked(row, col))
 				{
 					MazeSide currentCell = workMaze.GetCell(row, col);
