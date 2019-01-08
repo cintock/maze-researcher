@@ -23,6 +23,7 @@ namespace Maze.UI
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.TrackBar heightTrackbar;
 		private System.Windows.Forms.Label labelMazeSize;
+		private System.Windows.Forms.TextBox debugConsole;
 		
 		/// <summary>
 		/// Disposes resources used by the form.
@@ -57,6 +58,7 @@ namespace Maze.UI
 			this.label3 = new System.Windows.Forms.Label();
 			this.heightTrackbar = new System.Windows.Forms.TrackBar();
 			this.labelMazeSize = new System.Windows.Forms.Label();
+			this.debugConsole = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.somePicture)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.widthTrackbar)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.heightTrackbar)).BeginInit();
@@ -175,11 +177,23 @@ namespace Maze.UI
 			this.labelMazeSize.TabIndex = 15;
 			this.labelMazeSize.Text = "-";
 			// 
+			// debugConsole
+			// 
+			this.debugConsole.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.debugConsole.Location = new System.Drawing.Point(553, 14);
+			this.debugConsole.Multiline = true;
+			this.debugConsole.Name = "debugConsole";
+			this.debugConsole.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+			this.debugConsole.Size = new System.Drawing.Size(518, 580);
+			this.debugConsole.TabIndex = 16;
+			this.debugConsole.WordWrap = false;
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(547, 606);
+			this.ClientSize = new System.Drawing.Size(1083, 606);
+			this.Controls.Add(this.debugConsole);
 			this.Controls.Add(this.labelMazeSize);
 			this.Controls.Add(this.heightTrackbar);
 			this.Controls.Add(this.label3);

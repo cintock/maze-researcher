@@ -56,6 +56,8 @@ namespace Maze.Implementation
 					arrData[row][c] = availableNums[index++];
 				}
 			}
+			
+			DebugConsole.Instance().LogNumLine("InitRow", arrData[row]);
 		}
 		#endregion
 		
@@ -69,7 +71,7 @@ namespace Maze.Implementation
 					maze.SetCell(row, c, MazeSide.Right);
 				}
 				else
-				{					
+				{
 					if (rnd.Next() % 2 == 0)
 					{
 						maze.SetCell(row, c, MazeSide.Right);
@@ -80,12 +82,14 @@ namespace Maze.Implementation
 					}
 				}
 			}
+			DebugConsole.Instance().LogNumLine("CrRightBor", arrData[row]);
 		}
 		#endregion
 		
 		#region Step 4
 		private void CreateBottomBorders(Int32 row)
 		{
+			/*
 			Dictionary<Int32, Int32> countNums = new Dictionary<Int32, Int32>();
 			for (Int32 c = 0; c < colCount; c++)
 			{
@@ -110,6 +114,43 @@ namespace Maze.Implementation
 					}
 				}
 			}			
+			*/
+			
+			var pairs = new List<Tuple<Int32, Int32>>();
+			Int32 current = 0;
+			while (current < colCount - 1)
+			{
+				Int32 curEnd;
+				for (curEnd = current + 1; curEnd < colCount; curEnd++)
+				{
+					if (arrData[row][current] != arrData[row][curEnd])
+					{
+						break;
+					}
+				}
+				curEnd--;
+				DebugConsole.Instance().Log(String.Format("{0}: {1} - {2}", 
+				                                          arrData[row][current], current, curEnd));
+				
+				pairs.Add(new Tuple<int, int>(current, curEnd));
+				current = curEnd + 1;
+			}
+						
+			foreach (Tuple<int, int> pair in pairs)
+			{
+				Int32 len = pair.Item2 - pair.Item1 + 1;
+				if (len > 1)
+				{
+					Int32 ex = rnd.Next(len - 1);
+					for (Int32 c = pair.Item1; c <= pair.Item2; c++)
+					{
+						if (c != ex + pair.Item1)
+						{
+							maze.SetCell(row, c, maze.GetCell(row, c) | MazeSide.Bottom);
+						}
+					}
+				}
+			}
 		}
 		#endregion
 		
@@ -127,6 +168,7 @@ namespace Maze.Implementation
 					arrData[row + 1][c] = 0;
 				}
 			}
+			DebugConsole.Instance().LogNumLine("PrepNextRow", arrData[row + 1]);
 			
 		}
 		#endregion
@@ -138,8 +180,12 @@ namespace Maze.Implementation
 
 			CreateMazeData();
 			
+			DebugConsole.Instance().Log(Environment.NewLine);
+			
 			for (Int32 r = 0; r < rowCount - 1; r++)
 			{
+				DebugConsole.Instance().Log(Environment.NewLine);
+				
 				InitRow(r);
 			
 				CreateRightBorders(r);

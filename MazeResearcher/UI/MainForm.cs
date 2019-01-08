@@ -32,7 +32,8 @@ namespace Maze.UI
 			//
 			SizeTrackbarChanged(null, null);
 			
-
+			DebugConsole.Instance().SetDebugCallback(WriteDebug);
+			
 			
 			generatorCheckbox.DataSource = MazeGeneratorNamedList.Get();
 			generatorCheckbox.DisplayMember = "Name";
@@ -88,6 +89,11 @@ namespace Maze.UI
 		{
 			labelMazeSize.Text = String.Format("Строк {0}; Столбцов {1}", 
 			                                   heightTrackbar.Value, widthTrackbar.Value);
+		}
+		
+		void WriteDebug(String mes)
+		{
+			debugConsole.AppendText(mes);
 		}
 	}
 }
