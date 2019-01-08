@@ -65,6 +65,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implementation\EllerMazeGenerator.cs" />
     <Compile Include="Implementation\EmptyDummyMazeGenerator.cs" />
     <Compile Include="Implementation\EmptyMaze.cs" />
     <Compile Include="Implementation\EmptyMazeGenerator.cs" />

@@ -30,7 +30,12 @@ namespace Maze.UI
 					
 					new MazeGeneratorNamed(new EmptyDummyMazeGenerator(),
 					                       "Пустой лабиринт (оптимизированный вариант)"),
+					
+					new MazeGeneratorNamed(new EllerMazeGenerator(),
+                       "Алгоритм Эллера"),
+
 				};
+				
 			}
 			return mazeGeneratorList;
 		}

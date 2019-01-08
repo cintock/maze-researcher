@@ -55,7 +55,7 @@ namespace Maze.Implementation
 			MazeSide resultCell = mazeMatrix[row, col];
 			if (row > 0)
 			{
-				if ((mazeMatrix[row - 1, col] & MazeSide.Bottom) != MazeSide.None)
+				if (mazeMatrix[row - 1, col].HasFlag(MazeSide.Bottom))
 				{
 					resultCell |= MazeSide.Top;
 				}
@@ -72,7 +72,7 @@ namespace Maze.Implementation
 			
 			if (col > 0)
 			{
-				if ((mazeMatrix[row, col - 1] & MazeSide.Right) != MazeSide.None)
+				if (mazeMatrix[row, col - 1].HasFlag(MazeSide.Right))
 				{
 					resultCell |= MazeSide.Left;
 				}
