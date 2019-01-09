@@ -21,7 +21,7 @@ namespace Maze.Implementation
 		private Int32 row;
 		private Int32 col;
 		
-		public Int32 rowCount 
+		public Int32 RowCount 
 		{
 			get 
 			{
@@ -29,7 +29,7 @@ namespace Maze.Implementation
 			}
 		}
 		
-		public Int32 colCount
+		public Int32 ColCount
 		{
 			get
 			{

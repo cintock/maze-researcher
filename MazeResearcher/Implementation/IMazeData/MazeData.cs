@@ -16,21 +16,21 @@ namespace Maze.Implementation
 	{
 		MazeSide[,] mazeMatrix;
 		
-		public Int32 rowCount { get; private set; }
-		public Int32 colCount { get; private set; }
+		public Int32 RowCount { get; private set; }
+		public Int32 ColCount { get; private set; }
 		
 		public MazeData(Int32 row, Int32 col)
 		{
 			CheckDimensions(row, col);
-			rowCount = row;
-			colCount = col;
-			mazeMatrix = new MazeSide[rowCount, colCount];
+			RowCount = row;
+			ColCount = col;
+			mazeMatrix = new MazeSide[RowCount, ColCount];
 		}
 
 		
 		public Boolean IsCellExists(Int32 row, Int32 col)
 		{
-			return ((row >= 0) && (row < rowCount) && (col >= 0) && (col < colCount));
+			return ((row >= 0) && (row < RowCount) && (col >= 0) && (col < ColCount));
 		}
 		
 		private static void CheckDimensions(Int32 row, Int32 col)
@@ -65,7 +65,7 @@ namespace Maze.Implementation
 				resultCell |= MazeSide.Top;
 			}
 			
-			if (row == rowCount - 1)
+			if (row == RowCount - 1)
 			{
 				resultCell |= MazeSide.Bottom;
 			}
@@ -82,7 +82,7 @@ namespace Maze.Implementation
 				resultCell |= MazeSide.Left;
 			}
 			
-			if (col == colCount - 1)
+			if (col == ColCount - 1)
 			{
 				resultCell |= MazeSide.Right;
 			}

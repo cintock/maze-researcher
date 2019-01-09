@@ -20,7 +20,7 @@ namespace Maze.Implementation
 		}
 		
 		public MazeClusters(IMazeData maze)
-			: this(maze.rowCount, maze.colCount)
+			: this(maze.RowCount, maze.ColCount)
 		{			
 		}
 				

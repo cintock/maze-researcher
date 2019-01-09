@@ -38,8 +38,8 @@ namespace Maze.Implementation
 		public MazeClusters Cluster(IMazeData maze)
 		{
 			workMaze = maze;
-			rowCount = maze.rowCount;
-			colCount = maze.colCount;
+			rowCount = maze.RowCount;
+			colCount = maze.ColCount;
 			solution = new MazeClusters(workMaze);
 			path = new List<PathPoint>();
 			GoCell(0, 0);

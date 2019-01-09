@@ -8,7 +8,8 @@ using System;
 namespace Maze.Implementation
 {
 	/// <summary>
-	/// Description of IMazeSolver.
+	/// Интерфейс поиска отдельных, несвязанных частей в лабиринте.
+	/// Из одной части лабиринта нельзя попасть в другую часть лабиринта.
 	/// </summary>
 	public interface IMazeClusterer
 	{

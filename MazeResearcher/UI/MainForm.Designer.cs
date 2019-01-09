@@ -15,7 +15,7 @@ namespace Maze.UI
 		private System.Windows.Forms.PictureBox somePicture;
 		private System.Windows.Forms.Button drawButton;
 		private System.Windows.Forms.Button cleanButton;
-		private System.Windows.Forms.Button buttonCheckMaze;
+		private System.Windows.Forms.Button buttonCluster;
 		private System.Windows.Forms.Button createMazeButton;
 		private System.Windows.Forms.ComboBox generatorCheckbox;
 		private System.Windows.Forms.Label label2;
@@ -50,7 +50,7 @@ namespace Maze.UI
 			this.somePicture = new System.Windows.Forms.PictureBox();
 			this.drawButton = new System.Windows.Forms.Button();
 			this.cleanButton = new System.Windows.Forms.Button();
-			this.buttonCheckMaze = new System.Windows.Forms.Button();
+			this.buttonCluster = new System.Windows.Forms.Button();
 			this.createMazeButton = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
 			this.generatorCheckbox = new System.Windows.Forms.ComboBox();
@@ -96,15 +96,15 @@ namespace Maze.UI
 			this.cleanButton.UseVisualStyleBackColor = true;
 			this.cleanButton.Click += new System.EventHandler(this.CleanButtonClick);
 			// 
-			// buttonCheckMaze
+			// buttonCluster
 			// 
-			this.buttonCheckMaze.Location = new System.Drawing.Point(228, 180);
-			this.buttonCheckMaze.Name = "buttonCheckMaze";
-			this.buttonCheckMaze.Size = new System.Drawing.Size(140, 23);
-			this.buttonCheckMaze.TabIndex = 7;
-			this.buttonCheckMaze.Text = "Проверить лабиринт";
-			this.buttonCheckMaze.UseVisualStyleBackColor = true;
-			this.buttonCheckMaze.Click += new System.EventHandler(this.ButtonCheckMazeClick);
+			this.buttonCluster.Location = new System.Drawing.Point(228, 180);
+			this.buttonCluster.Name = "buttonCluster";
+			this.buttonCluster.Size = new System.Drawing.Size(146, 23);
+			this.buttonCluster.TabIndex = 7;
+			this.buttonCluster.Text = "Разделить по областям";
+			this.buttonCluster.UseVisualStyleBackColor = true;
+			this.buttonCluster.Click += new System.EventHandler(this.ClusterButtonClick);
 			// 
 			// createMazeButton
 			// 
@@ -215,7 +215,7 @@ namespace Maze.UI
 			this.Controls.Add(this.generatorCheckbox);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.createMazeButton);
-			this.Controls.Add(this.buttonCheckMaze);
+			this.Controls.Add(this.buttonCluster);
 			this.Controls.Add(this.cleanButton);
 			this.Controls.Add(this.drawButton);
 			this.Controls.Add(this.somePicture);

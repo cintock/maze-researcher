@@ -33,8 +33,7 @@ namespace Maze.UI
 			SizeTrackbarChanged(null, null);
 			
 			LogCheckboxCheckStateChanged(null, null);
-			
-			
+						
 			generatorCheckbox.DataSource = MazeGeneratorNamedList.Get();
 			generatorCheckbox.DisplayMember = "Name";
 			
@@ -48,13 +47,19 @@ namespace Maze.UI
 
 		void DrawButtonClick(object sender, EventArgs e)
 		{						
-
-			DrawMaze(maze);
+			if (maze != null)
+			{
+				DrawMaze(maze);
+			}
+			else
+			{
+				MessageBox.Show("Невозможно нарисовать. Лабиринт не создан.");
+			}
 		}
 		
-		void DrawMaze(IMazeData drawingMaze, MazeClusters drawingSolution = null)
+		void DrawMaze(IMazeData drawingMaze, MazeClusters clusters = null)
 		{
-			somePicture.Image = mazeDrawer.Draw(drawingMaze, drawingSolution);
+			somePicture.Image = mazeDrawer.Draw(drawingMaze, clusters);
 		}		
 
 		
@@ -63,11 +68,18 @@ namespace Maze.UI
 			ClearImageBitmap();
 		}
 		
-		void ButtonCheckMazeClick(object sender, EventArgs e)
+		void ClusterButtonClick(object sender, EventArgs e)
 		{
-			IMazeClusterer solver = new MazeClusterer();
-			MazeClusters solution = solver.Cluster(maze);
-			DrawMaze(maze, solution);			
+			if (maze != null)
+			{
+				IMazeClusterer clusterer = new MazeClusterer();
+				MazeClusters clusters = clusterer.Cluster(maze);
+				DrawMaze(maze, clusters);			
+			}
+			else
+			{
+				MessageBox.Show("Лабиринт еще не создан.");
+			}
 		}
 		
 		void CreateMazeButtonClick(object sender, EventArgs e)

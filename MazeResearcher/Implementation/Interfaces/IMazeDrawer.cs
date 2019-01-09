@@ -9,10 +9,10 @@ using System.Drawing;
 namespace Maze.Implementation
 {
 	/// <summary>
-	/// Description of IMazeDrawer.
+	/// Интерфейс для рисования лабиринта
 	/// </summary>
 	public interface IMazeDrawer
 	{
-		Bitmap Draw(IMazeData maze, MazeClusters solution = null);
+		Bitmap Draw(IMazeData maze, MazeClusters clusters = null);
 	}
 }
