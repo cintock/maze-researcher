@@ -24,6 +24,7 @@ namespace Maze.UI
 		private System.Windows.Forms.TrackBar heightTrackbar;
 		private System.Windows.Forms.Label labelMazeSize;
 		private System.Windows.Forms.TextBox debugConsole;
+		private System.Windows.Forms.CheckBox logCheckbox;
 		
 		/// <summary>
 		/// Disposes resources used by the form.
@@ -59,6 +60,7 @@ namespace Maze.UI
 			this.heightTrackbar = new System.Windows.Forms.TrackBar();
 			this.labelMazeSize = new System.Windows.Forms.Label();
 			this.debugConsole = new System.Windows.Forms.TextBox();
+			this.logCheckbox = new System.Windows.Forms.CheckBox();
 			((System.ComponentModel.ISupportInitialize)(this.somePicture)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.widthTrackbar)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.heightTrackbar)).BeginInit();
@@ -188,11 +190,22 @@ namespace Maze.UI
 			this.debugConsole.TabIndex = 16;
 			this.debugConsole.WordWrap = false;
 			// 
+			// logCheckbox
+			// 
+			this.logCheckbox.Location = new System.Drawing.Point(368, 137);
+			this.logCheckbox.Name = "logCheckbox";
+			this.logCheckbox.Size = new System.Drawing.Size(167, 24);
+			this.logCheckbox.TabIndex = 17;
+			this.logCheckbox.Text = "Отладочное логирование";
+			this.logCheckbox.UseVisualStyleBackColor = true;
+			this.logCheckbox.CheckStateChanged += new System.EventHandler(this.LogCheckboxCheckStateChanged);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1083, 606);
+			this.Controls.Add(this.logCheckbox);
 			this.Controls.Add(this.debugConsole);
 			this.Controls.Add(this.labelMazeSize);
 			this.Controls.Add(this.heightTrackbar);

@@ -15,7 +15,7 @@ namespace Maze.Implementation
 	{
 		Int32 rowCount;
 		Int32 colCount;
-		Int32[][] arrData;
+		Int32[] mazeLineData;
 		MazeData maze;
 		Random rnd;
 		
@@ -26,11 +26,7 @@ namespace Maze.Implementation
 				
 		private void CreateMazeData()
 		{
-			arrData = new Int32[rowCount][];
-			for (Int32 r = 0; r < rowCount; r++)
-			{
-				arrData[r] = new Int32[colCount];
-			}
+			mazeLineData = new Int32[colCount];
 			maze = new MazeData(rowCount, colCount);
 		}
 		
@@ -41,7 +37,7 @@ namespace Maze.Implementation
 			Int32 num = 1;
 			for (Int32 i = 0; i < colCount; i++)
 			{				
-				while (((IList<Int32>)arrData[row]).Contains(num))
+				while (((IList<Int32>)mazeLineData).Contains(num))
 				{
 					num++;
 				}
@@ -51,13 +47,13 @@ namespace Maze.Implementation
 			Int32 index = 0;
 			for (Int32 c = 0; c < colCount; c++)
 			{
-				if (arrData[row][c] == 0)
+				if (mazeLineData[c] == 0)
 				{
-					arrData[row][c] = availableNums[index++];
+					mazeLineData[c] = availableNums[index++];
 				}
 			}
 			
-			DebugConsole.Instance().LogNumLine("InitRow", arrData[row]);
+			DebugConsole.Instance().LogNumLine("InitRow", mazeLineData);
 		}
 		#endregion
 		
@@ -66,7 +62,7 @@ namespace Maze.Implementation
 		{
 			for (Int32 c = 0; c < colCount - 1; c++)
 			{
-				if (arrData[row][c] == arrData[row][c + 1])
+				if (mazeLineData[c] == mazeLineData[c + 1])
 				{
 					maze.SetCell(row, c, MazeSide.Right);
 				}
@@ -78,11 +74,11 @@ namespace Maze.Implementation
 					}
 					else
 					{
-						arrData[row][c + 1] = arrData[row][c];
+						mazeLineData[c + 1] = mazeLineData[c];
 					}
 				}
 			}
-			DebugConsole.Instance().LogNumLine("CrRightBor", arrData[row]);
+			DebugConsole.Instance().LogNumLine("CrRightBor", mazeLineData);
 		}
 		#endregion
 		
@@ -116,6 +112,8 @@ namespace Maze.Implementation
 			}			
 			*/
 			
+			// todo: это надо переписать нормально
+			
 			var pairs = new List<Tuple<Int32, Int32>>();
 			Int32 current = 0;
 			while (current < colCount - 1)
@@ -123,14 +121,14 @@ namespace Maze.Implementation
 				Int32 curEnd;
 				for (curEnd = current + 1; curEnd < colCount; curEnd++)
 				{
-					if (arrData[row][current] != arrData[row][curEnd])
+					if (mazeLineData[current] != mazeLineData[curEnd])
 					{
 						break;
 					}
 				}
 				curEnd--;
 				DebugConsole.Instance().Log(String.Format("{0}: {1} - {2}", 
-				                                          arrData[row][current], current, curEnd));
+				                                          mazeLineData[current], current, curEnd));
 				
 				pairs.Add(new Tuple<int, int>(current, curEnd));
 				current = curEnd + 1;
@@ -157,18 +155,14 @@ namespace Maze.Implementation
 		#region Step 5
 		private void PrepareNextRow(Int32 row)
 		{
-			// на самом деле можно без копирования, и на самом деле
-			// нам не нужен полный arrData
-			// todo: можно переделать
-			arrData[row + 1] = (Int32[])arrData[row].Clone();
 			for (Int32 c = 0; c < colCount; c++)
 			{
 				if (maze.GetCell(row, c).HasFlag(MazeSide.Bottom))
 				{
-					arrData[row + 1][c] = 0;
+					mazeLineData[c] = 0;
 				}
 			}
-			DebugConsole.Instance().LogNumLine("PrepNextRow", arrData[row + 1]);
+			DebugConsole.Instance().LogNumLine("PrepNextRow", mazeLineData);
 			
 		}
 		#endregion
@@ -192,7 +186,10 @@ namespace Maze.Implementation
 			
 				CreateBottomBorders(r);
 			
-				PrepareNextRow(r);
+				if (r < rowCount - 2)
+				{
+					PrepareNextRow(r);
+				}
 			}
 
 			return maze;

@@ -32,7 +32,7 @@ namespace Maze.UI
 			//
 			SizeTrackbarChanged(null, null);
 			
-			DebugConsole.Instance().SetDebugCallback(WriteDebug);
+			LogCheckboxCheckStateChanged(null, null);
 			
 			
 			generatorCheckbox.DataSource = MazeGeneratorNamedList.Get();
@@ -94,6 +94,18 @@ namespace Maze.UI
 		void WriteDebug(String mes)
 		{
 			debugConsole.AppendText(mes);
+		}
+		
+		void LogCheckboxCheckStateChanged(object sender, EventArgs e)
+		{
+			if (logCheckbox.Checked)
+			{
+				DebugConsole.Instance().SetDebugCallback(WriteDebug);
+			}
+			else
+			{
+				DebugConsole.Instance().SetDebugCallback(null);
+			}
 		}
 	}
 }
