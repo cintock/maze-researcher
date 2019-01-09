@@ -4,8 +4,9 @@
  * Created by SharpDevelop.
  */
 using System;
+using System.IO;
 using System.Collections.Generic;
-using System.Drawing;
+using System.Reflection;
 using System.Windows.Forms;
 using Maze.Implementation;
 
@@ -30,13 +31,20 @@ namespace Maze.UI
 			generatorCheckbox.DataSource = MazeGeneratorNamedList.Get();
 			generatorCheckbox.DisplayMember = "Name";
 			
+			OutputVersionInfo();
+			
 			SizeTrackbarChanged(null, null);
 			
 			LogCheckboxCheckStateChanged(null, null);
 		}
+
+		void OutputVersionInfo()
+		{
+			versionTextbox.Text = ProgramVersion.Instance.VersionString();
+		}
 		
 		void ClearImageBitmap()
-		{
+		{			
 			somePicture.Image = null;
 		}
 		

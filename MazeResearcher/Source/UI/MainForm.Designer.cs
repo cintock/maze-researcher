@@ -27,6 +27,8 @@ namespace Maze.UI
 		private System.Windows.Forms.CheckBox logCheckbox;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.TextBox clustersCountTextbox;
+		private System.Windows.Forms.TextBox versionTextbox;
+		private System.Windows.Forms.Label label5;
 		
 		/// <summary>
 		/// Disposes resources used by the form.
@@ -65,6 +67,8 @@ namespace Maze.UI
 			this.logCheckbox = new System.Windows.Forms.CheckBox();
 			this.label4 = new System.Windows.Forms.Label();
 			this.clustersCountTextbox = new System.Windows.Forms.TextBox();
+			this.versionTextbox = new System.Windows.Forms.TextBox();
+			this.label5 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.somePicture)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.widthTrackbar)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.heightTrackbar)).BeginInit();
@@ -186,11 +190,11 @@ namespace Maze.UI
 			// debugConsole
 			// 
 			this.debugConsole.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.debugConsole.Location = new System.Drawing.Point(553, 14);
+			this.debugConsole.Location = new System.Drawing.Point(553, 41);
 			this.debugConsole.Multiline = true;
 			this.debugConsole.Name = "debugConsole";
 			this.debugConsole.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.debugConsole.Size = new System.Drawing.Size(518, 580);
+			this.debugConsole.Size = new System.Drawing.Size(518, 553);
 			this.debugConsole.TabIndex = 16;
 			this.debugConsole.WordWrap = false;
 			// 
@@ -220,11 +224,29 @@ namespace Maze.UI
 			this.clustersCountTextbox.Size = new System.Drawing.Size(75, 20);
 			this.clustersCountTextbox.TabIndex = 19;
 			// 
+			// versionTextbox
+			// 
+			this.versionTextbox.Location = new System.Drawing.Point(941, 15);
+			this.versionTextbox.Name = "versionTextbox";
+			this.versionTextbox.ReadOnly = true;
+			this.versionTextbox.Size = new System.Drawing.Size(130, 20);
+			this.versionTextbox.TabIndex = 20;
+			// 
+			// label5
+			// 
+			this.label5.Location = new System.Drawing.Point(849, 18);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(86, 23);
+			this.label5.TabIndex = 21;
+			this.label5.Text = "Номер версии";
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1083, 606);
+			this.Controls.Add(this.label5);
+			this.Controls.Add(this.versionTextbox);
 			this.Controls.Add(this.clustersCountTextbox);
 			this.Controls.Add(this.label4);
 			this.Controls.Add(this.logCheckbox);
