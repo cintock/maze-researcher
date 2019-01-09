@@ -108,4 +108,7 @@
     <Folder Include="Source\UI" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>git describe --long &gt; "$(ProjectDir)\versioninfo.txt"</PreBuildEvent>
+  </PropertyGroup>
 </Project>
