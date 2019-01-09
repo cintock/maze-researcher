@@ -14,8 +14,10 @@ namespace Maze.Implementation
 	/// </summary>
 	public class MazeDrawer : IMazeDrawer
 	{
-		Pen bluePen = new Pen(Color.Blue, 1);	
-		Brush redBrush = new SolidBrush(Color.Red);			
+		readonly Color backgroundColor = Color.White;
+		readonly Pen bluePen = new Pen(Color.Blue, 1);
+		readonly Brush redBrush = new SolidBrush(Color.Red);		
+		readonly Int32 sideLength = 10;
 		
 		public MazeDrawer()
 		{
@@ -23,42 +25,45 @@ namespace Maze.Implementation
 		
 		public Bitmap Draw(IMazeData maze, MazeClusters solution = null)
 		{
-			Bitmap imageBitmap = new Bitmap(maze.colCount * 10 + 1, maze.rowCount * 10 + 1);
-			using (Graphics gr = Graphics.FromImage(imageBitmap))
+			Bitmap imageBitmap = new Bitmap(maze.colCount * sideLength + 1, maze.rowCount * sideLength + 1);
+			using (Graphics painter = Graphics.FromImage(imageBitmap))
 			{
-				gr.Clear(Color.White);
+				painter.Clear(backgroundColor);
 				for (Int32 row = 0; row < maze.rowCount; row++)
 				{
 					for (Int32 col = 0; col < maze.colCount; col++)
 					{
-						Single BaseX = col * 10;
-						Single BaseY = row * 10;
+						Single BaseX = col * sideLength;
+						Single BaseY = row * sideLength;
 						MazeSide currentCell = maze.GetCell(row, col);
 						if (currentCell.HasFlag(MazeSide.Top))
 						{
-							gr.DrawLine(bluePen, BaseX, BaseY, BaseX + 10, BaseY);
+							painter.DrawLine(bluePen, BaseX, BaseY, BaseX + sideLength, BaseY);
 						}
 
 						if (currentCell.HasFlag(MazeSide.Bottom))
 						{
-							gr.DrawLine(bluePen, BaseX, BaseY + 10, BaseX + 10, BaseY + 10);
+							painter.DrawLine(bluePen, BaseX, BaseY + sideLength, 
+							                 BaseX + sideLength, BaseY + sideLength);
 						}
 						
 						if (currentCell.HasFlag(MazeSide.Right))
 						{
-							gr.DrawLine(bluePen, BaseX + 10, BaseY, BaseX + 10, BaseY + 10);
+							painter.DrawLine(bluePen, BaseX + sideLength, BaseY, 
+							                 BaseX + sideLength, BaseY + sideLength);
 						}				
 
 						if (currentCell.HasFlag(MazeSide.Left))
 						{
-							gr.DrawLine(bluePen, BaseX, BaseY, BaseX, BaseY + 10);
+							painter.DrawLine(bluePen, BaseX, BaseY, 
+							                 BaseX, BaseY + sideLength);
 						}	
 
 						if (solution != null)
 						{
 							if (solution.IsChecked(row, col))
 							{
-								gr.FillEllipse(redBrush, BaseX + 2, BaseY + 2, 6, 6);
+								painter.FillEllipse(redBrush, BaseX + 2, BaseY + 2, 6, 6);
 							}
 						}
 					}
