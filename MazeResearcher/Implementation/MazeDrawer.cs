@@ -21,7 +21,7 @@ namespace Maze.Implementation
 		{
 		}
 		
-		public Bitmap Draw(IMazeData maze, MazeSolution solution = null)
+		public Bitmap Draw(IMazeData maze, MazeClusters solution = null)
 		{
 			Bitmap imageBitmap = new Bitmap(maze.colCount * 10 + 1, maze.rowCount * 10 + 1);
 			using (Graphics gr = Graphics.FromImage(imageBitmap))

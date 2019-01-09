@@ -52,7 +52,7 @@ namespace Maze.UI
 			DrawMaze(maze);
 		}
 		
-		void DrawMaze(IMazeData drawingMaze, MazeSolution drawingSolution = null)
+		void DrawMaze(IMazeData drawingMaze, MazeClusters drawingSolution = null)
 		{
 			somePicture.Image = mazeDrawer.Draw(drawingMaze, drawingSolution);
 		}		
@@ -65,8 +65,8 @@ namespace Maze.UI
 		
 		void ButtonCheckMazeClick(object sender, EventArgs e)
 		{
-			IMazeSolver solver = new MazeSolver();
-			MazeSolution solution = solver.Solve(maze);
+			IMazeClusterer solver = new MazeClusterer();
+			MazeClusters solution = solver.Cluster(maze);
 			DrawMaze(maze, solution);			
 		}
 		
