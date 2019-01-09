@@ -65,46 +65,47 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Implementation\DebugConsole.cs" />
-    <Compile Include="Implementation\IMazeClusterer\MazeClusterer.cs" />
-    <Compile Include="Implementation\IMazeData\EmptyMazeData.cs" />
-    <Compile Include="Implementation\IMazeData\MazeData.cs" />
-    <Compile Include="Implementation\IMazeGenerator\EllerModMazeGenerator.cs" />
-    <Compile Include="Implementation\IMazeGenerator\EmptyDummyMazeGenerator.cs" />
-    <Compile Include="Implementation\IMazeGenerator\EmptyMazeGenerator.cs" />
-    <Compile Include="Implementation\IMazeGenerator\RandomMazeGenerator.cs" />
-    <Compile Include="Implementation\Interfaces\IMazeData.cs" />
-    <Compile Include="Implementation\Interfaces\IMazeDrawer.cs" />
-    <Compile Include="Implementation\Interfaces\IMazeGenerator.cs" />
-    <Compile Include="Implementation\Interfaces\IMazeClusterer.cs" />
-    <Compile Include="Implementation\MazeClusters.cs" />
-    <Compile Include="Implementation\MazeDrawer\MazeDrawer.cs" />
-    <Compile Include="Implementation\Palette.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Source\Implementation\DebugConsole.cs" />
+    <Compile Include="Source\Implementation\IMazeClusterer\MazeClusterer.cs" />
+    <Compile Include="Source\Implementation\IMazeData\EmptyMazeData.cs" />
+    <Compile Include="Source\Implementation\IMazeData\MazeData.cs" />
+    <Compile Include="Source\Implementation\IMazeGenerator\EllerModMazeGenerator.cs" />
+    <Compile Include="Source\Implementation\IMazeGenerator\EmptyDummyMazeGenerator.cs" />
+    <Compile Include="Source\Implementation\IMazeGenerator\EmptyMazeGenerator.cs" />
+    <Compile Include="Source\Implementation\IMazeGenerator\RandomMazeGenerator.cs" />
+    <Compile Include="Source\Implementation\Interfaces\IMazeData.cs" />
+    <Compile Include="Source\Implementation\Interfaces\IMazeDrawer.cs" />
+    <Compile Include="Source\Implementation\Interfaces\IMazeGenerator.cs" />
+    <Compile Include="Source\Implementation\Interfaces\IMazeClusterer.cs" />
+    <Compile Include="Source\Implementation\MazeClusters.cs" />
+    <Compile Include="Source\Implementation\MazeDrawer\MazeDrawer.cs" />
+    <Compile Include="Source\Implementation\Palette.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\MainForm.cs" />
-    <Compile Include="UI\MainForm.Designer.cs">
+    <Compile Include="Source\Program.cs" />
+    <Compile Include="Source\UI\MainForm.cs" />
+    <Compile Include="Source\UI\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\MazeGeneratorNamed.cs" />
-    <Compile Include="UI\MazeGeneratorNamedList.cs" />
+    <Compile Include="Source\UI\MazeGeneratorNamed.cs" />
+    <Compile Include="Source\UI\MazeGeneratorNamedList.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="UI\MainForm.resx">
+    <EmbeddedResource Include="Source\UI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Implementation" />
-    <Folder Include="Implementation\Interfaces" />
-    <Folder Include="Implementation\IMazeData" />
-    <Folder Include="Implementation\IMazeGenerator" />
-    <Folder Include="Implementation\IMazeClusterer" />
-    <Folder Include="Implementation\MazeDrawer" />
-    <Folder Include="UI" />
+    <Folder Include="Source\Implementation" />
+    <Folder Include="Source\Implementation\Interfaces" />
+    <Folder Include="Source\Implementation\IMazeData" />
+    <Folder Include="Source\Implementation\IMazeGenerator" />
+    <Folder Include="Source\Implementation\IMazeClusterer" />
+    <Folder Include="Source\Implementation\MazeDrawer" />
+    <Folder Include="Source" />
+    <Folder Include="Source\UI" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
