@@ -25,7 +25,7 @@ namespace Maze.Implementation
 	/// </summary>
 	public class MazeClusterer : IMazeClusterer
 	{
-		private MazeClusters solution;
+		private MazeClusters clusters;
 		private IMazeData workMaze;
 		private Int32 rowCount;
 		private Int32 colCount;
@@ -40,10 +40,35 @@ namespace Maze.Implementation
 			workMaze = maze;
 			rowCount = maze.RowCount;
 			colCount = maze.ColCount;
-			solution = new MazeClusters(workMaze);
+			clusters = new MazeClusters(workMaze);
 			path = new List<PathPoint>();
-			GoCell(0, 0);
-			return solution;
+			Int32 nextRow = 0;
+			Int32 nextCol = 0;
+			Int32 clusterIndex = 1;
+			Boolean allClustered = false;
+			while (!allClustered)
+			{
+				GoCell(nextRow, nextCol, clusterIndex++);
+				allClustered = true;
+				for (Int32 row = 0; row < rowCount; row++)
+				{
+					for (Int32 col = 0; col < colCount; col++)
+					{
+						if (clusters.IsNonclustered(row, col))
+						{
+							allClustered = false;
+							nextRow = row;
+							nextCol = col;
+							break;
+						}
+					}
+					if (!allClustered)
+					{
+						break;
+					}
+				}
+			}
+			return clusters;
 		}
 		
 		protected IList<PathPoint> GetPath()
@@ -56,21 +81,21 @@ namespace Maze.Implementation
 			return ((row >= 0) && (row < rowCount) && (col >= 0) && (col < colCount));
 		}
 		
-		void GoCell(Int32 row, Int32 col)
+		void GoCell(Int32 row, Int32 col, Int32 cluster)
 		{
 			if (IsCellExists(row, col))
 			{
 				path.Add(new PathPoint(row, col));
-				if (!solution.IsChecked(row, col))
+				if (clusters.IsNonclustered(row, col))
 				{
 					MazeSide currentCell = workMaze.GetCell(row, col);
-					solution.SetChecked(row, col);
+					clusters.SetClusterIndex(row, col, cluster);
 					
 					if (IsCellExists(row - 1, col))
 					{
 						if (!currentCell.HasFlag(MazeSide.Top))
 						{
-							GoCell(row - 1, col);
+							GoCell(row - 1, col, cluster);
 						}
 					}
 					
@@ -78,7 +103,7 @@ namespace Maze.Implementation
 					{
 						if (!currentCell.HasFlag(MazeSide.Bottom))
 						{
-							GoCell(row + 1, col);
+							GoCell(row + 1, col, cluster);
 						}
 					}					
 					
@@ -86,7 +111,7 @@ namespace Maze.Implementation
 					{
 						if (!currentCell.HasFlag(MazeSide.Left))
 						{
-							GoCell(row, col - 1);
+							GoCell(row, col - 1, cluster);
 						}
 					}		
 
@@ -94,7 +119,7 @@ namespace Maze.Implementation
 					{
 						if (!currentCell.HasFlag(MazeSide.Right))
 						{
-							GoCell(row, col + 1);
+							GoCell(row, col + 1, cluster);
 						}
 					}						
 				}

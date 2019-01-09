@@ -26,17 +26,13 @@ namespace Maze.UI
 			// The InitializeComponent() call is required for Windows Forms designer support.
 			//
 			InitializeComponent();
-			
-			//
-			// TODO: Add constructor code after the InitializeComponent() call.
-			//
-			SizeTrackbarChanged(null, null);
-			
-			LogCheckboxCheckStateChanged(null, null);
-						
+
 			generatorCheckbox.DataSource = MazeGeneratorNamedList.Get();
 			generatorCheckbox.DisplayMember = "Name";
 			
+			SizeTrackbarChanged(null, null);
+			
+			LogCheckboxCheckStateChanged(null, null);
 		}
 		
 		void ClearImageBitmap()
@@ -47,8 +43,9 @@ namespace Maze.UI
 
 		void DrawButtonClick(object sender, EventArgs e)
 		{						
+			clustersCountTextbox.Clear();
 			if (maze != null)
-			{
+			{			
 				DrawMaze(maze);
 			}
 			else
@@ -58,13 +55,15 @@ namespace Maze.UI
 		}
 		
 		void DrawMaze(IMazeData drawingMaze, MazeClusters clusters = null)
-		{
+		{			
 			somePicture.Image = mazeDrawer.Draw(drawingMaze, clusters);
 		}		
 
 		
 		void CleanButtonClick(object sender, EventArgs e)
 		{
+			clustersCountTextbox.Clear();
+			debugConsole.Clear();
 			ClearImageBitmap();
 		}
 		
@@ -74,6 +73,7 @@ namespace Maze.UI
 			{
 				IMazeClusterer clusterer = new MazeClusterer();
 				MazeClusters clusters = clusterer.Cluster(maze);
+				clustersCountTextbox.Text = clusters.Count().ToString();
 				DrawMaze(maze, clusters);			
 			}
 			else

@@ -79,6 +79,7 @@
     <Compile Include="Implementation\Interfaces\IMazeClusterer.cs" />
     <Compile Include="Implementation\MazeClusters.cs" />
     <Compile Include="Implementation\MazeDrawer\MazeDrawer.cs" />
+    <Compile Include="Implementation\Palette.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\MainForm.cs" />

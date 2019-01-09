@@ -49,7 +49,7 @@ namespace Maze.Implementation
 		
 		public void LogNumLine(String name, Int32[] val)
 		{
-			Log(String.Format("{0,15}: {1,50}", name, String.Join(" ", val)));
+			Log(String.Format("{0,15}: {1,30}", name, String.Join(" ", val)));
 		}
 	}
 }

@@ -15,9 +15,8 @@ namespace Maze.Implementation
 	{
 		private readonly Color backgroundColor = Color.White;
 		private readonly Pen bluePen = new Pen(Color.Blue, 1);
-		private readonly Brush redBrush = new SolidBrush(Color.Red);		
 		private readonly Int32 cellSize = 10;
-		private readonly Int32 circleSize = 4;
+		private readonly Int32 circleSize = 6;
 		
 		public MazeDrawer()
 		{
@@ -61,6 +60,13 @@ namespace Maze.Implementation
 		
 		private void DrawClusters(Graphics painter, IMazeData maze, MazeClusters clusters)
 		{
+			Int32 clustersNumber = clusters.Count();
+			Brush[] brushes = new Brush[clustersNumber];
+			for (Int32 i = 0; i < brushes.Length; i++)
+			{
+				brushes[i] = new SolidBrush(Palette.GetColor(i));
+			}
+			
 			for (Int32 row = 0; row < maze.RowCount; row++)
 			{
 				for (Int32 col = 0; col < maze.ColCount; col++)
@@ -68,10 +74,11 @@ namespace Maze.Implementation
 					Int32 BaseX = col * cellSize;
 					Int32 BaseY = row * cellSize;
 
-					if (clusters.IsChecked(row, col))
+					if (!clusters.IsNonclustered(row, col))
 					{
 						Int32 circleShift = cellSize / 2 - circleSize / 2;
-						painter.FillEllipse(redBrush,
+						Int32 brushIndex = clusters.GetClusterIndex(row, col) - 1;
+						painter.FillEllipse(brushes[brushIndex],
 						                    BaseX + circleShift,
 						                    BaseY + circleShift,
 						                    circleSize, circleSize);

@@ -9,7 +9,8 @@ using Maze.Implementation;
 namespace Maze.UI
 {
 	/// <summary>
-	/// Description of MazeGeneratorNamed.
+	/// Вспомогательный класс для интерфейсного элемента ComboxBox,
+	/// который хранит объект генератора и выводимое имя.
 	/// </summary>
 	internal class MazeGeneratorNamed
 	{

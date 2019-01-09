@@ -25,6 +25,8 @@ namespace Maze.UI
 		private System.Windows.Forms.Label labelMazeSize;
 		private System.Windows.Forms.TextBox debugConsole;
 		private System.Windows.Forms.CheckBox logCheckbox;
+		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.TextBox clustersCountTextbox;
 		
 		/// <summary>
 		/// Disposes resources used by the form.
@@ -61,6 +63,8 @@ namespace Maze.UI
 			this.labelMazeSize = new System.Windows.Forms.Label();
 			this.debugConsole = new System.Windows.Forms.TextBox();
 			this.logCheckbox = new System.Windows.Forms.CheckBox();
+			this.label4 = new System.Windows.Forms.Label();
+			this.clustersCountTextbox = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.somePicture)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.widthTrackbar)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.heightTrackbar)).BeginInit();
@@ -69,9 +73,9 @@ namespace Maze.UI
 			// somePicture
 			// 
 			this.somePicture.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.somePicture.Location = new System.Drawing.Point(12, 222);
+			this.somePicture.Location = new System.Drawing.Point(12, 238);
 			this.somePicture.Name = "somePicture";
-			this.somePicture.Size = new System.Drawing.Size(523, 372);
+			this.somePicture.Size = new System.Drawing.Size(523, 356);
 			this.somePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
 			this.somePicture.TabIndex = 4;
 			this.somePicture.TabStop = false;
@@ -200,11 +204,29 @@ namespace Maze.UI
 			this.logCheckbox.UseVisualStyleBackColor = true;
 			this.logCheckbox.CheckStateChanged += new System.EventHandler(this.LogCheckboxCheckStateChanged);
 			// 
+			// label4
+			// 
+			this.label4.Location = new System.Drawing.Point(12, 218);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(120, 14);
+			this.label4.TabIndex = 18;
+			this.label4.Text = "Количество областей";
+			// 
+			// clustersCountTextbox
+			// 
+			this.clustersCountTextbox.Location = new System.Drawing.Point(132, 212);
+			this.clustersCountTextbox.Name = "clustersCountTextbox";
+			this.clustersCountTextbox.ReadOnly = true;
+			this.clustersCountTextbox.Size = new System.Drawing.Size(75, 20);
+			this.clustersCountTextbox.TabIndex = 19;
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1083, 606);
+			this.Controls.Add(this.clustersCountTextbox);
+			this.Controls.Add(this.label4);
 			this.Controls.Add(this.logCheckbox);
 			this.Controls.Add(this.debugConsole);
 			this.Controls.Add(this.labelMazeSize);
