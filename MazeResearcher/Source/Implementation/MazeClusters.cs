@@ -9,7 +9,10 @@ using System.Collections.Generic;
 namespace Maze.Implementation
 {
 	/// <summary>
-	/// Description of MazeSolution.
+	/// Класс для хранения представления связанных областей лабиринта.
+	/// Из любой точки связанной области можно попасть в любую другую
+	/// точку связанной области. Каждой связанной области соответствует
+	/// отличное от 0 числовое значение
 	/// </summary>
 	public class MazeClusters
 	{

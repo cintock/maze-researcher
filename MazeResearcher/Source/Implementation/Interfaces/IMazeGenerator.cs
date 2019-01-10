@@ -8,7 +8,7 @@ using System;
 namespace Maze.Implementation
 {
 	/// <summary>
-	/// Description of IMazeGenerator.
+	/// Интерфейс для классов, создающих лабиринты
 	/// </summary>
 	public interface IMazeGenerator
 	{

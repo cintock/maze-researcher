@@ -6,20 +6,9 @@
 using System;
 
 namespace Maze.Implementation
-{
-	[Flags]
-	public enum MazeSide
-	{
-		None = 0,
-		Bottom = 1,
-		Right = 2,
-		
-		Left = 4,
-		Top = 8,
-	}
-	
+{	
 	/// <summary>
-	/// Description of IMaze.
+	/// Интерфейс для представления лабиринта
 	/// </summary>
 	public interface IMazeData
 	{

@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Source\Implementation\DebugConsole.cs" />
+    <Compile Include="Source\Implementation\MazeSide.cs" />
     <Compile Include="Source\Implementation\IMazeClusterer\MazeClusterer.cs" />
     <Compile Include="Source\Implementation\IMazeData\EmptyMazeData.cs" />
     <Compile Include="Source\Implementation\IMazeData\MazeData.cs" />

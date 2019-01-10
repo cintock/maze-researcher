@@ -12,7 +12,7 @@ namespace Maze.Implementation
 	public delegate void DebugMessageCallbackDelegate(String message);
 	
 	/// <summary>
-	/// Description of DebugConsole.
+	/// Синглтон для выполнения отладочного логирования
 	/// </summary>
 	public class DebugConsole
 	{
