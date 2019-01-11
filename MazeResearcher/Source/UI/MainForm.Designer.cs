@@ -178,7 +178,6 @@ namespace Maze.UI
             this.createMazeButton.TabIndex = 8;
             this.createMazeButton.Text = "Создать лабиринт";
             this.createMazeButton.UseVisualStyleBackColor = true;
-            this.createMazeButton.Click += new System.EventHandler(this.CreateMazeButtonClick);
             // 
             // buttonCluster
             // 

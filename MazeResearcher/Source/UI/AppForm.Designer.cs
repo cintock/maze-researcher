@@ -36,12 +36,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.mazeRowsTrackbar = new System.Windows.Forms.TrackBar();
             this.createMazeButton = new System.Windows.Forms.Button();
+            this.debugLoggingCheckbox = new System.Windows.Forms.CheckBox();
+            this.mazeSizeLabel = new System.Windows.Forms.Label();
             this.mazeViewSplitContainer = new System.Windows.Forms.SplitContainer();
             this.mazePicturebox = new System.Windows.Forms.PictureBox();
             this.debugConsole = new System.Windows.Forms.TextBox();
             this.mainTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.debugLoggingCheckbox = new System.Windows.Forms.CheckBox();
-            this.mazeSizeLabel = new System.Windows.Forms.Label();
             this.mazeConfigurationTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mazeColumnsTrackbar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mazeRowsTrackbar)).BeginInit();
@@ -69,7 +69,7 @@
             this.mazeConfigurationTableLayoutPanel.ColumnCount = 3;
             this.mazeConfigurationTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.mazeConfigurationTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.mazeConfigurationTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.mazeConfigurationTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 245F));
             this.mazeConfigurationTableLayoutPanel.Controls.Add(this.label1, 0, 0);
             this.mazeConfigurationTableLayoutPanel.Controls.Add(this.mazeGenerationAlgoCombobox, 1, 0);
             this.mazeConfigurationTableLayoutPanel.Controls.Add(this.label2, 0, 1);
@@ -120,7 +120,7 @@
             this.mazeColumnsTrackbar.Name = "mazeColumnsTrackbar";
             this.mazeColumnsTrackbar.Size = new System.Drawing.Size(614, 45);
             this.mazeColumnsTrackbar.TabIndex = 3;
-            this.mazeColumnsTrackbar.Value = 1;
+            this.mazeColumnsTrackbar.Value = 35;
             // 
             // label3
             // 
@@ -142,7 +142,7 @@
             this.mazeRowsTrackbar.Name = "mazeRowsTrackbar";
             this.mazeRowsTrackbar.Size = new System.Drawing.Size(614, 45);
             this.mazeRowsTrackbar.TabIndex = 5;
-            this.mazeRowsTrackbar.Value = 1;
+            this.mazeRowsTrackbar.Value = 35;
             // 
             // createMazeButton
             // 
@@ -152,6 +152,27 @@
             this.createMazeButton.TabIndex = 6;
             this.createMazeButton.Text = "Создать лабиринт";
             this.createMazeButton.UseVisualStyleBackColor = true;
+            this.createMazeButton.Click += new System.EventHandler(this.CreateMazeButtonClick);
+            // 
+            // debugLoggingCheckbox
+            // 
+            this.debugLoggingCheckbox.AutoSize = true;
+            this.debugLoggingCheckbox.Location = new System.Drawing.Point(755, 3);
+            this.debugLoggingCheckbox.Name = "debugLoggingCheckbox";
+            this.debugLoggingCheckbox.Size = new System.Drawing.Size(154, 17);
+            this.debugLoggingCheckbox.TabIndex = 7;
+            this.debugLoggingCheckbox.Text = "Отладочное логирование";
+            this.debugLoggingCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // mazeSizeLabel
+            // 
+            this.mazeSizeLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.mazeSizeLabel.AutoSize = true;
+            this.mazeSizeLabel.Location = new System.Drawing.Point(135, 137);
+            this.mazeSizeLabel.Name = "mazeSizeLabel";
+            this.mazeSizeLabel.Size = new System.Drawing.Size(10, 13);
+            this.mazeSizeLabel.TabIndex = 8;
+            this.mazeSizeLabel.Text = "-";
             // 
             // mazeViewSplitContainer
             // 
@@ -204,26 +225,6 @@
             this.mainTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.mainTableLayoutPanel.Size = new System.Drawing.Size(1003, 582);
             this.mainTableLayoutPanel.TabIndex = 3;
-            // 
-            // debugLoggingCheckbox
-            // 
-            this.debugLoggingCheckbox.AutoSize = true;
-            this.debugLoggingCheckbox.Location = new System.Drawing.Point(755, 3);
-            this.debugLoggingCheckbox.Name = "debugLoggingCheckbox";
-            this.debugLoggingCheckbox.Size = new System.Drawing.Size(154, 17);
-            this.debugLoggingCheckbox.TabIndex = 7;
-            this.debugLoggingCheckbox.Text = "Отладочное логирование";
-            this.debugLoggingCheckbox.UseVisualStyleBackColor = true;
-            // 
-            // mazeSizeLabel
-            // 
-            this.mazeSizeLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.mazeSizeLabel.AutoSize = true;
-            this.mazeSizeLabel.Location = new System.Drawing.Point(135, 137);
-            this.mazeSizeLabel.Name = "mazeSizeLabel";
-            this.mazeSizeLabel.Size = new System.Drawing.Size(10, 13);
-            this.mazeSizeLabel.TabIndex = 8;
-            this.mazeSizeLabel.Text = "-";
             // 
             // AppForm
             // 

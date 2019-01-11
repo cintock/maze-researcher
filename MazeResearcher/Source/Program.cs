@@ -5,9 +5,8 @@
  */
 using System;
 using System.Windows.Forms;
-using Maze.UI;
 
-namespace tests
+namespace Maze.UI
 {
 	/// <summary>
 	/// Class with program entry point.
@@ -22,7 +21,7 @@ namespace tests
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new MainForm());
+			Application.Run(new AppForm());
 		}
 		
 	}

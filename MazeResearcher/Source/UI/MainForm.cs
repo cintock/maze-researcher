@@ -92,20 +92,20 @@ namespace Maze.UI
 		
 		void CreateMazeButtonClick(object sender, EventArgs e)
 		{
-			MazeGeneratorNamed selectedGenerator = (MazeGeneratorNamed)generatorCheckbox.SelectedValue;
-			
-			if (selectedGenerator != null)
-			{
-				maze = selectedGenerator.Generator.Generate(heightTrackbar.Value, widthTrackbar.Value);
-				DrawMaze(maze);
-			}
-			else
-			{
-				MessageBox.Show("Не выбран алгоритм генерации лабиринта");
-			}
-		}
+            MazeGeneratorNamed selectedGenerator = (MazeGeneratorNamed)generatorCheckbox.SelectedValue;
 
-		void SizeTrackbarChanged(object sender, EventArgs e)
+            if (selectedGenerator != null)
+            {
+                maze = selectedGenerator.Generator.Generate(heightTrackbar.Value, widthTrackbar.Value);
+                DrawMaze(maze);
+            }
+            else
+            {
+                MessageBox.Show("Не выбран алгоритм генерации лабиринта");
+            }
+        }
+
+        void SizeTrackbarChanged(object sender, EventArgs e)
 		{
 			labelMazeSize.Text = String.Format("Строк {0}; Столбцов {1}", 
 			                                   heightTrackbar.Value, widthTrackbar.Value);
