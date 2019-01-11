@@ -14,6 +14,8 @@ namespace Maze.UI
     {
         IMazeDrawer mazeDrawer = new MazeDrawer();
 
+        List<String> debugLog = new List<string>();
+
         IMazeData maze;
 
         public AppForm()
@@ -99,6 +101,17 @@ namespace Maze.UI
             {
                 MessageBox.Show("Не выбран алгоритм генерации лабиринта");
             }
+
+            OutputDebugMessages();
+        }
+
+        void OutputDebugMessages()
+        {
+            if (debugLog.Count > 0)
+            {
+                debugConsole.Text = String.Join(Environment.NewLine, debugLog);
+                debugLog.Clear();
+            }
         }
 
         void SizeTrackbarChanged(object sender, EventArgs e)
@@ -109,19 +122,18 @@ namespace Maze.UI
 
         void WriteDebug(String mes)
         {
-            debugConsole.AppendText(mes);
+            debugLog.Add(mes);
         }
 
         void LogCheckboxCheckStateChanged(object sender, EventArgs e)
         {
-            if (debugLoggingCheckbox.Checked)
-            {
-                DebugConsole.Instance().SetDebugCallback(WriteDebug);
-            }
-            else
-            {
-                DebugConsole.Instance().SetDebugCallback(null);
-            }
+            Boolean enabledDebugConsole = debugLoggingCheckbox.Checked;
+
+            debugConsole.Visible = enabledDebugConsole;
+            mazeViewSplitContainer.Panel2Collapsed = !enabledDebugConsole;
+
+            DebugConsole.Instance().SetDebugCallback(enabledDebugConsole ? 
+                (DebugMessageCallbackDelegate)WriteDebug : null);
         }
     }
 }

@@ -42,6 +42,7 @@
             this.mazePicturebox = new System.Windows.Forms.PictureBox();
             this.debugConsole = new System.Windows.Forms.TextBox();
             this.mainTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.showMazeClusters = new System.Windows.Forms.CheckBox();
             this.mazeConfigurationTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mazeColumnsTrackbar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mazeRowsTrackbar)).BeginInit();
@@ -79,6 +80,7 @@
             this.mazeConfigurationTableLayoutPanel.Controls.Add(this.createMazeButton, 0, 3);
             this.mazeConfigurationTableLayoutPanel.Controls.Add(this.debugLoggingCheckbox, 2, 0);
             this.mazeConfigurationTableLayoutPanel.Controls.Add(this.mazeSizeLabel, 1, 3);
+            this.mazeConfigurationTableLayoutPanel.Controls.Add(this.showMazeClusters, 2, 1);
             this.mazeConfigurationTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mazeConfigurationTableLayoutPanel.Location = new System.Drawing.Point(3, 3);
             this.mazeConfigurationTableLayoutPanel.Name = "mazeConfigurationTableLayoutPanel";
@@ -94,6 +96,7 @@
             // mazeGenerationAlgoCombobox
             // 
             this.mazeGenerationAlgoCombobox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mazeGenerationAlgoCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.mazeGenerationAlgoCombobox.FormattingEnabled = true;
             this.mazeGenerationAlgoCombobox.Location = new System.Drawing.Point(135, 3);
             this.mazeGenerationAlgoCombobox.Name = "mazeGenerationAlgoCombobox";
@@ -163,6 +166,7 @@
             this.debugLoggingCheckbox.TabIndex = 7;
             this.debugLoggingCheckbox.Text = "Отладочное логирование";
             this.debugLoggingCheckbox.UseVisualStyleBackColor = true;
+            this.debugLoggingCheckbox.CheckedChanged += new System.EventHandler(this.LogCheckboxCheckStateChanged);
             // 
             // mazeSizeLabel
             // 
@@ -189,7 +193,7 @@
             // 
             this.mazeViewSplitContainer.Panel2.Controls.Add(this.debugConsole);
             this.mazeViewSplitContainer.Size = new System.Drawing.Size(997, 398);
-            this.mazeViewSplitContainer.SplitterDistance = 634;
+            this.mazeViewSplitContainer.SplitterDistance = 602;
             this.mazeViewSplitContainer.TabIndex = 2;
             // 
             // mazePicturebox
@@ -197,7 +201,7 @@
             this.mazePicturebox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mazePicturebox.Location = new System.Drawing.Point(0, 0);
             this.mazePicturebox.Name = "mazePicturebox";
-            this.mazePicturebox.Size = new System.Drawing.Size(630, 394);
+            this.mazePicturebox.Size = new System.Drawing.Size(598, 394);
             this.mazePicturebox.TabIndex = 3;
             this.mazePicturebox.TabStop = false;
             // 
@@ -208,7 +212,7 @@
             this.debugConsole.Multiline = true;
             this.debugConsole.Name = "debugConsole";
             this.debugConsole.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.debugConsole.Size = new System.Drawing.Size(355, 394);
+            this.debugConsole.Size = new System.Drawing.Size(387, 394);
             this.debugConsole.TabIndex = 0;
             // 
             // mainTableLayoutPanel
@@ -225,6 +229,16 @@
             this.mainTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.mainTableLayoutPanel.Size = new System.Drawing.Size(1003, 582);
             this.mainTableLayoutPanel.TabIndex = 3;
+            // 
+            // showMazeClusters
+            // 
+            this.showMazeClusters.AutoSize = true;
+            this.showMazeClusters.Location = new System.Drawing.Point(755, 30);
+            this.showMazeClusters.Name = "showMazeClusters";
+            this.showMazeClusters.Size = new System.Drawing.Size(204, 17);
+            this.showMazeClusters.TabIndex = 9;
+            this.showMazeClusters.Text = "Отобразить связанность областей";
+            this.showMazeClusters.UseVisualStyleBackColor = true;
             // 
             // AppForm
             // 
@@ -265,5 +279,6 @@
         private System.Windows.Forms.TableLayoutPanel mainTableLayoutPanel;
         private System.Windows.Forms.CheckBox debugLoggingCheckbox;
         private System.Windows.Forms.Label mazeSizeLabel;
+        private System.Windows.Forms.CheckBox showMazeClusters;
     }
 }
