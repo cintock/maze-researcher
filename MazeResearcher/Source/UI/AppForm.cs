@@ -36,8 +36,7 @@ namespace Maze.UI
 
         void OutputVersionInfo()
         {
-            // todo:
-            // versionTextbox.Text = ProgramVersion.Instance.VersionString();
+            versionNumberTextbox.Text = ProgramVersion.Instance.VersionString();
         }
 
         void ClearImageBitmap()

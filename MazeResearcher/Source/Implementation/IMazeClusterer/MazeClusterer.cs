@@ -9,22 +9,10 @@ using System.Threading;
 
 namespace Maze.Implementation
 {
-	public struct PathPoint
-	{
-		public PathPoint(Int32 r, Int32 c)
-		{
-			Row = r;
-			Col = c;
-		}
-		
-		public readonly Int32 Row;
-		public readonly Int32 Col;
-	}
-	
-	/// <summary>
-	/// Description of MazeSolver.
-	/// </summary>
-	public class MazeClustererRecursion : IMazeClusterer
+    /// <summary>
+    /// Простой рекурсивный алгоритм поиска связанных областей в лабиринте
+    /// </summary>
+    public class MazeClustererRecursion : IMazeClusterer
 	{
         private const Int32 recursionStackSize = 10 * 1024 * 1024;
 
