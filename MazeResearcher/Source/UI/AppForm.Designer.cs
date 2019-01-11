@@ -99,7 +99,7 @@
             this.mazeConfigurationTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.mazeConfigurationTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.mazeConfigurationTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.mazeConfigurationTableLayoutPanel.Size = new System.Drawing.Size(713, 172);
+            this.mazeConfigurationTableLayoutPanel.Size = new System.Drawing.Size(828, 172);
             this.mazeConfigurationTableLayoutPanel.TabIndex = 1;
             // 
             // mazeGenerationAlgoCombobox
@@ -109,7 +109,7 @@
             this.mazeGenerationAlgoCombobox.FormattingEnabled = true;
             this.mazeGenerationAlgoCombobox.Location = new System.Drawing.Point(135, 3);
             this.mazeGenerationAlgoCombobox.Name = "mazeGenerationAlgoCombobox";
-            this.mazeGenerationAlgoCombobox.Size = new System.Drawing.Size(310, 21);
+            this.mazeGenerationAlgoCombobox.Size = new System.Drawing.Size(425, 21);
             this.mazeGenerationAlgoCombobox.TabIndex = 1;
             // 
             // label2
@@ -130,7 +130,7 @@
             this.mazeColumnsTrackbar.Maximum = 100;
             this.mazeColumnsTrackbar.Minimum = 1;
             this.mazeColumnsTrackbar.Name = "mazeColumnsTrackbar";
-            this.mazeColumnsTrackbar.Size = new System.Drawing.Size(310, 45);
+            this.mazeColumnsTrackbar.Size = new System.Drawing.Size(425, 45);
             this.mazeColumnsTrackbar.TabIndex = 3;
             this.mazeColumnsTrackbar.Value = 35;
             this.mazeColumnsTrackbar.ValueChanged += new System.EventHandler(this.SizeTrackbarChanged);
@@ -153,7 +153,7 @@
             this.mazeRowsTrackbar.Maximum = 100;
             this.mazeRowsTrackbar.Minimum = 1;
             this.mazeRowsTrackbar.Name = "mazeRowsTrackbar";
-            this.mazeRowsTrackbar.Size = new System.Drawing.Size(310, 45);
+            this.mazeRowsTrackbar.Size = new System.Drawing.Size(425, 45);
             this.mazeRowsTrackbar.TabIndex = 5;
             this.mazeRowsTrackbar.Value = 35;
             this.mazeRowsTrackbar.ValueChanged += new System.EventHandler(this.SizeTrackbarChanged);
@@ -181,7 +181,7 @@
             // showMazeClustersCheckbox
             // 
             this.showMazeClustersCheckbox.AutoSize = true;
-            this.showMazeClustersCheckbox.Location = new System.Drawing.Point(451, 86);
+            this.showMazeClustersCheckbox.Location = new System.Drawing.Point(566, 86);
             this.showMazeClustersCheckbox.Name = "showMazeClustersCheckbox";
             this.showMazeClustersCheckbox.Size = new System.Drawing.Size(204, 17);
             this.showMazeClustersCheckbox.TabIndex = 9;
@@ -192,7 +192,7 @@
             // debugLoggingCheckbox
             // 
             this.debugLoggingCheckbox.AutoSize = true;
-            this.debugLoggingCheckbox.Location = new System.Drawing.Point(451, 35);
+            this.debugLoggingCheckbox.Location = new System.Drawing.Point(566, 35);
             this.debugLoggingCheckbox.Name = "debugLoggingCheckbox";
             this.debugLoggingCheckbox.Size = new System.Drawing.Size(154, 17);
             this.debugLoggingCheckbox.TabIndex = 7;
@@ -206,7 +206,7 @@
             this.versionInfoFlowLayoutPanel.Controls.Add(this.label4);
             this.versionInfoFlowLayoutPanel.Controls.Add(this.versionNumberTextbox);
             this.versionInfoFlowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.versionInfoFlowLayoutPanel.Location = new System.Drawing.Point(451, 3);
+            this.versionInfoFlowLayoutPanel.Location = new System.Drawing.Point(566, 3);
             this.versionInfoFlowLayoutPanel.Name = "versionInfoFlowLayoutPanel";
             this.versionInfoFlowLayoutPanel.Size = new System.Drawing.Size(259, 26);
             this.versionInfoFlowLayoutPanel.TabIndex = 10;
@@ -246,8 +246,8 @@
             // mazeViewSplitContainer.Panel2
             // 
             this.mazeViewSplitContainer.Panel2.Controls.Add(this.debugConsole);
-            this.mazeViewSplitContainer.Size = new System.Drawing.Size(713, 388);
-            this.mazeViewSplitContainer.SplitterDistance = 434;
+            this.mazeViewSplitContainer.Size = new System.Drawing.Size(828, 392);
+            this.mazeViewSplitContainer.SplitterDistance = 504;
             this.mazeViewSplitContainer.TabIndex = 2;
             // 
             // mazePicturebox
@@ -268,7 +268,7 @@
             this.debugConsole.Name = "debugConsole";
             this.debugConsole.ReadOnly = true;
             this.debugConsole.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.debugConsole.Size = new System.Drawing.Size(271, 384);
+            this.debugConsole.Size = new System.Drawing.Size(316, 388);
             this.debugConsole.TabIndex = 0;
             // 
             // mainTableLayoutPanel
@@ -285,7 +285,7 @@
             this.mainTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.mainTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.mainTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.mainTableLayoutPanel.Size = new System.Drawing.Size(719, 604);
+            this.mainTableLayoutPanel.Size = new System.Drawing.Size(834, 608);
             this.mainTableLayoutPanel.TabIndex = 3;
             // 
             // tableLayoutPanel1
@@ -297,7 +297,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.label5, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.clusterCountTextbox, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 575);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 579);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -327,10 +327,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(719, 604);
+            this.ClientSize = new System.Drawing.Size(834, 608);
             this.Controls.Add(this.mainTableLayoutPanel);
+            this.MinimumSize = new System.Drawing.Size(735, 311);
             this.Name = "AppForm";
-            this.Text = "AppForm";
+            this.Text = "Генератор лабиринтов";
             this.mazeConfigurationTableLayoutPanel.ResumeLayout(false);
             this.mazeConfigurationTableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mazeColumnsTrackbar)).EndInit();
