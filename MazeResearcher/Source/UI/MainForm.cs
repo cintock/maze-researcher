@@ -79,7 +79,7 @@ namespace Maze.UI
 		{
 			if (maze != null)
 			{
-				IMazeClusterer clusterer = new MazeClusterer();
+				IMazeClusterer clusterer = new MazeClustererRecursion();
 				MazeClusters clusters = clusterer.Cluster(maze);
 				clustersCountTextbox.Text = clusters.Count().ToString();
 				DrawMaze(maze, clusters);			

@@ -5,6 +5,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Maze.Implementation
 {
@@ -23,17 +24,21 @@ namespace Maze.Implementation
 	/// <summary>
 	/// Description of MazeSolver.
 	/// </summary>
-	public class MazeClusterer : IMazeClusterer
+	public class MazeClustererRecursion : IMazeClusterer
 	{
-		private MazeClusters clusters;
+        private const Int32 recursionStackSize = 10 * 1024 * 1024;
+
+        private MazeClusters clusters;
 		private IMazeData workMaze;
 		private Int32 rowCount;
 		private Int32 colCount;
-		private List<PathPoint> path; 
+        private Thread clusterThread;
+
+        private String threadExceptionMessage = null;
 		
-		public MazeClusterer()
+		public MazeClustererRecursion()
 		{
-		}
+        }
 		
 		public MazeClusters Cluster(IMazeData maze)
 		{
@@ -41,40 +46,65 @@ namespace Maze.Implementation
 			rowCount = maze.RowCount;
 			colCount = maze.ColCount;
 			clusters = new MazeClusters(workMaze);
-			path = new List<PathPoint>();
-			Int32 nextRow = 0;
-			Int32 nextCol = 0;
-			Int32 clusterIndex = 1;
-			Boolean allClustered = false;
-			while (!allClustered)
-			{
-				GoCell(nextRow, nextCol, clusterIndex++);
-				allClustered = true;
-				for (Int32 row = 0; row < rowCount; row++)
-				{
-					for (Int32 col = 0; col < colCount; col++)
-					{
-						if (clusters.IsNonclustered(row, col))
-						{
-							allClustered = false;
-							nextRow = row;
-							nextCol = col;
-							break;
-						}
-					}
-					if (!allClustered)
-					{
-						break;
-					}
-				}
-			}
-			return clusters;
+
+            threadExceptionMessage = null;
+
+            // Создаем поток с единственной целью - увеличение стека.
+            // Это нужно чтобы простой рекурсивный алгоритм мог выполниться для
+            // достаточно больших лабиринтов.
+            // Текущий поток ждет завершения выполнения созданного потока,
+            // не выполняется одновременно с созданным потоком.
+            // Одновременного доступа к переменным из разных потоков тут не происходит.
+            Thread clusterThread = new Thread(new ThreadStart(FindClusters), recursionStackSize);
+            clusterThread.Start();
+            clusterThread.Join();
+
+            if (threadExceptionMessage != null)
+            {
+                DebugConsole.Instance().Log(threadExceptionMessage);                
+            }
+
+            return clusters;
 		}
-		
-		protected IList<PathPoint> GetPath()
-		{
-			return path;
-		}
+
+        private void FindClusters()
+        {
+            Int32 nextRow = 0;
+            Int32 nextCol = 0;
+            Int32 clusterIndex = 1;
+            Boolean allClustered = false;
+            try
+            {
+                while (!allClustered)
+                {
+                    GoCell(nextRow, nextCol, clusterIndex++);
+                    allClustered = true;
+                    for (Int32 row = 0; row < rowCount; row++)
+                    {
+                        for (Int32 col = 0; col < colCount; col++)
+                        {
+                            if (clusters.IsNonclustered(row, col))
+                            {
+                                allClustered = false;
+                                nextRow = row;
+                                nextCol = col;
+                                break;
+                            }
+                        }
+                        if (!allClustered)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // мы ловим тут исключения, поскольку мето выполняется в потоке,
+                // но StackOverflowException здесь все равно не отловится
+                threadExceptionMessage = ex.Message;
+            }
+        }
 		
 		Boolean IsCellExists(Int32 row, Int32 col)
 		{
@@ -85,7 +115,6 @@ namespace Maze.Implementation
 		{
 			if (IsCellExists(row, col))
 			{
-				path.Add(new PathPoint(row, col));
 				if (clusters.IsNonclustered(row, col))
 				{
 					MazeSide currentCell = workMaze.GetCell(row, col);

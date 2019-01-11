@@ -18,6 +18,8 @@ namespace Maze.UI
 
         IMazeData maze;
 
+        MazeClusters clusters;
+
         public AppForm()
         {
             InitializeComponent();
@@ -58,9 +60,33 @@ namespace Maze.UI
             //}
         }
 
-        void DrawMaze(IMazeData drawingMaze, MazeClusters clusters = null)
+        void FindClusters()
         {
-            mazePicturebox.Image = mazeDrawer.Draw(drawingMaze, clusters);
+            IMazeClusterer clusterer = new MazeClustererRecursion();
+            clusters = clusterer.Cluster(maze);
+        }
+
+        void DrawMaze()
+        {
+            if (maze != null)
+            {
+                if (showMazeClustersCheckbox.Checked)
+                {
+                    if (clusters == null)
+                    {
+                        FindClusters();
+                    }
+                    mazePicturebox.Image = mazeDrawer.Draw(maze, clusters);
+                }
+                else
+                {
+                    mazePicturebox.Image = mazeDrawer.Draw(maze, null);
+                }                
+            }
+            else
+            {
+                mazePicturebox.Image = null;
+            }            
         }
 
 
@@ -77,7 +103,7 @@ namespace Maze.UI
             // todo:
             //if (maze != null)
             //{
-            //    IMazeClusterer clusterer = new MazeClusterer();
+            //    IMazeClusterer clusterer = new MazeClustererRecursion();
             //    MazeClusters clusters = clusterer.Cluster(maze);
             //    clustersCountTextbox.Text = clusters.Count().ToString();
             //    DrawMaze(maze, clusters);
@@ -94,8 +120,13 @@ namespace Maze.UI
 
             if (selectedGenerator != null)
             {
-                maze = selectedGenerator.Generator.Generate(mazeRowsTrackbar.Value, mazeColumnsTrackbar.Value);
-                DrawMaze(maze);
+                clusters = null;
+
+                maze = selectedGenerator.Generator.Generate(
+                    mazeRowsTrackbar.Value, 
+                    mazeColumnsTrackbar.Value);
+
+                DrawMaze();
             }
             else
             {
@@ -134,6 +165,11 @@ namespace Maze.UI
 
             DebugConsole.Instance().SetDebugCallback(enabledDebugConsole ? 
                 (DebugMessageCallbackDelegate)WriteDebug : null);
+        }
+
+        void ShowMazeClustersCheckboxChanged(object sender, EventArgs e)
+        {
+            DrawMaze();
         }
     }
 }
