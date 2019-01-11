@@ -46,6 +46,9 @@
             this.mazePicturebox = new System.Windows.Forms.PictureBox();
             this.debugConsole = new System.Windows.Forms.TextBox();
             this.mainTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.clusterCountTextbox = new System.Windows.Forms.TextBox();
             this.mazeConfigurationTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mazeColumnsTrackbar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mazeRowsTrackbar)).BeginInit();
@@ -56,6 +59,7 @@
             this.mazeViewSplitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mazePicturebox)).BeginInit();
             this.mainTableLayoutPanel.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -73,8 +77,8 @@
             // 
             this.mazeConfigurationTableLayoutPanel.ColumnCount = 3;
             this.mazeConfigurationTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.mazeConfigurationTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.mazeConfigurationTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.mazeConfigurationTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 305F));
             this.mazeConfigurationTableLayoutPanel.Controls.Add(this.label1, 0, 0);
             this.mazeConfigurationTableLayoutPanel.Controls.Add(this.mazeGenerationAlgoCombobox, 1, 0);
             this.mazeConfigurationTableLayoutPanel.Controls.Add(this.label2, 0, 1);
@@ -95,7 +99,7 @@
             this.mazeConfigurationTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.mazeConfigurationTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.mazeConfigurationTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.mazeConfigurationTableLayoutPanel.Size = new System.Drawing.Size(1057, 172);
+            this.mazeConfigurationTableLayoutPanel.Size = new System.Drawing.Size(713, 172);
             this.mazeConfigurationTableLayoutPanel.TabIndex = 1;
             // 
             // mazeGenerationAlgoCombobox
@@ -105,7 +109,7 @@
             this.mazeGenerationAlgoCombobox.FormattingEnabled = true;
             this.mazeGenerationAlgoCombobox.Location = new System.Drawing.Point(135, 3);
             this.mazeGenerationAlgoCombobox.Name = "mazeGenerationAlgoCombobox";
-            this.mazeGenerationAlgoCombobox.Size = new System.Drawing.Size(614, 21);
+            this.mazeGenerationAlgoCombobox.Size = new System.Drawing.Size(310, 21);
             this.mazeGenerationAlgoCombobox.TabIndex = 1;
             // 
             // label2
@@ -126,9 +130,10 @@
             this.mazeColumnsTrackbar.Maximum = 100;
             this.mazeColumnsTrackbar.Minimum = 1;
             this.mazeColumnsTrackbar.Name = "mazeColumnsTrackbar";
-            this.mazeColumnsTrackbar.Size = new System.Drawing.Size(614, 45);
+            this.mazeColumnsTrackbar.Size = new System.Drawing.Size(310, 45);
             this.mazeColumnsTrackbar.TabIndex = 3;
             this.mazeColumnsTrackbar.Value = 35;
+            this.mazeColumnsTrackbar.ValueChanged += new System.EventHandler(this.SizeTrackbarChanged);
             // 
             // label3
             // 
@@ -148,9 +153,10 @@
             this.mazeRowsTrackbar.Maximum = 100;
             this.mazeRowsTrackbar.Minimum = 1;
             this.mazeRowsTrackbar.Name = "mazeRowsTrackbar";
-            this.mazeRowsTrackbar.Size = new System.Drawing.Size(614, 45);
+            this.mazeRowsTrackbar.Size = new System.Drawing.Size(310, 45);
             this.mazeRowsTrackbar.TabIndex = 5;
             this.mazeRowsTrackbar.Value = 35;
+            this.mazeRowsTrackbar.ValueChanged += new System.EventHandler(this.SizeTrackbarChanged);
             // 
             // createMazeButton
             // 
@@ -175,7 +181,7 @@
             // showMazeClustersCheckbox
             // 
             this.showMazeClustersCheckbox.AutoSize = true;
-            this.showMazeClustersCheckbox.Location = new System.Drawing.Point(755, 86);
+            this.showMazeClustersCheckbox.Location = new System.Drawing.Point(451, 86);
             this.showMazeClustersCheckbox.Name = "showMazeClustersCheckbox";
             this.showMazeClustersCheckbox.Size = new System.Drawing.Size(204, 17);
             this.showMazeClustersCheckbox.TabIndex = 9;
@@ -186,7 +192,7 @@
             // debugLoggingCheckbox
             // 
             this.debugLoggingCheckbox.AutoSize = true;
-            this.debugLoggingCheckbox.Location = new System.Drawing.Point(755, 35);
+            this.debugLoggingCheckbox.Location = new System.Drawing.Point(451, 35);
             this.debugLoggingCheckbox.Name = "debugLoggingCheckbox";
             this.debugLoggingCheckbox.Size = new System.Drawing.Size(154, 17);
             this.debugLoggingCheckbox.TabIndex = 7;
@@ -200,9 +206,9 @@
             this.versionInfoFlowLayoutPanel.Controls.Add(this.label4);
             this.versionInfoFlowLayoutPanel.Controls.Add(this.versionNumberTextbox);
             this.versionInfoFlowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.versionInfoFlowLayoutPanel.Location = new System.Drawing.Point(755, 3);
+            this.versionInfoFlowLayoutPanel.Location = new System.Drawing.Point(451, 3);
             this.versionInfoFlowLayoutPanel.Name = "versionInfoFlowLayoutPanel";
-            this.versionInfoFlowLayoutPanel.Size = new System.Drawing.Size(299, 26);
+            this.versionInfoFlowLayoutPanel.Size = new System.Drawing.Size(259, 26);
             this.versionInfoFlowLayoutPanel.TabIndex = 10;
             this.versionInfoFlowLayoutPanel.WrapContents = false;
             // 
@@ -240,8 +246,8 @@
             // mazeViewSplitContainer.Panel2
             // 
             this.mazeViewSplitContainer.Panel2.Controls.Add(this.debugConsole);
-            this.mazeViewSplitContainer.Size = new System.Drawing.Size(1057, 428);
-            this.mazeViewSplitContainer.SplitterDistance = 638;
+            this.mazeViewSplitContainer.Size = new System.Drawing.Size(713, 388);
+            this.mazeViewSplitContainer.SplitterDistance = 434;
             this.mazeViewSplitContainer.TabIndex = 2;
             // 
             // mazePicturebox
@@ -262,7 +268,7 @@
             this.debugConsole.Name = "debugConsole";
             this.debugConsole.ReadOnly = true;
             this.debugConsole.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.debugConsole.Size = new System.Drawing.Size(411, 424);
+            this.debugConsole.Size = new System.Drawing.Size(271, 384);
             this.debugConsole.TabIndex = 0;
             // 
             // mainTableLayoutPanel
@@ -271,20 +277,57 @@
             this.mainTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.mainTableLayoutPanel.Controls.Add(this.mazeViewSplitContainer, 0, 1);
             this.mainTableLayoutPanel.Controls.Add(this.mazeConfigurationTableLayoutPanel, 0, 0);
+            this.mainTableLayoutPanel.Controls.Add(this.tableLayoutPanel1, 0, 2);
             this.mainTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.mainTableLayoutPanel.Name = "mainTableLayoutPanel";
-            this.mainTableLayoutPanel.RowCount = 2;
+            this.mainTableLayoutPanel.RowCount = 3;
             this.mainTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.mainTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.mainTableLayoutPanel.Size = new System.Drawing.Size(1063, 612);
+            this.mainTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.mainTableLayoutPanel.Size = new System.Drawing.Size(719, 604);
             this.mainTableLayoutPanel.TabIndex = 3;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.AutoSize = true;
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.clusterCountTextbox, 1, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 575);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(286, 26);
+            this.tableLayoutPanel1.TabIndex = 3;
+            // 
+            // label5
+            // 
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(3, 6);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(174, 13);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Количество связанных областей";
+            // 
+            // clusterCountTextbox
+            // 
+            this.clusterCountTextbox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.clusterCountTextbox.Location = new System.Drawing.Point(183, 3);
+            this.clusterCountTextbox.Name = "clusterCountTextbox";
+            this.clusterCountTextbox.ReadOnly = true;
+            this.clusterCountTextbox.Size = new System.Drawing.Size(100, 20);
+            this.clusterCountTextbox.TabIndex = 1;
             // 
             // AppForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1063, 612);
+            this.ClientSize = new System.Drawing.Size(719, 604);
             this.Controls.Add(this.mainTableLayoutPanel);
             this.Name = "AppForm";
             this.Text = "AppForm";
@@ -302,6 +345,9 @@
             this.mazeViewSplitContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mazePicturebox)).EndInit();
             this.mainTableLayoutPanel.ResumeLayout(false);
+            this.mainTableLayoutPanel.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -326,5 +372,8 @@
         private System.Windows.Forms.FlowLayoutPanel versionInfoFlowLayoutPanel;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox versionNumberTextbox;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox clusterCountTextbox;
     }
 }

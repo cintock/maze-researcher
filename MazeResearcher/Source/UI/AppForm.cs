@@ -44,25 +44,11 @@ namespace Maze.UI
             mazePicturebox.Image = null;
         }
 
-
-        void DrawButtonClick(object sender, EventArgs e)
-        {
-            // todo:
-            // clustersCountTextbox.Clear();
-            //if (maze != null)
-            //{
-            //    DrawMaze(maze);
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Невозможно нарисовать. Лабиринт не создан.");
-            //}
-        }
-
         void FindClusters()
         {
             IMazeClusterer clusterer = new MazeClustererRecursion();
             clusters = clusterer.Cluster(maze);
+            clusterCountTextbox.Text = clusters.Count().ToString();
         }
 
         void DrawMaze()
@@ -88,34 +74,10 @@ namespace Maze.UI
             }            
         }
 
-
-        void CleanButtonClick(object sender, EventArgs e)
-        {
-            // todo:
-            //clustersCountTextbox.Clear();
-            //debugConsole.Clear();
-            //ClearImageBitmap();
-        }
-
-        void ClusterButtonClick(object sender, EventArgs e)
-        {
-            // todo:
-            //if (maze != null)
-            //{
-            //    IMazeClusterer clusterer = new MazeClustererRecursion();
-            //    MazeClusters clusters = clusterer.Cluster(maze);
-            //    clustersCountTextbox.Text = clusters.Count().ToString();
-            //    DrawMaze(maze, clusters);
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Лабиринт еще не создан.");
-            //}
-        }
-
         void CreateMazeButtonClick(object sender, EventArgs e)
         {
-            MazeGeneratorNamed selectedGenerator = (MazeGeneratorNamed)mazeGenerationAlgoCombobox.SelectedValue;
+            MazeGeneratorNamed selectedGenerator = 
+                (MazeGeneratorNamed)mazeGenerationAlgoCombobox.SelectedValue;
 
             if (selectedGenerator != null)
             {
@@ -124,6 +86,8 @@ namespace Maze.UI
                 maze = selectedGenerator.Generator.Generate(
                     mazeRowsTrackbar.Value, 
                     mazeColumnsTrackbar.Value);
+
+                clusterCountTextbox.Clear();
 
                 DrawMaze();
             }
