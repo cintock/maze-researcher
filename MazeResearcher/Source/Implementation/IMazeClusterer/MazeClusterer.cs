@@ -42,7 +42,7 @@ namespace Maze.Implementation
             // Текущий поток ждет завершения выполнения созданного потока,
             // не выполняется одновременно с созданным потоком.
             // Одновременного доступа к переменным из разных потоков тут не происходит.
-            Thread clusterThread = new Thread(new ThreadStart(FindClusters), recursionStackSize);
+            Thread clusterThread = new Thread(FindClusters, recursionStackSize);
             clusterThread.Start();
             clusterThread.Join();
 
