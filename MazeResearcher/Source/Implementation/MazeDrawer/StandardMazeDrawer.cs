@@ -25,14 +25,15 @@ namespace Maze.Implementation
             {
                 painter.Clear(drawingSettings.BackgroundColor);
 
-                DrawBorder(painter);
+                if (clusters != null)
+                {
+                    DrawClusters(painter, clusters);
+                }
 
                 DrawMaze(painter, maze);
 
-                //if (clusters != null)
-                //{
-                //    DrawClusters(painter, maze, clusters);
-                //}
+                DrawBorder(painter);
+
             }
 
             return imageBitmap;
@@ -58,16 +59,50 @@ namespace Maze.Implementation
                 {
                     if (maze.GetCell(row, col).HasFlag(MazeSide.Right))
                     {
-                        graphics.DrawLine(sizePen, 
-                            new Point((col + 1) * cellWidth , (row) * cellHeight),
-                            new Point((col + 1) * cellWidth, (row + 1) * cellHeight));
+                        if (col < colCount - 1)
+                        {
+                            graphics.DrawLine(sizePen,
+                                new Point((col + 1) * cellWidth, (row) * cellHeight),
+                                new Point((col + 1) * cellWidth, (row + 1) * cellHeight));
+                        }
                     }
 
                     if (maze.GetCell(row, col).HasFlag(MazeSide.Bottom))
                     {
-                        graphics.DrawLine(sizePen,
-                            new Point((col) * cellWidth, (row + 1) * cellHeight),
-                            new Point((col + 1) * cellWidth, (row + 1) * cellHeight));
+                        if (row < rowCount - 1)
+                        {
+                            graphics.DrawLine(sizePen,
+                                new Point((col) * cellWidth, (row + 1) * cellHeight),
+                                new Point((col + 1) * cellWidth, (row + 1) * cellHeight));
+                        }
+                    }
+                }
+            }
+        }
+
+        private void DrawClusters(Graphics graphics, MazeClusters clusters)
+        {
+            Int32 clustersNumber = clusters.Count();
+            Brush[] brushes = new Brush[clustersNumber];
+            for (Int32 i = 0; i < brushes.Length; i++)
+            {
+                brushes[i] = new SolidBrush(Palette.GetColor(i + 1));
+            }
+
+            Int32 cellWidth = drawingSettings.CellWidth;
+            Int32 cellHeight = drawingSettings.CellHeight;
+
+            for (Int32 row = 0; row < rowCount; row++)
+            {
+                for (Int32 col = 0; col < colCount; col++)
+                {
+                    Int32 index = clusters.GetClusterIndex(row, col);
+                    if (index > 0)
+                    {
+                        Rectangle cellRect = new Rectangle(col * cellWidth, row * cellHeight, 
+                            cellWidth, cellHeight);
+
+                        graphics.FillRectangle(brushes[index - 1], cellRect);
                     }
                 }
             }

@@ -64,7 +64,7 @@ namespace Maze.Implementation
 			Brush[] brushes = new Brush[clustersNumber];
 			for (Int32 i = 0; i < brushes.Length; i++)
 			{
-				brushes[i] = new SolidBrush(Palette.GetColor(i));
+				brushes[i] = new SolidBrush(Palette.GetColor(i + 1));
 			}
 			
 			for (Int32 row = 0; row < maze.RowCount; row++)
