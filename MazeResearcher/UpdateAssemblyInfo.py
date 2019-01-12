@@ -42,7 +42,7 @@ def update_assembly(version):
 def main():
     current_dir_set_script_dir()
 
-    os.system('git1 describe --long --dirty > "{0}"'.format(VERSION_INFO_FILE))
+    os.system('git describe --long --dirty > "{0}"'.format(VERSION_INFO_FILE))
 
     version = get_version_from_file()
 
