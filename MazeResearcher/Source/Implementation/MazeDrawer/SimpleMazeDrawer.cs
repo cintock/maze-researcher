@@ -9,7 +9,9 @@ using System.Drawing;
 namespace Maze.Implementation
 {
 	/// <summary>
-	/// Класс для рисования лабиринта
+	/// Класс для рисования лабиринта.
+    /// Не поддерживает настройки рисования.
+    /// Рисование по всем границам - без оптимизации.
 	/// </summary>
 	public class SimpleMazeDrawer : IMazeDrawer
 	{

@@ -8,7 +8,9 @@ using System;
 namespace Maze.Implementation
 {
 	/// <summary>
-	/// Description of EmptyMaze.
+	/// Класс для хранения пустого лабиринта.
+    /// Содержит только размеры лабиринта.
+    /// Внутренней матрицы значений ячеек нет.
 	/// </summary>
 	public class EmptyMazeData : IMazeData
 	{
