@@ -12,7 +12,9 @@ namespace Maze.UI
 {
     public partial class AppForm : Form
     {
-        IMazeDrawer mazeDrawer = new MazeDrawer();
+        IMazeDrawer mazeDrawer = new SimpleMazeDrawer();
+
+        MazeDrawingSettings mazeDrawingSettings = new MazeDrawingSettings();
 
         List<String> debugLog = new List<string>();
 
@@ -32,6 +34,12 @@ namespace Maze.UI
             SizeTrackbarChanged(null, null);
 
             LogCheckboxCheckStateChanged(null, null);
+
+            mazeDrawingSettings.CellHeight = 15;
+            mazeDrawingSettings.CellWidth = 20;
+            mazeDrawingSettings.BorderColor = Color.Black;
+            mazeDrawingSettings.BackgroundColor = Color.Azure;
+            mazeDrawingSettings.SideColor = Color.DarkViolet;
         }
 
         void OutputVersionInfo()
@@ -55,6 +63,7 @@ namespace Maze.UI
         {
             if (maze != null)
             {
+                mazeDrawer.SetDrawingSettings(mazeDrawingSettings);
                 if (showMazeClustersCheckbox.Checked)
                 {
                     if (clusters == null)

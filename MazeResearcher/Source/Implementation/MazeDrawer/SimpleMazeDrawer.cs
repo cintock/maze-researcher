@@ -11,14 +11,14 @@ namespace Maze.Implementation
 	/// <summary>
 	/// Класс для рисования лабиринта
 	/// </summary>
-	public class MazeDrawer : IMazeDrawer
+	public class SimpleMazeDrawer : IMazeDrawer
 	{
 		private readonly Color backgroundColor = Color.White;
 		private readonly Pen bluePen = new Pen(Color.Blue, 1);
 		private readonly Int32 cellSize = 10;
 		private readonly Int32 circleSize = 6;
-		
-		public MazeDrawer()
+
+        public SimpleMazeDrawer()
 		{
 		}
 		
@@ -104,6 +104,10 @@ namespace Maze.Implementation
 			
 			return imageBitmap;
 		}
-		
-	}
+
+        public void SetDrawingSettings(MazeDrawingSettings settings)
+        {
+            // в этом классе не поддерживаем настройки отображения
+        }
+    }
 }

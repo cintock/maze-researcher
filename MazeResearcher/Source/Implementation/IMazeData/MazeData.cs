@@ -64,8 +64,16 @@ namespace Maze.Implementation
 			{
 				resultCell |= MazeSide.Top;
 			}
-			
-			if (row == RowCount - 1)
+
+            if (row < RowCount - 1)
+            {
+                if (mazeMatrix[row + 1, col].HasFlag(MazeSide.Top))
+                {
+                    resultCell |= MazeSide.Bottom;
+                }
+            }
+            
+            if (row == RowCount - 1)
 			{
 				resultCell |= MazeSide.Bottom;
 			}
@@ -81,6 +89,14 @@ namespace Maze.Implementation
 			{
 				resultCell |= MazeSide.Left;
 			}
+
+            if (col < ColCount - 1)
+            {
+                if (mazeMatrix[row, col + 1].HasFlag(MazeSide.Left))
+                {
+                    resultCell |= MazeSide.Right;
+                }
+            }
 			
 			if (col == ColCount - 1)
 			{

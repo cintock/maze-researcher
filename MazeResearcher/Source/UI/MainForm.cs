@@ -17,7 +17,7 @@ namespace Maze.UI
 	/// </summary>
 	public partial class MainForm : Form
 	{
-		IMazeDrawer mazeDrawer = new MazeDrawer();
+		IMazeDrawer mazeDrawer = new SimpleMazeDrawer();
 
 		IMazeData maze;		
 		

@@ -67,6 +67,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Source\Implementation\DebugConsole.cs" />
+    <Compile Include="Source\Implementation\MazeDrawer\StandardMazeDrawer.cs" />
+    <Compile Include="Source\Implementation\MazeDrawingSettings.cs" />
     <Compile Include="Source\Implementation\PathPoint.cs" />
     <Compile Include="Source\Implementation\MazeSide.cs" />
     <Compile Include="Source\Implementation\IMazeClusterer\MazeClusterer.cs" />
@@ -81,7 +83,7 @@
     <Compile Include="Source\Implementation\Interfaces\IMazeGenerator.cs" />
     <Compile Include="Source\Implementation\Interfaces\IMazeClusterer.cs" />
     <Compile Include="Source\Implementation\MazeClusters.cs" />
-    <Compile Include="Source\Implementation\MazeDrawer\MazeDrawer.cs" />
+    <Compile Include="Source\Implementation\MazeDrawer\SimpleMazeDrawer.cs" />
     <Compile Include="Source\Implementation\Palette.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Source\Program.cs" />

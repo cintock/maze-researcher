@@ -13,6 +13,8 @@ namespace Maze.Implementation
 	/// </summary>
 	public interface IMazeDrawer
 	{
-		Bitmap Draw(IMazeData maze, MazeClusters clusters = null);
+        void SetDrawingSettings(MazeDrawingSettings settings);
+
+        Bitmap Draw(IMazeData maze, MazeClusters clusters = null);
 	}
 }
