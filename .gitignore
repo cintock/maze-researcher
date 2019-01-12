@@ -1,0 +1,7 @@
+/MazeResearcher/versioninfo.txt
+/.vs/*
+*/bin/*
+*/obj/*
+*/.idea/*
+*.exe
+*.pdb
