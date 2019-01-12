@@ -28,14 +28,17 @@ namespace Maze
 		
 		public String VersionString()
 		{
-			String version = null;
+			String version = "undefined";
 			using (Stream versionInfo =
 				Assembly.GetExecutingAssembly().GetManifestResourceStream("Maze.versioninfo.txt"))
 			{
-				using (StreamReader reader = new StreamReader(versionInfo))
-				{
-					version = reader.ReadToEnd();
-				}
+                if (versionInfo != null)
+                {
+                    using (StreamReader reader = new StreamReader(versionInfo))
+                    {
+                        version = reader.ReadToEnd();
+                    }
+                }
 			}
 			return version;
 		}
