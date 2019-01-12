@@ -9,12 +9,15 @@ using System.Reflection;
 
 namespace Maze
 {
-	/// <summary>
-	/// Description of ProgramVersion.
-	/// </summary>
-	public sealed class ProgramVersion
+    /// <summary>
+    /// Синглтон для получения версии программы из встраиваемого ресурса
+    /// </summary>
+    public sealed class ProgramVersion
 	{
-		private static ProgramVersion instance = null;
+        private readonly String VersionResourceName = "Maze.versioninfo.txt";
+        private readonly String UndefinedVersionString = "undefined";
+
+        private static ProgramVersion instance = null;
 		
 		public static ProgramVersion Instance {
 			get {
@@ -28,14 +31,17 @@ namespace Maze
 		
 		public String VersionString()
 		{
-			String version = null;
+			String version = UndefinedVersionString;
 			using (Stream versionInfo =
-				Assembly.GetExecutingAssembly().GetManifestResourceStream("Maze.versioninfo.txt"))
+				Assembly.GetExecutingAssembly().GetManifestResourceStream(VersionResourceName))
 			{
-				using (StreamReader reader = new StreamReader(versionInfo))
-				{
-					version = reader.ReadToEnd();
-				}
+                if (versionInfo != null)
+                {
+                    using (StreamReader reader = new StreamReader(versionInfo))
+                    {
+                        version = reader.ReadToEnd();
+                    }
+                }
 			}
 			return version;
 		}
