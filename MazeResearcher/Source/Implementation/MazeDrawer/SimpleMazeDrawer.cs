@@ -9,7 +9,9 @@ using System.Drawing;
 namespace Maze.Implementation
 {
 	/// <summary>
-	/// Класс для рисования лабиринта
+	/// Класс для рисования лабиринта.
+    /// Не поддерживает настройки рисования.
+    /// Рисование по всем границам - без оптимизации.
 	/// </summary>
 	public class SimpleMazeDrawer : IMazeDrawer
 	{
@@ -64,7 +66,7 @@ namespace Maze.Implementation
 			Brush[] brushes = new Brush[clustersNumber];
 			for (Int32 i = 0; i < brushes.Length; i++)
 			{
-				brushes[i] = new SolidBrush(Palette.GetColor(i));
+				brushes[i] = new SolidBrush(Palette.GetColor(i + 1));
 			}
 			
 			for (Int32 row = 0; row < maze.RowCount; row++)

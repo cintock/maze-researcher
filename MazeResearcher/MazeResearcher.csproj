@@ -94,12 +94,6 @@
     <Compile Include="Source\UI\AppForm.Designer.cs">
       <DependentUpon>AppForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Source\UI\MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Source\UI\MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Source\UI\MazeGeneratorNamed.cs" />
     <Compile Include="Source\UI\MazeGeneratorNamedList.cs" />
   </ItemGroup>
@@ -109,11 +103,6 @@
       <DependentUpon>AppForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="versioninfo.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Source\UI\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

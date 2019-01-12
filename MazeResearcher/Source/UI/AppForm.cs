@@ -35,8 +35,8 @@ namespace Maze.UI
 
             LogCheckboxCheckStateChanged(null, null);
 
-            mazeDrawingSettings.CellHeight = 15;
-            mazeDrawingSettings.CellWidth = 20;
+            mazeDrawingSettings.CellHeight = 10;
+            mazeDrawingSettings.CellWidth = 10;
             mazeDrawingSettings.BorderColor = Color.Black;
             mazeDrawingSettings.BackgroundColor = Color.Azure;
             mazeDrawingSettings.SideColor = Color.DarkViolet;

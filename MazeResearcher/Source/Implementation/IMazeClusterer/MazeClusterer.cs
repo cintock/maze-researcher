@@ -20,7 +20,6 @@ namespace Maze.Implementation
 		private IMazeData workMaze;
 		private Int32 rowCount;
 		private Int32 colCount;
-        private Thread clusterThread;
 
         private String threadExceptionMessage = null;
 		
