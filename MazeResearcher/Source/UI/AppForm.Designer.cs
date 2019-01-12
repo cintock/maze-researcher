@@ -49,6 +49,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label5 = new System.Windows.Forms.Label();
             this.clusterCountTextbox = new System.Windows.Forms.TextBox();
+            this.simpleDrawer = new System.Windows.Forms.CheckBox();
             this.mazeConfigurationTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mazeColumnsTrackbar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mazeRowsTrackbar)).BeginInit();
@@ -90,6 +91,7 @@
             this.mazeConfigurationTableLayoutPanel.Controls.Add(this.showMazeClustersCheckbox, 2, 2);
             this.mazeConfigurationTableLayoutPanel.Controls.Add(this.debugLoggingCheckbox, 2, 1);
             this.mazeConfigurationTableLayoutPanel.Controls.Add(this.versionInfoFlowLayoutPanel, 2, 0);
+            this.mazeConfigurationTableLayoutPanel.Controls.Add(this.simpleDrawer, 2, 3);
             this.mazeConfigurationTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mazeConfigurationTableLayoutPanel.Location = new System.Drawing.Point(3, 3);
             this.mazeConfigurationTableLayoutPanel.Name = "mazeConfigurationTableLayoutPanel";
@@ -323,6 +325,17 @@
             this.clusterCountTextbox.Size = new System.Drawing.Size(100, 20);
             this.clusterCountTextbox.TabIndex = 1;
             // 
+            // simpleDrawer
+            // 
+            this.simpleDrawer.AutoSize = true;
+            this.simpleDrawer.Location = new System.Drawing.Point(566, 137);
+            this.simpleDrawer.Name = "simpleDrawer";
+            this.simpleDrawer.Size = new System.Drawing.Size(126, 17);
+            this.simpleDrawer.TabIndex = 11;
+            this.simpleDrawer.Text = "Простое рисование";
+            this.simpleDrawer.UseVisualStyleBackColor = true;
+            this.simpleDrawer.CheckedChanged += new System.EventHandler(this.simpleDrawer_CheckedChanged);
+            // 
             // AppForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -376,5 +389,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox clusterCountTextbox;
+        private System.Windows.Forms.CheckBox simpleDrawer;
     }
 }

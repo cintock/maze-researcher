@@ -12,7 +12,7 @@ namespace Maze.UI
 {
     public partial class AppForm : Form
     {
-        IMazeDrawer mazeDrawer = new SimpleMazeDrawer();
+        IMazeDrawer mazeDrawer = new StandardMazeDrawer();
 
         MazeDrawingSettings mazeDrawingSettings = new MazeDrawingSettings();
 
@@ -141,6 +141,19 @@ namespace Maze.UI
 
         void ShowMazeClustersCheckboxChanged(object sender, EventArgs e)
         {
+            DrawMaze();
+        }
+
+        private void simpleDrawer_CheckedChanged(object sender, EventArgs e)
+        {
+            if (simpleDrawer.Checked)
+            {
+                mazeDrawer = new SimpleMazeDrawer();
+            }
+            else
+            {
+                mazeDrawer = new StandardMazeDrawer();
+            }
             DrawMaze();
         }
     }

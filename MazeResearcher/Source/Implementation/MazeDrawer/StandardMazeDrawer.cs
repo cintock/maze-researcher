@@ -56,18 +56,18 @@ namespace Maze.Implementation
             {
                 for (Int32 col = 0; col < colCount; col++)
                 {
-                    if (maze.GetCell(row, col) == MazeSide.Right)
+                    if (maze.GetCell(row, col).HasFlag(MazeSide.Right))
                     {
                         graphics.DrawLine(sizePen, 
                             new Point((col + 1) * cellWidth , (row) * cellHeight),
                             new Point((col + 1) * cellWidth, (row + 1) * cellHeight));
                     }
 
-                    if (maze.GetCell(row, col) == MazeSide.Bottom)
+                    if (maze.GetCell(row, col).HasFlag(MazeSide.Bottom))
                     {
                         graphics.DrawLine(sizePen,
-                            new Point((col) * cellWidth, (row) * cellHeight),
-                            new Point((col + 1) * cellWidth, (row) * cellHeight));
+                            new Point((col) * cellWidth, (row + 1) * cellHeight),
+                            new Point((col + 1) * cellWidth, (row + 1) * cellHeight));
                     }
                 }
             }
