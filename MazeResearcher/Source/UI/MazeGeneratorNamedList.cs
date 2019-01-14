@@ -9,36 +9,49 @@ using Maze.Implementation;
 
 namespace Maze.UI
 {
-    /// <summary>
-    /// Статический класс с методом, возвращающим список из возможных 
-    /// объектов генерации лабиринтов, с их именами (для вывода в Combobox)
-    /// </summary>
-    internal static class MazeGeneratorNamedList
-	{
-		static List<NamedObject<IMazeGenerator>> mazeGeneratorList;
-		
-		internal static List<NamedObject<IMazeGenerator>> Get()
-		{
-			if (mazeGeneratorList == null)
-			{
-				mazeGeneratorList = new List<NamedObject<IMazeGenerator>>()
-				{
-					new NamedObject<IMazeGenerator>(new RandomMazeGenerator(), 
-					                       "Полностью случайный лабиринт"),
-					
-					new NamedObject<IMazeGenerator>(new EmptyMazeGenerator(), 
-					                       "Пустой лабиринт"),
-					
-					new NamedObject<IMazeGenerator>(new EmptyDummyMazeGenerator(),
-					                       "Пустой лабиринт (оптимизированный вариант)"),
-					
-					new NamedObject<IMazeGenerator>(new EllerModMazeGenerator(),
-                       "Вариация алгоритма Эллера"),
+    enum MazeGeneratorsEnum
+    {
+        RandomMazeGenerator,
+        EmptyMazeGenerator,
+        EmptyDummyMazeGenerator,
+        EllerModMazeGenerator
+    }
 
-				};
-				
-			}
-			return mazeGeneratorList;
-		}
-	}
+    internal class MazeGeneratorsObjects : 
+        ObjectsDescription<MazeGeneratorsEnum, IMazeGenerator>
+    {
+        static MazeGeneratorsObjects instance = new MazeGeneratorsObjects();
+
+        private MazeGeneratorsObjects()
+        {
+        }
+
+        public static MazeGeneratorsObjects Instance()
+        {
+            return instance;
+        }
+
+        protected override void RegisterObjects()
+        {
+            RegisterObject(
+                MazeGeneratorsEnum.RandomMazeGenerator, 
+                new RandomMazeGenerator(), 
+                "Полностью случайный лабиринт");
+
+            RegisterObject(
+                MazeGeneratorsEnum.EmptyMazeGenerator,
+                new EmptyMazeGenerator(),
+                "Пустой лабиринт");
+
+            RegisterObject(
+                MazeGeneratorsEnum.EmptyDummyMazeGenerator,
+                new EmptyDummyMazeGenerator(),
+                "Пустой лабиринт (оптимизированный вариант)");
+
+            RegisterObject(
+                MazeGeneratorsEnum.EllerModMazeGenerator,
+                new EllerModMazeGenerator(),
+                "Вариация алгоритма Эллера");
+        }
+    }
 }

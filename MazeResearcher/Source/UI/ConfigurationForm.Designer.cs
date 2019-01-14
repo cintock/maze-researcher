@@ -37,6 +37,7 @@
             this.cellWidthNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.cellHeightNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
+            this.buttonOK = new System.Windows.Forms.Button();
             this.groupBoxMazePaint.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cellWidthNumericUpDown)).BeginInit();
@@ -48,7 +49,7 @@
             this.groupBoxMazePaint.Controls.Add(this.tableLayoutPanel1);
             this.groupBoxMazePaint.Location = new System.Drawing.Point(91, 75);
             this.groupBoxMazePaint.Name = "groupBoxMazePaint";
-            this.groupBoxMazePaint.Size = new System.Drawing.Size(406, 304);
+            this.groupBoxMazePaint.Size = new System.Drawing.Size(631, 304);
             this.groupBoxMazePaint.TabIndex = 0;
             this.groupBoxMazePaint.TabStop = false;
             this.groupBoxMazePaint.Text = "Рисование лабиринта";
@@ -73,7 +74,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(329, 227);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(589, 227);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // label1
@@ -87,10 +88,11 @@
             // 
             // drawingAlgoComboBox
             // 
+            this.drawingAlgoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.drawingAlgoComboBox.FormattingEnabled = true;
-            this.drawingAlgoComboBox.Location = new System.Drawing.Point(167, 3);
+            this.drawingAlgoComboBox.Location = new System.Drawing.Point(297, 3);
             this.drawingAlgoComboBox.Name = "drawingAlgoComboBox";
-            this.drawingAlgoComboBox.Size = new System.Drawing.Size(159, 21);
+            this.drawingAlgoComboBox.Size = new System.Drawing.Size(289, 21);
             this.drawingAlgoComboBox.TabIndex = 1;
             // 
             // label2
@@ -113,14 +115,14 @@
             // 
             // cellWidthNumericUpDown
             // 
-            this.cellWidthNumericUpDown.Location = new System.Drawing.Point(167, 86);
+            this.cellWidthNumericUpDown.Location = new System.Drawing.Point(297, 86);
             this.cellWidthNumericUpDown.Name = "cellWidthNumericUpDown";
             this.cellWidthNumericUpDown.Size = new System.Drawing.Size(120, 20);
             this.cellWidthNumericUpDown.TabIndex = 4;
             // 
             // cellHeightNumericUpDown
             // 
-            this.cellHeightNumericUpDown.Location = new System.Drawing.Point(167, 169);
+            this.cellHeightNumericUpDown.Location = new System.Drawing.Point(297, 169);
             this.cellHeightNumericUpDown.Name = "cellHeightNumericUpDown";
             this.cellHeightNumericUpDown.Size = new System.Drawing.Size(120, 20);
             this.cellHeightNumericUpDown.TabIndex = 5;
@@ -134,11 +136,22 @@
             this.label4.TabIndex = 6;
             this.label4.Text = "Цвет фона";
             // 
+            // buttonOK
+            // 
+            this.buttonOK.Location = new System.Drawing.Point(12, 415);
+            this.buttonOK.Name = "buttonOK";
+            this.buttonOK.Size = new System.Drawing.Size(75, 23);
+            this.buttonOK.TabIndex = 1;
+            this.buttonOK.Text = "OK";
+            this.buttonOK.UseVisualStyleBackColor = true;
+            this.buttonOK.Click += new System.EventHandler(this.OKButtonClick);
+            // 
             // ConfigurationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.groupBoxMazePaint);
             this.Name = "ConfigurationForm";
             this.Text = "ConfigurationForm";
@@ -162,5 +175,6 @@
         private System.Windows.Forms.NumericUpDown cellWidthNumericUpDown;
         private System.Windows.Forms.NumericUpDown cellHeightNumericUpDown;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button buttonOK;
     }
 }

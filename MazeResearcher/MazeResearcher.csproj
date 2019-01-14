@@ -100,7 +100,8 @@
     <Compile Include="Source\UI\ConfigurationForm.Designer.cs">
       <DependentUpon>ConfigurationForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Source\UI\MazeDrawerNamed.cs" />
+    <Compile Include="Source\UI\MazeDrawersObjects.cs" />
+    <Compile Include="Source\UI\ObjectsDescription.cs" />
     <Compile Include="Source\UI\NamedObject.cs" />
     <Compile Include="Source\UI\MazeGeneratorNamedList.cs" />
   </ItemGroup>

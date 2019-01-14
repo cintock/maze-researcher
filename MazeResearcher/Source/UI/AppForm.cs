@@ -12,11 +12,12 @@ namespace Maze.UI
 {
     public partial class AppForm : Form
     {
-        IMazeDrawer mazeDrawer = new StandardMazeDrawer();
+        IMazeDrawer mazeDrawer = MazeDrawersObjects.Instance().GetObject(
+            MazeDrawersEnum.StandardMazeDrawer);
 
         MazeDrawingSettings mazeDrawingSettings = new MazeDrawingSettings();
 
-        List<String> debugLog = new List<string>();
+        List<String> debugLog = new List<String>();
 
         IMazeData maze;
 
@@ -26,7 +27,7 @@ namespace Maze.UI
         {
             InitializeComponent();
 
-            mazeGenerationAlgoCombobox.DataSource = MazeGeneratorNamedList.Get();
+            mazeGenerationAlgoCombobox.DataSource = MazeGeneratorsObjects.Instance().GetNamedObjectsList();
             mazeGenerationAlgoCombobox.DisplayMember = "Name";
 
             OutputVersionInfo();
@@ -150,11 +151,13 @@ namespace Maze.UI
         {
             if (simpleDrawer.Checked)
             {
-                mazeDrawer = new SimpleMazeDrawer();
+                mazeDrawer = MazeDrawersObjects.Instance().GetObject(
+                    MazeDrawersEnum.SimpleMazeDrawer);
             }
             else
             {
-                mazeDrawer = new StandardMazeDrawer();
+                mazeDrawer = MazeDrawersObjects.Instance().GetObject(
+                    MazeDrawersEnum.StandardMazeDrawer);
             }
             DrawMaze();
         }
@@ -162,6 +165,20 @@ namespace Maze.UI
         private void ExitApplication(Object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void StartConfigurationForm(Object sender, EventArgs e)
+        {
+            ConfigurationForm form = new ConfigurationForm(mazeDrawer, 
+                mazeDrawingSettings);
+
+            form.ShowDialog(this);
+            if (form.DialogResult == DialogResult.OK)
+            {
+                mazeDrawer = form.Drawer;
+
+                DrawMaze();
+            }
         }
     }
 }

@@ -383,6 +383,7 @@
             // 
             this.menuItemConfiguration.Index = 0;
             this.menuItemConfiguration.Text = "Настройки...";
+            this.menuItemConfiguration.Click += new System.EventHandler(this.StartConfigurationForm);
             // 
             // menuItemTopHelp
             // 
