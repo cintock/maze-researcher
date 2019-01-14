@@ -9,29 +9,30 @@ using Maze.Implementation;
 
 namespace Maze.UI
 {
-	/// <summary>
-	/// Description of MazeGeneratorNamedList.
-	/// </summary>
-	internal static class MazeGeneratorNamedList
+    /// <summary>
+    /// Статический класс с методом, возвращающим список из возможных 
+    /// объектов генерации лабиринтов, с их именами (для вывода в Combobox)
+    /// </summary>
+    internal static class MazeGeneratorNamedList
 	{
-		static List<MazeGeneratorNamed> mazeGeneratorList;
+		static List<NamedObject<IMazeGenerator>> mazeGeneratorList;
 		
-		internal static IList<MazeGeneratorNamed> Get()
+		internal static List<NamedObject<IMazeGenerator>> Get()
 		{
 			if (mazeGeneratorList == null)
 			{
-				mazeGeneratorList = new List<MazeGeneratorNamed>()
+				mazeGeneratorList = new List<NamedObject<IMazeGenerator>>()
 				{
-					new MazeGeneratorNamed(new RandomMazeGenerator(), 
+					new NamedObject<IMazeGenerator>(new RandomMazeGenerator(), 
 					                       "Полностью случайный лабиринт"),
 					
-					new MazeGeneratorNamed(new EmptyMazeGenerator(), 
+					new NamedObject<IMazeGenerator>(new EmptyMazeGenerator(), 
 					                       "Пустой лабиринт"),
 					
-					new MazeGeneratorNamed(new EmptyDummyMazeGenerator(),
+					new NamedObject<IMazeGenerator>(new EmptyDummyMazeGenerator(),
 					                       "Пустой лабиринт (оптимизированный вариант)"),
 					
-					new MazeGeneratorNamed(new EllerModMazeGenerator(),
+					new NamedObject<IMazeGenerator>(new EllerModMazeGenerator(),
                        "Вариация алгоритма Эллера"),
 
 				};

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.mazeConfigurationTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.mazeGenerationAlgoCombobox = new System.Windows.Forms.ComboBox();
@@ -42,6 +43,7 @@
             this.versionInfoFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.label4 = new System.Windows.Forms.Label();
             this.versionNumberTextbox = new System.Windows.Forms.TextBox();
+            this.simpleDrawer = new System.Windows.Forms.CheckBox();
             this.mazeViewSplitContainer = new System.Windows.Forms.SplitContainer();
             this.mazePicturebox = new System.Windows.Forms.PictureBox();
             this.debugConsole = new System.Windows.Forms.TextBox();
@@ -49,7 +51,15 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label5 = new System.Windows.Forms.Label();
             this.clusterCountTextbox = new System.Windows.Forms.TextBox();
-            this.simpleDrawer = new System.Windows.Forms.CheckBox();
+            this.mainMenu = new System.Windows.Forms.MainMenu(this.components);
+            this.menuItemTopFile = new System.Windows.Forms.MenuItem();
+            this.menuItemTopParameters = new System.Windows.Forms.MenuItem();
+            this.menuItemSaveImage = new System.Windows.Forms.MenuItem();
+            this.menuItemExit = new System.Windows.Forms.MenuItem();
+            this.menuItemConfiguration = new System.Windows.Forms.MenuItem();
+            this.menuItemTopHelp = new System.Windows.Forms.MenuItem();
+            this.menuItemAbout = new System.Windows.Forms.MenuItem();
+            this.menuItemHelp = new System.Windows.Forms.MenuItem();
             this.mazeConfigurationTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mazeColumnsTrackbar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mazeRowsTrackbar)).BeginInit();
@@ -89,9 +99,9 @@
             this.mazeConfigurationTableLayoutPanel.Controls.Add(this.createMazeButton, 0, 3);
             this.mazeConfigurationTableLayoutPanel.Controls.Add(this.mazeSizeLabel, 1, 3);
             this.mazeConfigurationTableLayoutPanel.Controls.Add(this.showMazeClustersCheckbox, 2, 2);
-            this.mazeConfigurationTableLayoutPanel.Controls.Add(this.debugLoggingCheckbox, 2, 1);
             this.mazeConfigurationTableLayoutPanel.Controls.Add(this.versionInfoFlowLayoutPanel, 2, 0);
             this.mazeConfigurationTableLayoutPanel.Controls.Add(this.simpleDrawer, 2, 3);
+            this.mazeConfigurationTableLayoutPanel.Controls.Add(this.debugLoggingCheckbox, 2, 1);
             this.mazeConfigurationTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mazeConfigurationTableLayoutPanel.Location = new System.Drawing.Point(3, 3);
             this.mazeConfigurationTableLayoutPanel.Name = "mazeConfigurationTableLayoutPanel";
@@ -233,6 +243,17 @@
             this.versionNumberTextbox.Size = new System.Drawing.Size(141, 20);
             this.versionNumberTextbox.TabIndex = 1;
             // 
+            // simpleDrawer
+            // 
+            this.simpleDrawer.AutoSize = true;
+            this.simpleDrawer.Location = new System.Drawing.Point(566, 137);
+            this.simpleDrawer.Name = "simpleDrawer";
+            this.simpleDrawer.Size = new System.Drawing.Size(126, 17);
+            this.simpleDrawer.TabIndex = 11;
+            this.simpleDrawer.Text = "Простое рисование";
+            this.simpleDrawer.UseVisualStyleBackColor = true;
+            this.simpleDrawer.CheckedChanged += new System.EventHandler(this.simpleDrawer_CheckedChanged);
+            // 
             // mazeViewSplitContainer
             // 
             this.mazeViewSplitContainer.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -325,16 +346,61 @@
             this.clusterCountTextbox.Size = new System.Drawing.Size(100, 20);
             this.clusterCountTextbox.TabIndex = 1;
             // 
-            // simpleDrawer
+            // mainMenu
             // 
-            this.simpleDrawer.AutoSize = true;
-            this.simpleDrawer.Location = new System.Drawing.Point(566, 137);
-            this.simpleDrawer.Name = "simpleDrawer";
-            this.simpleDrawer.Size = new System.Drawing.Size(126, 17);
-            this.simpleDrawer.TabIndex = 11;
-            this.simpleDrawer.Text = "Простое рисование";
-            this.simpleDrawer.UseVisualStyleBackColor = true;
-            this.simpleDrawer.CheckedChanged += new System.EventHandler(this.simpleDrawer_CheckedChanged);
+            this.mainMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItemTopFile,
+            this.menuItemTopParameters,
+            this.menuItemTopHelp});
+            // 
+            // menuItemTopFile
+            // 
+            this.menuItemTopFile.Index = 0;
+            this.menuItemTopFile.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItemSaveImage,
+            this.menuItemExit});
+            this.menuItemTopFile.Text = "Файл";
+            // 
+            // menuItemTopParameters
+            // 
+            this.menuItemTopParameters.Index = 1;
+            this.menuItemTopParameters.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItemConfiguration});
+            this.menuItemTopParameters.Text = "Параметры";
+            // 
+            // menuItemSaveImage
+            // 
+            this.menuItemSaveImage.Index = 0;
+            this.menuItemSaveImage.Text = "Сохранить изображение...";
+            // 
+            // menuItemExit
+            // 
+            this.menuItemExit.Index = 1;
+            this.menuItemExit.Text = "Выход";
+            this.menuItemExit.Click += new System.EventHandler(this.ExitApplication);
+            // 
+            // menuItemConfiguration
+            // 
+            this.menuItemConfiguration.Index = 0;
+            this.menuItemConfiguration.Text = "Настройки...";
+            // 
+            // menuItemTopHelp
+            // 
+            this.menuItemTopHelp.Index = 2;
+            this.menuItemTopHelp.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItemHelp,
+            this.menuItemAbout});
+            this.menuItemTopHelp.Text = "Справка";
+            // 
+            // menuItemAbout
+            // 
+            this.menuItemAbout.Index = 1;
+            this.menuItemAbout.Text = "О программе...";
+            // 
+            // menuItemHelp
+            // 
+            this.menuItemHelp.Index = 0;
+            this.menuItemHelp.Text = "Справка";
             // 
             // AppForm
             // 
@@ -342,6 +408,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(834, 608);
             this.Controls.Add(this.mainTableLayoutPanel);
+            this.Menu = this.mainMenu;
             this.MinimumSize = new System.Drawing.Size(735, 311);
             this.Name = "AppForm";
             this.Text = "Генератор лабиринтов";
@@ -390,5 +457,14 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox clusterCountTextbox;
         private System.Windows.Forms.CheckBox simpleDrawer;
+        private System.Windows.Forms.MainMenu mainMenu;
+        private System.Windows.Forms.MenuItem menuItemTopFile;
+        private System.Windows.Forms.MenuItem menuItemSaveImage;
+        private System.Windows.Forms.MenuItem menuItemExit;
+        private System.Windows.Forms.MenuItem menuItemTopParameters;
+        private System.Windows.Forms.MenuItem menuItemConfiguration;
+        private System.Windows.Forms.MenuItem menuItemTopHelp;
+        private System.Windows.Forms.MenuItem menuItemHelp;
+        private System.Windows.Forms.MenuItem menuItemAbout;
     }
 }

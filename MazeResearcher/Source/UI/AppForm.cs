@@ -85,14 +85,16 @@ namespace Maze.UI
 
         void CreateMazeButtonClick(object sender, EventArgs e)
         {
-            MazeGeneratorNamed selectedGenerator = 
-                (MazeGeneratorNamed)mazeGenerationAlgoCombobox.SelectedValue;
+            NamedObject<IMazeGenerator> selectedGeneratorNamed = 
+                (NamedObject<IMazeGenerator>)mazeGenerationAlgoCombobox.SelectedValue;
+
+            IMazeGenerator selectedGenerator = selectedGeneratorNamed.ObjectValue;
 
             if (selectedGenerator != null)
             {
                 clusters = null;
 
-                maze = selectedGenerator.Generator.Generate(
+                maze = selectedGenerator.Generate(
                     mazeRowsTrackbar.Value, 
                     mazeColumnsTrackbar.Value);
 
@@ -155,6 +157,11 @@ namespace Maze.UI
                 mazeDrawer = new StandardMazeDrawer();
             }
             DrawMaze();
+        }
+
+        private void ExitApplication(Object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
