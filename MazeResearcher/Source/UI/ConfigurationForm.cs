@@ -12,41 +12,72 @@ namespace Maze.UI
 {
     public partial class ConfigurationForm : Form
     {
-        private IMazeDrawer drawer;
+        private Boolean debugLogging;
 
         private MazeDrawingSettings drawingSettings;
 
+        private IMazeDrawer drawer;
+
         public IMazeDrawer Drawer
         {
-            get {
+            get
+            {
                 return drawer;
             }
-        }
-
-        public MazeDrawingSettings DrawingSettings {
-            get {
-                return drawingSettings;
+            set
+            {
+                drawer = value;
+                drawingAlgoComboBox.SelectedValue = drawer;
             }
         }
 
-        public ConfigurationForm(IMazeDrawer drawer, MazeDrawingSettings drawingSettings)
+        public MazeDrawingSettings DrawingSettings
+        {
+            get
+            {
+                return drawingSettings;
+            }
+            set
+            {
+                drawingSettings = value;
+                cellWidthNumericUpDown.Value = drawingSettings.CellWidth;
+                cellHeightNumericUpDown.Value = drawingSettings.CellHeight;
+
+                backgroundColorButton.BackColor = drawingSettings.BackgroundColor;
+                borderColorButton.BackColor = drawingSettings.BorderColor;
+                sideColorButton.BackColor = drawingSettings.SideColor;
+            }
+        }
+
+        public Boolean DebugLogging
+        {
+            get
+            {
+                return debugLogging;
+            }
+            set
+            {
+                debugLogging = value;
+                debugLoggingCheckbox.Checked = debugLogging;
+            }
+        }
+
+        public ConfigurationForm()
         {
             InitializeComponent();
 
-            this.drawer = drawer;
-            this.drawingSettings = drawingSettings;
+            drawingAlgoComboBox.DataSource =
+                MazeDrawersObjects.Instance().GetNamedObjectsList();
 
-            drawingAlgoComboBox.DataSource = MazeDrawersObjects.Instance().GetNamedObjectsList();
             drawingAlgoComboBox.DisplayMember = "Name";
             drawingAlgoComboBox.ValueMember = "ObjectValue";
-            drawingAlgoComboBox.SelectedValue = drawer;
+        }
 
-            cellWidthNumericUpDown.Value = drawingSettings.CellWidth;
-            cellHeightNumericUpDown.Value = drawingSettings.CellHeight;
-
-            backgroundColorButton.BackColor = drawingSettings.BackgroundColor;
-            borderColorButton.BackColor = drawingSettings.BorderColor;
-            sideColorButton.BackColor = drawingSettings.SideColor;
+        public ConfigurationForm(IMazeDrawer drawer, MazeDrawingSettings drawingSettings) : 
+            this()
+        {
+            Drawer = drawer;
+            DrawingSettings = drawingSettings;
         }
 
         private void BackgroundColorSelect(Object sender, EventArgs e)
@@ -70,8 +101,10 @@ namespace Maze.UI
         private Color SelectColorDialog(Control colorView, Color previousColor)
         {
             Color selectedColor = previousColor;
-            ColorDialog dialog = new ColorDialog();
-            dialog.Color = previousColor;
+            ColorDialog dialog = new ColorDialog
+            {
+                Color = previousColor
+            };
             if (dialog.ShowDialog(this) == DialogResult.OK)
             {
                 selectedColor = dialog.Color;
@@ -92,6 +125,8 @@ namespace Maze.UI
 
             drawingSettings.CellHeight = (Int32)cellHeightNumericUpDown.Value;
             drawingSettings.CellWidth = (Int32)cellWidthNumericUpDown.Value;
+
+            debugLogging = debugLoggingCheckbox.Checked;
 
             DialogResult = DialogResult.OK;
 

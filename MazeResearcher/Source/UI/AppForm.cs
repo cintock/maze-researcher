@@ -23,6 +23,8 @@ namespace Maze.UI
 
         MazeClusters clusters;
 
+        Boolean debugConsoleEnabled;
+
         public AppForm()
         {
             InitializeComponent();
@@ -32,29 +34,31 @@ namespace Maze.UI
 
             mazeGenerationAlgoCombobox.DisplayMember = "Name";
 
-            OutputVersionInfo();
-
             SizeTrackbarChanged(null, null);
 
-            LogCheckboxCheckStateChanged(null, null);
+            DebugState();
 
-            mazeDrawingSettings.CellHeight = 10;
-            mazeDrawingSettings.CellWidth = 10;
-            mazeDrawingSettings.BorderColor = Color.Black;
-            mazeDrawingSettings.BackgroundColor = Color.Azure;
-            mazeDrawingSettings.SideColor = Color.DarkViolet;
+            DefaultMazeDrawingSettings();
 
             // todo: отобразить связанность областей вынести в меню вид
-            // todo: отладочное логирование убрать в настройки
             // todo: простое рисование убрать совсем, потому что уже есть выбор алгоритма в настройках
 
             // todo: сделать IMazeDrawer, который рисует лабиринт с ячейками-стенами (стена
             // и коридор имеют одинаковый размер)
+
+            // todo: сделать меню правка - копировать
+
+            // todo: сделать контекстное меню по правой кнопке мыши на области лабиринта ->
+            // копировать, сохранить изображение
         }
 
-        void OutputVersionInfo()
+        void DefaultMazeDrawingSettings()
         {
-            versionNumberTextbox.Text = ProgramVersion.Instance.VersionString();
+            mazeDrawingSettings.CellHeight = 10;
+            mazeDrawingSettings.CellWidth = 10;
+            mazeDrawingSettings.BorderColor = Color.Black;
+            mazeDrawingSettings.BackgroundColor = Color.Azure;
+            mazeDrawingSettings.SideColor = Color.DarkGreen;
         }
 
         void ClearImageBitmap()
@@ -143,34 +147,17 @@ namespace Maze.UI
             debugLog.Add(mes);
         }
 
-        void LogCheckboxCheckStateChanged(object sender, EventArgs e)
+        void DebugState()
         {
-            Boolean enabledDebugConsole = debugLoggingCheckbox.Checked;
+            debugConsole.Visible = debugConsoleEnabled;
+            mazeViewSplitContainer.Panel2Collapsed = !debugConsoleEnabled;
 
-            debugConsole.Visible = enabledDebugConsole;
-            mazeViewSplitContainer.Panel2Collapsed = !enabledDebugConsole;
-
-            DebugConsole.Instance().SetDebugCallback(enabledDebugConsole ? 
+            DebugConsole.Instance().SetDebugCallback(debugConsoleEnabled ? 
                 (DebugMessageCallbackDelegate)WriteDebug : null);
         }
 
         void ShowMazeClustersCheckboxChanged(object sender, EventArgs e)
         {
-            DrawMaze();
-        }
-
-        private void simpleDrawer_CheckedChanged(object sender, EventArgs e)
-        {
-            if (simpleDrawer.Checked)
-            {
-                mazeDrawer = MazeDrawersObjects.Instance().GetObject(
-                    MazeDrawersEnum.SimpleMazeDrawer);
-            }
-            else
-            {
-                mazeDrawer = MazeDrawersObjects.Instance().GetObject(
-                    MazeDrawersEnum.StandardMazeDrawer);
-            }
             DrawMaze();
         }
 
@@ -181,13 +168,19 @@ namespace Maze.UI
 
         private void StartConfigurationForm(Object sender, EventArgs e)
         {
-            ConfigurationForm form = new ConfigurationForm(mazeDrawer, 
-                mazeDrawingSettings);
+            ConfigurationForm form = new ConfigurationForm(mazeDrawer,
+                mazeDrawingSettings)
+            {
+                DebugLogging = debugConsoleEnabled
+            };
 
-            form.ShowDialog(this);
-            if (form.DialogResult == DialogResult.OK)
+            if (form.ShowDialog(this) == DialogResult.OK)
             {
                 mazeDrawer = form.Drawer;
+
+                debugConsoleEnabled = form.DebugLogging;
+
+                DebugState();
 
                 DrawMaze();
             }
@@ -199,7 +192,7 @@ namespace Maze.UI
             {
                 SaveFileDialog dialog = new SaveFileDialog
                 {
-                    Filter = "Рисунок PNG (*.png)|*.png|Все файлы (*.*)|*.*"
+                    Filter = "Рисунок PNG (*.png)|*.png"
                 };
                 if (dialog.ShowDialog(this) == DialogResult.OK)
                 {
