@@ -188,14 +188,21 @@ namespace Maze.UI
 
         private void SaveMazeImage(Object sender, EventArgs e)
         {
-            SaveFileDialog dialog = new SaveFileDialog
+            if (maze != null)
             {
-                Filter = "Рисунок PNG (*.png)|*.png|Все файлы (*.*)|*.*"
-            };
-            if (dialog.ShowDialog(this) == DialogResult.OK)
+                SaveFileDialog dialog = new SaveFileDialog
+                {
+                    Filter = "Рисунок PNG (*.png)|*.png|Все файлы (*.*)|*.*"
+                };
+                if (dialog.ShowDialog(this) == DialogResult.OK)
+                {
+                    Bitmap maze = RenderMaze();
+                    maze.Save(dialog.FileName);
+                }
+            }
+            else
             {
-                Bitmap maze = RenderMaze();
-                maze.Save(dialog.FileName);
+                MessageBox.Show(this, "Лабиринт не создан");
             }
         }
 

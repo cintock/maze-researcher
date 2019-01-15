@@ -396,6 +396,7 @@
             // 
             // menuItemHelp
             // 
+            this.menuItemHelp.Enabled = false;
             this.menuItemHelp.Index = 0;
             this.menuItemHelp.Text = "Справка";
             // 
