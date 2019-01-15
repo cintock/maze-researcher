@@ -43,6 +43,41 @@ namespace Maze.UI
 
             cellWidthNumericUpDown.Value = drawingSettings.CellWidth;
             cellHeightNumericUpDown.Value = drawingSettings.CellHeight;
+
+            backgroundColorButton.BackColor = drawingSettings.BackgroundColor;
+            borderColorButton.BackColor = drawingSettings.BorderColor;
+            sideColorButton.BackColor = drawingSettings.SideColor;
+        }
+
+        private void BackgroundColorSelect(Object sender, EventArgs e)
+        {
+            drawingSettings.BackgroundColor = SelectColorDialog(
+                backgroundColorButton, drawingSettings.BackgroundColor);
+        }
+
+        private void BorderColorSelect(Object sender, EventArgs e)
+        {
+            drawingSettings.BorderColor = SelectColorDialog(
+                borderColorButton, drawingSettings.BorderColor);
+        }
+
+        private void SideColorSelect(Object sender, EventArgs e)
+        {
+            drawingSettings.SideColor = SelectColorDialog(
+                sideColorButton, drawingSettings.SideColor);
+        }
+
+        private Color SelectColorDialog(Control colorView, Color previousColor)
+        {
+            Color selectedColor = previousColor;
+            ColorDialog dialog = new ColorDialog();
+            dialog.Color = previousColor;
+            if (dialog.ShowDialog(this) == DialogResult.OK)
+            {
+                selectedColor = dialog.Color;
+                colorView.BackColor = selectedColor;
+            }
+            return selectedColor;
         }
 
         private void OKButtonClick(Object sender, EventArgs e)
@@ -57,7 +92,6 @@ namespace Maze.UI
 
             drawingSettings.CellHeight = (Int32)cellHeightNumericUpDown.Value;
             drawingSettings.CellWidth = (Int32)cellWidthNumericUpDown.Value;
-
 
             DialogResult = DialogResult.OK;
 

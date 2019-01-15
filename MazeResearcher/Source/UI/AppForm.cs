@@ -43,6 +43,13 @@ namespace Maze.UI
             mazeDrawingSettings.BorderColor = Color.Black;
             mazeDrawingSettings.BackgroundColor = Color.Azure;
             mazeDrawingSettings.SideColor = Color.DarkViolet;
+
+            // todo: отобразить связанность областей вынести в меню вид
+            // todo: отладочное логирование убрать в настройки
+            // todo: простое рисование убрать совсем, потому что уже есть выбор алгоритма в настройках
+
+            // todo: сделать IMazeDrawer, который рисует лабиринт с ячейками-стенами (стена
+            // и коридор имеют одинаковый размер)
         }
 
         void OutputVersionInfo()
