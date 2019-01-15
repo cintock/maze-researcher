@@ -9,11 +9,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MazeResearcher")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Генератор лабиринтов")]
+[assembly: AssemblyDescription("Программа для создания и изучения лабиринтов")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MazeResearcher")]
+[assembly: AssemblyProduct("Генератор лабиринтов")]
 [assembly: AssemblyCopyright("Copyright cintock (Vadim Nizamov) 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -28,4 +28,4 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can use the default the Revision and 
 // Build Numbers by using the '*' as shown below:
-[assembly: AssemblyVersion("0.1.0.9")]
+[assembly: AssemblyVersion("0.1.1.0")]

@@ -12,39 +12,53 @@ namespace Maze.UI
 {
     public partial class AppForm : Form
     {
-        IMazeDrawer mazeDrawer = new StandardMazeDrawer();
+        IMazeDrawer mazeDrawer = MazeDrawersObjects.Instance().GetObject(
+            MazeDrawersEnum.StandardMazeDrawer);
 
         MazeDrawingSettings mazeDrawingSettings = new MazeDrawingSettings();
 
-        List<String> debugLog = new List<string>();
+        List<String> debugLog = new List<String>();
 
         IMazeData maze;
 
         MazeClusters clusters;
 
+        Boolean debugConsoleEnabled;
+
         public AppForm()
         {
             InitializeComponent();
 
-            mazeGenerationAlgoCombobox.DataSource = MazeGeneratorNamedList.Get();
-            mazeGenerationAlgoCombobox.DisplayMember = "Name";
+            mazeGenerationAlgoCombobox.DataSource = 
+                MazeGeneratorsObjects.Instance().GetNamedObjectsList();
 
-            OutputVersionInfo();
+            mazeGenerationAlgoCombobox.DisplayMember = "Name";
 
             SizeTrackbarChanged(null, null);
 
-            LogCheckboxCheckStateChanged(null, null);
+            DebugState();
 
+            DefaultMazeDrawingSettings();
+
+            // todo: отобразить связанность областей вынести в меню вид
+            // todo: простое рисование убрать совсем, потому что уже есть выбор алгоритма в настройках
+
+            // todo: сделать IMazeDrawer, который рисует лабиринт с ячейками-стенами (стена
+            // и коридор имеют одинаковый размер)
+
+            // todo: сделать меню правка - копировать
+
+            // todo: сделать контекстное меню по правой кнопке мыши на области лабиринта ->
+            // копировать, сохранить изображение
+        }
+
+        void DefaultMazeDrawingSettings()
+        {
             mazeDrawingSettings.CellHeight = 10;
             mazeDrawingSettings.CellWidth = 10;
             mazeDrawingSettings.BorderColor = Color.Black;
             mazeDrawingSettings.BackgroundColor = Color.Azure;
-            mazeDrawingSettings.SideColor = Color.DarkViolet;
-        }
-
-        void OutputVersionInfo()
-        {
-            versionNumberTextbox.Text = ProgramVersion.Instance.VersionString();
+            mazeDrawingSettings.SideColor = Color.DarkGreen;
         }
 
         void ClearImageBitmap()
@@ -59,8 +73,9 @@ namespace Maze.UI
             clusterCountTextbox.Text = clusters.Count().ToString();
         }
 
-        void DrawMaze()
+        private Bitmap RenderMaze()
         {
+            Bitmap mazeImage = null;
             if (maze != null)
             {
                 mazeDrawer.SetDrawingSettings(mazeDrawingSettings);
@@ -70,29 +85,33 @@ namespace Maze.UI
                     {
                         FindClusters();
                     }
-                    mazePicturebox.Image = mazeDrawer.Draw(maze, clusters);
+                    mazeImage = mazeDrawer.Draw(maze, clusters);
                 }
                 else
                 {
-                    mazePicturebox.Image = mazeDrawer.Draw(maze, null);
-                }                
+                    mazeImage = mazeDrawer.Draw(maze, null);
+                }
             }
-            else
-            {
-                mazePicturebox.Image = null;
-            }            
+            return mazeImage;
+        }
+
+        void DrawMaze()
+        {
+            mazePicturebox.Image = RenderMaze();
         }
 
         void CreateMazeButtonClick(object sender, EventArgs e)
         {
-            MazeGeneratorNamed selectedGenerator = 
-                (MazeGeneratorNamed)mazeGenerationAlgoCombobox.SelectedValue;
+            NamedObject<IMazeGenerator> selectedGeneratorNamed = 
+                (NamedObject<IMazeGenerator>)mazeGenerationAlgoCombobox.SelectedValue;
+
+            IMazeGenerator selectedGenerator = selectedGeneratorNamed.ObjectValue;
 
             if (selectedGenerator != null)
             {
                 clusters = null;
 
-                maze = selectedGenerator.Generator.Generate(
+                maze = selectedGenerator.Generate(
                     mazeRowsTrackbar.Value, 
                     mazeColumnsTrackbar.Value);
 
@@ -128,14 +147,12 @@ namespace Maze.UI
             debugLog.Add(mes);
         }
 
-        void LogCheckboxCheckStateChanged(object sender, EventArgs e)
+        void DebugState()
         {
-            Boolean enabledDebugConsole = debugLoggingCheckbox.Checked;
+            debugConsole.Visible = debugConsoleEnabled;
+            mazeViewSplitContainer.Panel2Collapsed = !debugConsoleEnabled;
 
-            debugConsole.Visible = enabledDebugConsole;
-            mazeViewSplitContainer.Panel2Collapsed = !enabledDebugConsole;
-
-            DebugConsole.Instance().SetDebugCallback(enabledDebugConsole ? 
+            DebugConsole.Instance().SetDebugCallback(debugConsoleEnabled ? 
                 (DebugMessageCallbackDelegate)WriteDebug : null);
         }
 
@@ -144,17 +161,55 @@ namespace Maze.UI
             DrawMaze();
         }
 
-        private void simpleDrawer_CheckedChanged(object sender, EventArgs e)
+        private void ExitApplication(Object sender, EventArgs e)
         {
-            if (simpleDrawer.Checked)
+            Application.Exit();
+        }
+
+        private void StartConfigurationForm(Object sender, EventArgs e)
+        {
+            ConfigurationForm form = new ConfigurationForm(mazeDrawer,
+                mazeDrawingSettings)
             {
-                mazeDrawer = new SimpleMazeDrawer();
+                DebugLogging = debugConsoleEnabled
+            };
+
+            if (form.ShowDialog(this) == DialogResult.OK)
+            {
+                mazeDrawer = form.Drawer;
+
+                debugConsoleEnabled = form.DebugLogging;
+
+                DebugState();
+
+                DrawMaze();
+            }
+        }
+
+        private void SaveMazeImage(Object sender, EventArgs e)
+        {
+            if (maze != null)
+            {
+                SaveFileDialog dialog = new SaveFileDialog
+                {
+                    Filter = "Рисунок PNG (*.png)|*.png"
+                };
+                if (dialog.ShowDialog(this) == DialogResult.OK)
+                {
+                    Bitmap maze = RenderMaze();
+                    maze.Save(dialog.FileName);
+                }
             }
             else
             {
-                mazeDrawer = new StandardMazeDrawer();
+                MessageBox.Show(this, "Лабиринт не создан");
             }
-            DrawMaze();
+        }
+
+        private void AboutDialog(Object sender, EventArgs e)
+        {
+            AboutDialog about = new AboutDialog();
+            about.ShowDialog(this);
         }
     }
 }

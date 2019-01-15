@@ -10,18 +10,18 @@ namespace Maze.UI
 {
 	/// <summary>
 	/// Вспомогательный класс для интерфейсного элемента ComboxBox,
-	/// который хранит объект генератора и выводимое имя.
-	/// </summary>
-	internal class MazeGeneratorNamed
-	{
-		public MazeGeneratorNamed(IMazeGenerator generator, String name)
+	/// который хранит объект и выводимое имя.
+	/// </summary>    
+	internal class NamedObject<T>
+    {
+		public NamedObject(T objectValue, String name)
 		{
-			Generator = generator;
+			ObjectValue = objectValue;
 			Name = name;
 		}
 		
-		public IMazeGenerator Generator 
-		{ 
+		public T ObjectValue
+        { 
 			get;
 			private set; 
 		}
