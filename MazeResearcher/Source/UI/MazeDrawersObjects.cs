@@ -15,7 +15,7 @@ namespace Maze.UI
     internal class MazeDrawersObjects :
         ObjectsDescription<MazeDrawersEnum, IMazeDrawer>
     {
-        static MazeDrawersObjects mazeDrawersNamedList =
+        static readonly MazeDrawersObjects mazeDrawersNamedList =
             new MazeDrawersObjects();
 
         private MazeDrawersObjects()

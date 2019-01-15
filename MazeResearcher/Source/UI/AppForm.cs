@@ -27,7 +27,9 @@ namespace Maze.UI
         {
             InitializeComponent();
 
-            mazeGenerationAlgoCombobox.DataSource = MazeGeneratorsObjects.Instance().GetNamedObjectsList();
+            mazeGenerationAlgoCombobox.DataSource = 
+                MazeGeneratorsObjects.Instance().GetNamedObjectsList();
+
             mazeGenerationAlgoCombobox.DisplayMember = "Name";
 
             OutputVersionInfo();
@@ -60,8 +62,9 @@ namespace Maze.UI
             clusterCountTextbox.Text = clusters.Count().ToString();
         }
 
-        void DrawMaze()
+        private Bitmap RenderMaze()
         {
+            Bitmap mazeImage = null;
             if (maze != null)
             {
                 mazeDrawer.SetDrawingSettings(mazeDrawingSettings);
@@ -71,17 +74,19 @@ namespace Maze.UI
                     {
                         FindClusters();
                     }
-                    mazePicturebox.Image = mazeDrawer.Draw(maze, clusters);
+                    mazeImage = mazeDrawer.Draw(maze, clusters);
                 }
                 else
                 {
-                    mazePicturebox.Image = mazeDrawer.Draw(maze, null);
-                }                
+                    mazeImage = mazeDrawer.Draw(maze, null);
+                }
             }
-            else
-            {
-                mazePicturebox.Image = null;
-            }            
+            return mazeImage;
+        }
+
+        void DrawMaze()
+        {
+            mazePicturebox.Image = RenderMaze();
         }
 
         void CreateMazeButtonClick(object sender, EventArgs e)
@@ -179,6 +184,25 @@ namespace Maze.UI
 
                 DrawMaze();
             }
+        }
+
+        private void SaveMazeImage(Object sender, EventArgs e)
+        {
+            SaveFileDialog dialog = new SaveFileDialog
+            {
+                Filter = "Рисунок PNG (*.png)|*.png|Все файлы (*.*)|*.*"
+            };
+            if (dialog.ShowDialog(this) == DialogResult.OK)
+            {
+                Bitmap maze = RenderMaze();
+                maze.Save(dialog.FileName);
+            }
+        }
+
+        private void AboutDialog(Object sender, EventArgs e)
+        {
+            AboutDialog about = new AboutDialog();
+            about.ShowDialog(this);
         }
     }
 }

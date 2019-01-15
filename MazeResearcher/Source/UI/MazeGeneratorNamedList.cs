@@ -20,7 +20,8 @@ namespace Maze.UI
     internal class MazeGeneratorsObjects : 
         ObjectsDescription<MazeGeneratorsEnum, IMazeGenerator>
     {
-        static MazeGeneratorsObjects instance = new MazeGeneratorsObjects();
+        static readonly MazeGeneratorsObjects instance = 
+            new MazeGeneratorsObjects();
 
         private MazeGeneratorsObjects()
         {

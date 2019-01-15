@@ -39,11 +39,11 @@
             this.createMazeButton = new System.Windows.Forms.Button();
             this.mazeSizeLabel = new System.Windows.Forms.Label();
             this.showMazeClustersCheckbox = new System.Windows.Forms.CheckBox();
-            this.debugLoggingCheckbox = new System.Windows.Forms.CheckBox();
             this.versionInfoFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.label4 = new System.Windows.Forms.Label();
             this.versionNumberTextbox = new System.Windows.Forms.TextBox();
             this.simpleDrawer = new System.Windows.Forms.CheckBox();
+            this.debugLoggingCheckbox = new System.Windows.Forms.CheckBox();
             this.mazeViewSplitContainer = new System.Windows.Forms.SplitContainer();
             this.mazePicturebox = new System.Windows.Forms.PictureBox();
             this.debugConsole = new System.Windows.Forms.TextBox();
@@ -53,13 +53,13 @@
             this.clusterCountTextbox = new System.Windows.Forms.TextBox();
             this.mainMenu = new System.Windows.Forms.MainMenu(this.components);
             this.menuItemTopFile = new System.Windows.Forms.MenuItem();
-            this.menuItemTopParameters = new System.Windows.Forms.MenuItem();
             this.menuItemSaveImage = new System.Windows.Forms.MenuItem();
             this.menuItemExit = new System.Windows.Forms.MenuItem();
+            this.menuItemTopParameters = new System.Windows.Forms.MenuItem();
             this.menuItemConfiguration = new System.Windows.Forms.MenuItem();
             this.menuItemTopHelp = new System.Windows.Forms.MenuItem();
-            this.menuItemAbout = new System.Windows.Forms.MenuItem();
             this.menuItemHelp = new System.Windows.Forms.MenuItem();
+            this.menuItemAbout = new System.Windows.Forms.MenuItem();
             this.mazeConfigurationTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mazeColumnsTrackbar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mazeRowsTrackbar)).BeginInit();
@@ -201,17 +201,6 @@
             this.showMazeClustersCheckbox.UseVisualStyleBackColor = true;
             this.showMazeClustersCheckbox.CheckedChanged += new System.EventHandler(this.ShowMazeClustersCheckboxChanged);
             // 
-            // debugLoggingCheckbox
-            // 
-            this.debugLoggingCheckbox.AutoSize = true;
-            this.debugLoggingCheckbox.Location = new System.Drawing.Point(566, 35);
-            this.debugLoggingCheckbox.Name = "debugLoggingCheckbox";
-            this.debugLoggingCheckbox.Size = new System.Drawing.Size(154, 17);
-            this.debugLoggingCheckbox.TabIndex = 7;
-            this.debugLoggingCheckbox.Text = "Отладочное логирование";
-            this.debugLoggingCheckbox.UseVisualStyleBackColor = true;
-            this.debugLoggingCheckbox.CheckedChanged += new System.EventHandler(this.LogCheckboxCheckStateChanged);
-            // 
             // versionInfoFlowLayoutPanel
             // 
             this.versionInfoFlowLayoutPanel.AutoSize = true;
@@ -253,6 +242,17 @@
             this.simpleDrawer.Text = "Простое рисование";
             this.simpleDrawer.UseVisualStyleBackColor = true;
             this.simpleDrawer.CheckedChanged += new System.EventHandler(this.simpleDrawer_CheckedChanged);
+            // 
+            // debugLoggingCheckbox
+            // 
+            this.debugLoggingCheckbox.AutoSize = true;
+            this.debugLoggingCheckbox.Location = new System.Drawing.Point(566, 35);
+            this.debugLoggingCheckbox.Name = "debugLoggingCheckbox";
+            this.debugLoggingCheckbox.Size = new System.Drawing.Size(154, 17);
+            this.debugLoggingCheckbox.TabIndex = 7;
+            this.debugLoggingCheckbox.Text = "Отладочное логирование";
+            this.debugLoggingCheckbox.UseVisualStyleBackColor = true;
+            this.debugLoggingCheckbox.CheckedChanged += new System.EventHandler(this.LogCheckboxCheckStateChanged);
             // 
             // mazeViewSplitContainer
             // 
@@ -361,23 +361,24 @@
             this.menuItemExit});
             this.menuItemTopFile.Text = "Файл";
             // 
-            // menuItemTopParameters
-            // 
-            this.menuItemTopParameters.Index = 1;
-            this.menuItemTopParameters.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.menuItemConfiguration});
-            this.menuItemTopParameters.Text = "Параметры";
-            // 
             // menuItemSaveImage
             // 
             this.menuItemSaveImage.Index = 0;
             this.menuItemSaveImage.Text = "Сохранить изображение...";
+            this.menuItemSaveImage.Click += new System.EventHandler(this.SaveMazeImage);
             // 
             // menuItemExit
             // 
             this.menuItemExit.Index = 1;
             this.menuItemExit.Text = "Выход";
             this.menuItemExit.Click += new System.EventHandler(this.ExitApplication);
+            // 
+            // menuItemTopParameters
+            // 
+            this.menuItemTopParameters.Index = 1;
+            this.menuItemTopParameters.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItemConfiguration});
+            this.menuItemTopParameters.Text = "Параметры";
             // 
             // menuItemConfiguration
             // 
@@ -393,15 +394,16 @@
             this.menuItemAbout});
             this.menuItemTopHelp.Text = "Справка";
             // 
-            // menuItemAbout
-            // 
-            this.menuItemAbout.Index = 1;
-            this.menuItemAbout.Text = "О программе...";
-            // 
             // menuItemHelp
             // 
             this.menuItemHelp.Index = 0;
             this.menuItemHelp.Text = "Справка";
+            // 
+            // menuItemAbout
+            // 
+            this.menuItemAbout.Index = 1;
+            this.menuItemAbout.Text = "О программе...";
+            this.menuItemAbout.Click += new System.EventHandler(this.AboutDialog);
             // 
             // AppForm
             // 
