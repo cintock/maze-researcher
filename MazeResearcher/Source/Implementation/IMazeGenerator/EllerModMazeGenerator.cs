@@ -9,7 +9,9 @@ using System.Collections.Generic;
 namespace Maze.Implementation
 {
 	/// <summary>
-	/// Description of EllerMazeGenerator.
+	/// Генерация лабиринта по модифицированному алгоритму Эллера.
+    /// Самая нижняя строка всегда пустая, потому что из области на каждом
+    /// уровне всегда оставляем только один выход, поэтому они сходятся внизу.
 	/// </summary>
 	public class EllerModMazeGenerator : IMazeGenerator
 	{
