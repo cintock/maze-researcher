@@ -4,6 +4,7 @@
  * Created by SharpDevelop.
  */
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace Maze.Implementation
@@ -40,9 +41,9 @@ namespace Maze.Implementation
     /// </summary>
     public class EllerModMazeGenerator : IMazeGenerator
 	{
-		Int32 rowCount;
+        Int32 rowCount;
 		Int32 colCount;
-		Int32[] mazeLineData;
+		List<Int32> mazeLineData;
 		MazeData maze;
 		Random rnd;
 		
@@ -53,25 +54,38 @@ namespace Maze.Implementation
 				
 		private void CreateMazeData()
 		{
-			mazeLineData = new Int32[colCount];
+			mazeLineData = new List<Int32>(new int[colCount]);
 			maze = new MazeData(rowCount, colCount);
 		}
 		
+        private static IList<Int32> CalcAvailableNumbers(IList<Int32> numbersArray)
+        {
+            // todo: выделять память на всю строку быстрее, чем считать через linq
+            // количество реально нужных элементов (скороее всего)
+            // это можно проверить, если будет тест производительности
+            Int32[] availableNums = new Int32[numbersArray.Count(x => x == 0)];
+
+            HashSet<Int32> usedNumbers = new HashSet<int>(numbersArray);
+
+            Int32 num = 1;
+            for (Int32 i = 0; i < availableNums.Length; i++)
+            {
+                while (usedNumbers.Contains(num))
+                {
+                    num++;
+                }
+                availableNums[i] = num++;
+            }
+
+            return availableNums;
+        }
+
 		#region Step 2
 		private void InitRow(Int32 row)
 		{
-			Int32[] availableNums = new Int32[colCount];
-			Int32 num = 1;
-			for (Int32 i = 0; i < colCount; i++)
-			{				
-				while (((IList<Int32>)mazeLineData).Contains(num))
-				{
-					num++;
-				}
-				availableNums[i] = num++;
-			}
-			
-			Int32 index = 0;
+            IList<Int32> availableNums = CalcAvailableNumbers(mazeLineData);
+
+            Int32 index = 0;
 			for (Int32 c = 0; c < colCount; c++)
 			{
 				if (mazeLineData[c] == 0)
@@ -79,8 +93,9 @@ namespace Maze.Implementation
 					mazeLineData[c] = availableNums[index++];
 				}
 			}
-			
-			DebugConsole.Instance().LogNumLine("InitRow", mazeLineData);
+
+            // todo: receive list
+            DebugConsole.Instance().LogNumLine("InitRow", mazeLineData.ToArray());
 		}
 		#endregion
 		
@@ -105,14 +120,14 @@ namespace Maze.Implementation
 					}
 				}
 			}
-			DebugConsole.Instance().LogNumLine("CrRightBor", mazeLineData);
+			DebugConsole.Instance().LogNumLine("CrRightBor", mazeLineData.ToArray());
 		}
 		#endregion
 		
 		#region Step 4
 		private void CreateBottomBorders(Int32 row)
 		{
-            var lineSegments = new List<LineSegment>(mazeLineData.Length);
+            var lineSegments = new List<LineSegment>(mazeLineData.Count);
             Int32 startIndex = 0;
 			while (startIndex < colCount - 1)
 			{
@@ -159,7 +174,7 @@ namespace Maze.Implementation
 					mazeLineData[c] = 0;
 				}
 			}
-			DebugConsole.Instance().LogNumLine("PrepNextRow", mazeLineData);
+			DebugConsole.Instance().LogNumLine("PrepNextRow", mazeLineData.ToArray());
 			
 		}
 		#endregion
