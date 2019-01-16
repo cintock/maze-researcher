@@ -109,6 +109,8 @@ namespace Maze.Implementation
 			return CompleteCell(row, col);
 		}
 		
+        // todo: добавить метод, чтобы просто ставить границу
+
 		public void SetCell(Int32 row, Int32 col, MazeSide cell)
 		{
 			CheckCellExists(row, col);

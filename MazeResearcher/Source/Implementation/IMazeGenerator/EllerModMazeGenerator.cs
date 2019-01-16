@@ -8,12 +8,37 @@ using System.Collections.Generic;
 
 namespace Maze.Implementation
 {
-	/// <summary>
-	/// Генерация лабиринта по модифицированному алгоритму Эллера.
+    internal struct LineSegment
+    {
+        public LineSegment(Int32 first, Int32 last)
+        {
+            if (first <= last)
+            {
+                FirstPos = first;
+                LastPos = last;
+            }
+            else
+            {
+                throw new ArgumentException(
+                    "Начальная позиция должна быть меньше или равна конечной");
+            }
+        }
+
+        public Int32 FirstPos { get; }
+        public Int32 LastPos { get; }
+
+        public Int32 Length()
+        {
+            return LastPos - FirstPos + 1;
+        }
+    }
+
+    /// <summary>
+    /// Генерация лабиринта по модифицированному алгоритму Эллера.
     /// Самая нижняя строка всегда пустая, потому что из области на каждом
     /// уровне всегда оставляем только один выход, поэтому они сходятся внизу.
-	/// </summary>
-	public class EllerModMazeGenerator : IMazeGenerator
+    /// </summary>
+    public class EllerModMazeGenerator : IMazeGenerator
 	{
 		Int32 rowCount;
 		Int32 colCount;
@@ -87,66 +112,36 @@ namespace Maze.Implementation
 		#region Step 4
 		private void CreateBottomBorders(Int32 row)
 		{
-			/*
-			Dictionary<Int32, Int32> countNums = new Dictionary<Int32, Int32>();
-			for (Int32 c = 0; c < colCount; c++)
+            var lineSegments = new List<LineSegment>(mazeLineData.Length);
+            Int32 startIndex = 0;
+			while (startIndex < colCount - 1)
 			{
-				if (countNums.ContainsKey(arrData[row][c]))
+                Int32 endIndex;
+				for (endIndex = startIndex + 1; endIndex < colCount; endIndex++)
 				{
-					countNums[arrData[row][c]]++;
-				}
-				else
-				{
-					countNums.Add(arrData[row][c], 1);
-				}
-			}
-			
-			for (Int32 c = 0; c < colCount; c++)
-			{
-				if (countNums[arrData[row][c]] > 1)
-				{
-					if (rnd.Next() % 2 == 0)
-					{
-						maze.SetCell(row, c, maze.GetCell(row, c) | MazeSide.Bottom);
-						countNums[arrData[row][c]]--;
-					}
-				}
-			}			
-			*/
-			
-			// todo: это надо переписать нормально
-			
-			var pairs = new List<Tuple<Int32, Int32>>();
-			Int32 current = 0;
-			while (current < colCount - 1)
-			{
-				Int32 curEnd;
-				for (curEnd = current + 1; curEnd < colCount; curEnd++)
-				{
-					if (mazeLineData[current] != mazeLineData[curEnd])
+					if (mazeLineData[startIndex] != mazeLineData[endIndex])
 					{
 						break;
 					}
 				}
-				curEnd--;
-				DebugConsole.Instance().Log(String.Format("{0}: {1} - {2}", 
-				                                          mazeLineData[current], current, curEnd));
-				
-				pairs.Add(new Tuple<int, int>(current, curEnd));
-				current = curEnd + 1;
+
+                lineSegments.Add(new LineSegment(startIndex, endIndex - 1));
+		
+				startIndex = endIndex;
 			}
 						
-			foreach (Tuple<int, int> pair in pairs)
+			foreach (LineSegment segment in lineSegments)
 			{
-				Int32 len = pair.Item2 - pair.Item1 + 1;
-				if (len > 1)
+                Int32 length = segment.Length();
+                if (length > 1)
 				{
-					Int32 ex = rnd.Next(len - 1);
-					for (Int32 c = pair.Item1; c <= pair.Item2; c++)
+					Int32 openBottomPos = rnd.Next(length - 1);
+					for (Int32 c = segment.FirstPos; c <= segment.LastPos; c++)
 					{
-						if (c != ex + pair.Item1)
+						if (c != segment.FirstPos + openBottomPos)
 						{
-							maze.SetCell(row, c, maze.GetCell(row, c) | MazeSide.Bottom);
+                            // todo: когда появится новый метод - поменять
+                            maze.SetCell(row, c, maze.GetCell(row, c) | MazeSide.Bottom);
 						}
 					}
 				}
