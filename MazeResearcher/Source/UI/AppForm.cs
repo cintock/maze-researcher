@@ -71,6 +71,7 @@ namespace Maze.UI
             IMazeClusterer clusterer = new MazeClustererRecursion();
             clusters = clusterer.Cluster(maze);
             clusterCountTextbox.Text = clusters.Count().ToString();
+            OutputDebugMessages();
         }
 
         private Bitmap RenderMaze()
@@ -127,6 +128,7 @@ namespace Maze.UI
             OutputDebugMessages();
         }
 
+        // todo: это переделать надо
         void OutputDebugMessages()
         {
             if (debugLog.Count > 0)

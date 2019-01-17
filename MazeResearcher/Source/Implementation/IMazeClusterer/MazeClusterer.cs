@@ -44,6 +44,7 @@ namespace Maze.Implementation
             // Одновременного доступа к переменным из разных потоков тут не происходит.
             Thread clusterThread = new Thread(FindClusters, recursionStackSize);
             clusterThread.Start();
+            Thread.Yield();
             clusterThread.Join();
 
             if (threadExceptionMessage != null)

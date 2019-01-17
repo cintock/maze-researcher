@@ -32,6 +32,7 @@ namespace Maze.UI
 
         public T GetObject(Int32 index)
         {
+            // тут можно оптимизировать (выполняется поиск с проходом по элементам)
             return indexedNamedObjects.ElementAt(index).Value.ObjectValue;
         }
 
@@ -42,6 +43,8 @@ namespace Maze.UI
             {
                 names.Add(obj.Name);
             }
+
+
 
             return names;
         }
