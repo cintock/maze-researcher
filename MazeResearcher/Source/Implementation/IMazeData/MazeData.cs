@@ -19,62 +19,6 @@ namespace Maze.Implementation
 		{			
 			mazeMatrix = new MazeSide[rowCount, colCount];
 		}
-		
-        private MazeSide CompleteCell(int row, int col)
-        {
-            MazeSide resultCell = mazeMatrix[row, col];
-            if (row > 0)
-            {
-                if (mazeMatrix[row - 1, col].HasFlag(MazeSide.Bottom))
-                {
-                    resultCell |= MazeSide.Top;
-                }
-            }
-            else
-            {
-                resultCell |= MazeSide.Top;
-            }
-
-            if (row < RowCount - 1)
-            {
-                if (mazeMatrix[row + 1, col].HasFlag(MazeSide.Top))
-                {
-                    resultCell |= MazeSide.Bottom;
-                }
-            }
-
-            if (row == RowCount - 1)
-            {
-                resultCell |= MazeSide.Bottom;
-            }
-
-            if (col > 0)
-            {
-                if (mazeMatrix[row, col - 1].HasFlag(MazeSide.Right))
-                {
-                    resultCell |= MazeSide.Left;
-                }
-            }
-            else
-            {
-                resultCell |= MazeSide.Left;
-            }
-
-            if (col < ColCount - 1)
-            {
-                if (mazeMatrix[row, col + 1].HasFlag(MazeSide.Left))
-                {
-                    resultCell |= MazeSide.Right;
-                }
-            }
-
-            if (col == ColCount - 1)
-            {
-                resultCell |= MazeSide.Right;
-            }
-
-            return resultCell;
-        }
 
 		public override MazeSide GetCell(int row, int col)
 		{
@@ -128,6 +72,5 @@ namespace Maze.Implementation
             mazeMatrix[row, col] |= sides;
             UpdateNeighbourCells(row, col, sides);
         }
-
 	}
 }

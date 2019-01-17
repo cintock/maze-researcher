@@ -8,10 +8,9 @@ namespace Maze.Implementation
 {
     class StandardMazeDrawer : IMazeDrawer
     {
-        MazeDrawingSettings drawingSettings;
-
-        int rowCount;
-        int colCount;
+        private MazeDrawingSettings drawingSettings;
+        private int rowCount;
+        private int colCount;
 
         public Bitmap Draw(IMazeData maze, MazeClusters clusters = null)
         {
@@ -31,9 +30,7 @@ namespace Maze.Implementation
                 }
 
                 DrawMaze(painter, maze);
-
                 DrawBorder(painter);
-
             }
 
             return imageBitmap;
