@@ -16,14 +16,14 @@ namespace Maze.Implementation
     /// </summary>
     public class MazeClustererRecursion : IMazeClusterer
 	{
-        private const Int32 recursionStackSize = 10 * 1024 * 1024;
+        private const int recursionStackSize = 10 * 1024 * 1024;
 
         private MazeClusters clusters;
 		private IMazeData workMaze;
-		private Int32 rowCount;
-		private Int32 colCount;
+		private int rowCount;
+		private int colCount;
 
-        private String threadExceptionMessage = null;
+        private string threadExceptionMessage = null;
 		
 		public MazeClustererRecursion()
 		{
@@ -61,9 +61,9 @@ namespace Maze.Implementation
 
         private void FindClusters()
         {
-            Int32 nextRow = 0;
-            Int32 nextCol = 0;
-            Int32 clusterIndex = 1;
+            int nextRow = 0;
+            int nextCol = 0;
+            int clusterIndex = 1;
             Boolean containsNonClusteredCells = true;
             try
             {
@@ -82,12 +82,12 @@ namespace Maze.Implementation
         }
 
 
-        Boolean IsCellExists(Int32 row, Int32 col)
+        Boolean IsCellExists(int row, int col)
 		{
 			return ((row >= 0) && (row < rowCount) && (col >= 0) && (col < colCount));
 		}
 		
-		void WalkCluster(Int32 row, Int32 col, Int32 cluster)
+		void WalkCluster(int row, int col, int cluster)
 		{
 			if (IsCellExists(row, col))
 			{

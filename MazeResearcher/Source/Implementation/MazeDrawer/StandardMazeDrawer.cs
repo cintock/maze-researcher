@@ -10,8 +10,8 @@ namespace Maze.Implementation
     {
         MazeDrawingSettings drawingSettings;
 
-        Int32 rowCount;
-        Int32 colCount;
+        int rowCount;
+        int colCount;
 
         public Bitmap Draw(IMazeData maze, MazeClusters clusters = null)
         {
@@ -51,11 +51,11 @@ namespace Maze.Implementation
         private void DrawMaze(Graphics graphics, IMazeData maze)
         {
             Pen sizePen = new Pen(drawingSettings.SideColor, 1);
-            Int32 cellWidth = drawingSettings.CellWidth;
-            Int32 cellHeight = drawingSettings.CellHeight;
-            for (Int32 row = 0; row < rowCount; row++)
+            int cellWidth = drawingSettings.CellWidth;
+            int cellHeight = drawingSettings.CellHeight;
+            for (int row = 0; row < rowCount; row++)
             {
-                for (Int32 col = 0; col < colCount; col++)
+                for (int col = 0; col < colCount; col++)
                 {
                     if (maze.GetCell(row, col).HasFlag(MazeSide.Right))
                     {
@@ -82,21 +82,21 @@ namespace Maze.Implementation
 
         private void DrawClusters(Graphics graphics, MazeClusters clusters)
         {
-            Int32 clustersNumber = clusters.Count();
+            int clustersNumber = clusters.Count();
             Brush[] brushes = new Brush[clustersNumber];
-            for (Int32 i = 0; i < brushes.Length; i++)
+            for (int i = 0; i < brushes.Length; i++)
             {
                 brushes[i] = new SolidBrush(Palette.GetColor(i + 1));
             }
 
-            Int32 cellWidth = drawingSettings.CellWidth;
-            Int32 cellHeight = drawingSettings.CellHeight;
+            int cellWidth = drawingSettings.CellWidth;
+            int cellHeight = drawingSettings.CellHeight;
 
-            for (Int32 row = 0; row < rowCount; row++)
+            for (int row = 0; row < rowCount; row++)
             {
-                for (Int32 col = 0; col < colCount; col++)
+                for (int col = 0; col < colCount; col++)
                 {
-                    Int32 index = clusters.GetClusterIndex(row, col);
+                    int index = clusters.GetClusterIndex(row, col);
                     if (index > 0)
                     {
                         Rectangle cellRect = new Rectangle(col * cellWidth, row * cellHeight, 

@@ -14,8 +14,8 @@ namespace Maze
     /// </summary>
     public sealed class ProgramVersion
 	{
-        private readonly String VersionResourceName = "Maze.versioninfo.txt";
-        private readonly String UndefinedVersionString = "undefined";
+        private readonly string VersionResourceName = "Maze.versioninfo.txt";
+        private readonly string UndefinedVersionString = "undefined";
 
         private static ProgramVersion instance = null;
 		
@@ -29,9 +29,9 @@ namespace Maze
 			}
 		}
 		
-		public String VersionString()
+		public string VersionString()
 		{
-			String version = UndefinedVersionString;
+			string version = UndefinedVersionString;
 			using (Stream versionInfo =
 				Assembly.GetExecutingAssembly().GetManifestResourceStream(VersionResourceName))
 			{

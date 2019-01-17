@@ -17,8 +17,8 @@ namespace Maze.Implementation
 	{
 		private readonly Color backgroundColor = Color.White;
 		private readonly Pen bluePen = new Pen(Color.Blue, 1);
-		private readonly Int32 cellSize = 10;
-		private readonly Int32 circleSize = 6;
+		private readonly int cellSize = 10;
+		private readonly int circleSize = 6;
 
         public SimpleMazeDrawer()
 		{
@@ -26,9 +26,9 @@ namespace Maze.Implementation
 		
 		private void DrawMaze(Graphics painter, IMazeData maze)
 		{
-			for (Int32 row = 0; row < maze.RowCount; row++)
+			for (int row = 0; row < maze.RowCount; row++)
 			{
-				for (Int32 col = 0; col < maze.ColCount; col++)
+				for (int col = 0; col < maze.ColCount; col++)
 				{
 					Single BaseX = col * cellSize;
 					Single BaseY = row * cellSize;
@@ -62,24 +62,24 @@ namespace Maze.Implementation
 		
 		private void DrawClusters(Graphics painter, IMazeData maze, MazeClusters clusters)
 		{
-			Int32 clustersNumber = clusters.Count();
+			int clustersNumber = clusters.Count();
 			Brush[] brushes = new Brush[clustersNumber];
-			for (Int32 i = 0; i < brushes.Length; i++)
+			for (int i = 0; i < brushes.Length; i++)
 			{
 				brushes[i] = new SolidBrush(Palette.GetColor(i + 1));
 			}
 			
-			for (Int32 row = 0; row < maze.RowCount; row++)
+			for (int row = 0; row < maze.RowCount; row++)
 			{
-				for (Int32 col = 0; col < maze.ColCount; col++)
+				for (int col = 0; col < maze.ColCount; col++)
 				{							
-					Int32 BaseX = col * cellSize;
-					Int32 BaseY = row * cellSize;
+					int BaseX = col * cellSize;
+					int BaseY = row * cellSize;
 
 					if (!clusters.IsNonclustered(row, col))
 					{
-						Int32 circleShift = cellSize / 2 - circleSize / 2;
-						Int32 brushIndex = clusters.GetClusterIndex(row, col) - 1;
+						int circleShift = cellSize / 2 - circleSize / 2;
+						int brushIndex = clusters.GetClusterIndex(row, col) - 1;
 						painter.FillEllipse(brushes[brushIndex],
 						                    BaseX + circleShift,
 						                    BaseY + circleShift,

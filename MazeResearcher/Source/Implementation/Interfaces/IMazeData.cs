@@ -12,9 +12,9 @@ namespace Maze.Implementation
 	/// </summary>
 	public interface IMazeData
 	{
-		Int32 RowCount { get; }
-		Int32 ColCount { get; }
+		int RowCount { get; }
+		int ColCount { get; }
 		
-		MazeSide GetCell(Int32 row, Int32 col);
+		MazeSide GetCell(int row, int col);
 	}
 }

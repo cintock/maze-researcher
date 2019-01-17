@@ -16,7 +16,7 @@ namespace Maze.Implementation
 		{
 		}
 		
-		public IMazeData Generate(Int32 row, Int32 col)
+		public IMazeData Generate(int row, int col)
 		{
 			IMazeData maze = new MazeData(row, col);
 			return maze;

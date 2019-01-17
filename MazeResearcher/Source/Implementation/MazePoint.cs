@@ -9,13 +9,13 @@ namespace Maze.Implementation
 {
     public struct MazePoint
 	{
-		public MazePoint(Int32 row, Int32 col)
+		public MazePoint(int row, int col)
 		{
 			Row = row;
 			Col = col;
 		}
 		
-		public Int32 Row { get; }
-		public Int32 Col { get; }
+		public int Row { get; }
+		public int Col { get; }
 	}
 }

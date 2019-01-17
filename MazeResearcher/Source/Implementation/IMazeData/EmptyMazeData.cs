@@ -14,16 +14,16 @@ namespace Maze.Implementation
 	/// </summary>
 	public class EmptyMazeData : IMazeData
 	{
-		public EmptyMazeData(Int32 row, Int32 col)
+		public EmptyMazeData(int row, int col)
 		{
 			rowCount = row;
 			colCount = col;
 		}
 		
-		private readonly Int32 rowCount;
-		private readonly Int32 colCount;
+		private readonly int rowCount;
+		private readonly int colCount;
 		
-		public Int32 RowCount 
+		public int RowCount 
 		{
 			get 
 			{
@@ -31,7 +31,7 @@ namespace Maze.Implementation
 			}
 		}
 		
-		public Int32 ColCount
+		public int ColCount
 		{
 			get
 			{
@@ -39,7 +39,7 @@ namespace Maze.Implementation
 			}
 		}
 		
-		public MazeSide GetCell(Int32 r, Int32 c)
+		public MazeSide GetCell(int r, int c)
 		{
 			MazeSide cell = MazeSide.None;
 			if (r == 0)

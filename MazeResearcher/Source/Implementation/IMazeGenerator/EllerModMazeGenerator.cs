@@ -11,7 +11,7 @@ namespace Maze.Implementation
 {
     internal struct LineSegment
     {
-        public LineSegment(Int32 first, Int32 last)
+        public LineSegment(int first, int last)
         {
             if (first <= last)
             {
@@ -25,10 +25,10 @@ namespace Maze.Implementation
             }
         }
 
-        public Int32 FirstPos { get; }
-        public Int32 LastPos { get; }
+        public int FirstPos { get; }
+        public int LastPos { get; }
 
-        public Int32 Length()
+        public int Length()
         {
             return LastPos - FirstPos + 1;
         }
@@ -41,9 +41,9 @@ namespace Maze.Implementation
     /// </summary>
     public class EllerModMazeGenerator : IMazeGenerator
 	{
-        Int32 rowCount;
-		Int32 colCount;
-		List<Int32> mazeLineData;
+        int rowCount;
+		int colCount;
+		List<int> mazeLineData;
 		MazeData maze;
 		Random rnd;
 		
@@ -54,21 +54,21 @@ namespace Maze.Implementation
 				
 		private void CreateMazeData()
 		{
-			mazeLineData = new List<Int32>(new int[colCount]);
+			mazeLineData = new List<int>(new int[colCount]);
 			maze = new MazeData(rowCount, colCount);
 		}
 		
-        private static IList<Int32> CalcAvailableNumbers(IList<Int32> numbersArray)
+        private static IList<int> CalcAvailableNumbers(IList<int> numbersArray)
         {
             // todo: выделять память на всю строку быстрее, чем считать через linq
             // количество реально нужных элементов (скороее всего)
             // это можно проверить, если будет тест производительности
-            Int32[] availableNums = new Int32[numbersArray.Count(x => x == 0)];
+            int[] availableNums = new int[numbersArray.Count(x => x == 0)];
 
-            HashSet<Int32> usedNumbers = new HashSet<int>(numbersArray);
+            HashSet<int> usedNumbers = new HashSet<int>(numbersArray);
 
-            Int32 num = 1;
-            for (Int32 i = 0; i < availableNums.Length; i++)
+            int num = 1;
+            for (int i = 0; i < availableNums.Length; i++)
             {
                 while (usedNumbers.Contains(num))
                 {
@@ -81,12 +81,12 @@ namespace Maze.Implementation
         }
 
 		#region Step 2
-		private void InitRow(Int32 row)
+		private void InitRow(int row)
 		{
-            IList<Int32> availableNums = CalcAvailableNumbers(mazeLineData);
+            IList<int> availableNums = CalcAvailableNumbers(mazeLineData);
 
-            Int32 index = 0;
-			for (Int32 c = 0; c < colCount; c++)
+            int index = 0;
+			for (int c = 0; c < colCount; c++)
 			{
 				if (mazeLineData[c] == 0)
 				{
@@ -100,9 +100,9 @@ namespace Maze.Implementation
 		#endregion
 		
 		#region Step 3
-		private void CreateRightBorders(Int32 row)
+		private void CreateRightBorders(int row)
 		{
-			for (Int32 c = 0; c < colCount - 1; c++)
+			for (int c = 0; c < colCount - 1; c++)
 			{
 				if (mazeLineData[c] == mazeLineData[c + 1])
 				{
@@ -125,13 +125,13 @@ namespace Maze.Implementation
 		#endregion
 		
 		#region Step 4
-		private void CreateBottomBorders(Int32 row)
+		private void CreateBottomBorders(int row)
 		{
             var lineSegments = new List<LineSegment>(mazeLineData.Count);
-            Int32 startIndex = 0;
+            int startIndex = 0;
 			while (startIndex < colCount - 1)
 			{
-                Int32 endIndex;
+                int endIndex;
 				for (endIndex = startIndex + 1; endIndex < colCount; endIndex++)
 				{
 					if (mazeLineData[startIndex] != mazeLineData[endIndex])
@@ -147,11 +147,11 @@ namespace Maze.Implementation
 						
 			foreach (LineSegment segment in lineSegments)
 			{
-                Int32 length = segment.Length();
+                int length = segment.Length();
                 if (length > 1)
 				{
-					Int32 openBottomPos = rnd.Next(length - 1);
-					for (Int32 c = segment.FirstPos; c <= segment.LastPos; c++)
+					int openBottomPos = rnd.Next(length - 1);
+					for (int c = segment.FirstPos; c <= segment.LastPos; c++)
 					{
 						if (c != segment.FirstPos + openBottomPos)
 						{
@@ -165,9 +165,9 @@ namespace Maze.Implementation
 		#endregion
 		
 		#region Step 5
-		private void PrepareNextRow(Int32 row)
+		private void PrepareNextRow(int row)
 		{
-			for (Int32 c = 0; c < colCount; c++)
+			for (int c = 0; c < colCount; c++)
 			{
 				if (maze.GetCell(row, c).HasFlag(MazeSide.Bottom))
 				{
@@ -179,7 +179,7 @@ namespace Maze.Implementation
 		}
 		#endregion
 		
-		public IMazeData Generate(Int32 row, Int32 col)
+		public IMazeData Generate(int row, int col)
 		{
 			rowCount = row;
 			colCount = col;
@@ -188,7 +188,7 @@ namespace Maze.Implementation
 			
 			DebugConsole.Instance().Log(Environment.NewLine);
 			
-			for (Int32 r = 0; r < rowCount - 1; r++)
+			for (int r = 0; r < rowCount - 1; r++)
 			{
 				DebugConsole.Instance().Log(Environment.NewLine);
 				

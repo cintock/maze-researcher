@@ -123,8 +123,8 @@ namespace Maze.UI
                 drawer = drawerSelected;
             }
 
-            drawingSettings.CellHeight = (Int32)cellHeightNumericUpDown.Value;
-            drawingSettings.CellWidth = (Int32)cellWidthNumericUpDown.Value;
+            drawingSettings.CellHeight = (int)cellHeightNumericUpDown.Value;
+            drawingSettings.CellWidth = (int)cellWidthNumericUpDown.Value;
 
             debugLogging = debugLoggingCheckbox.Checked;
 

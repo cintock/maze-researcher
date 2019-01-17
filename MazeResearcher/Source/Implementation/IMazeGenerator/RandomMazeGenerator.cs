@@ -16,13 +16,13 @@ namespace Maze.Implementation
 		{
 		}
 		
-		public IMazeData Generate(Int32 row, Int32 col)
+		public IMazeData Generate(int row, int col)
 		{
 			MazeData maze = new MazeData(row, col);
 			Random rnd = new Random();
-			for (Int32 i = 0; i < row; i++)
+			for (int i = 0; i < row; i++)
 			{
-				for (Int32 j = 0; j < col; j++)
+				for (int j = 0; j < col; j++)
 				{
 					if (rnd.Next() % 2 == 0)
 					{

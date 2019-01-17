@@ -14,10 +14,10 @@ namespace Maze.Implementation
 	{
         private readonly MazeSide[,] mazeMatrix;
 		
-		public Int32 RowCount { get; private set; }
-		public Int32 ColCount { get; private set; }
+		public int RowCount { get; private set; }
+		public int ColCount { get; private set; }
 
-        public MazeData(Int32 row, Int32 col)
+        public MazeData(int row, int col)
 		{
 			CheckDimensions(row, col);
 			RowCount = row;
@@ -25,12 +25,12 @@ namespace Maze.Implementation
 			mazeMatrix = new MazeSide[RowCount, ColCount];
 		}
 		
-		public Boolean IsCellExists(Int32 row, Int32 col)
+		public Boolean IsCellExists(int row, int col)
 		{
 			return ((row >= 0) && (row < RowCount) && (col >= 0) && (col < ColCount));
 		}
 		
-		private static void CheckDimensions(Int32 row, Int32 col)
+		private static void CheckDimensions(int row, int col)
 		{
 			if (!((row > 0) && (col > 0)))
 			{
@@ -38,7 +38,7 @@ namespace Maze.Implementation
 			}			
 		}	
 		
-		private void CheckCellExists(Int32 row, Int32 col)
+		private void CheckCellExists(int row, int col)
 		{
 			if (!IsCellExists(row, col))
 			{
@@ -46,7 +46,7 @@ namespace Maze.Implementation
 			}
 		}
 		
-        private MazeSide CompleteCell(Int32 row, Int32 col)
+        private MazeSide CompleteCell(int row, int col)
         {
             MazeSide resultCell = mazeMatrix[row, col];
             if (row > 0)
@@ -102,7 +102,7 @@ namespace Maze.Implementation
             return resultCell;
         }
 
-		public MazeSide GetCell(Int32 row, Int32 col)
+		public MazeSide GetCell(int row, int col)
 		{
             CheckCellExists(row, col);
 
@@ -111,7 +111,7 @@ namespace Maze.Implementation
 		
         // todo: добавить метод, чтобы просто ставить границу
 
-		public void SetCell(Int32 row, Int32 col, MazeSide cell)
+		public void SetCell(int row, int col, MazeSide cell)
 		{
 			CheckCellExists(row, col);
 			mazeMatrix[row, col] = cell;

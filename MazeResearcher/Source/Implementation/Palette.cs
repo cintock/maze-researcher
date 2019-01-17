@@ -18,14 +18,14 @@ namespace Maze.Implementation
 	{
 		private const UInt32 OpaqueColor = 0xFF000000;
 		
-		public static Color GetColor(Int32 index)
+		public static Color GetColor(int index)
 		{
 			if (index >= colors.Length)
 			{
 				index = index % colors.Length;
 			}
 			UInt32 argbValue = OpaqueColor | colors[index];
-			return Color.FromArgb(unchecked((Int32)argbValue));
+			return Color.FromArgb(unchecked((int)argbValue));
 		}
 		
 		// Список хорошо различимых цветов
