@@ -6,11 +6,11 @@ using System.Text;
 
 namespace Maze.Implementation
 {
-    class StandardMazeDrawer : IMazeDrawer
+    public class StandardMazeDrawer : IMazeDrawer
     {
-        private MazeDrawingSettings drawingSettings;
-        private int rowCount;
-        private int colCount;
+        protected MazeDrawingSettings drawingSettings;
+        protected int rowCount;
+        protected int colCount;
 
         public Bitmap Draw(IMazeData maze, MazeClusters clusters = null)
         {
@@ -36,7 +36,7 @@ namespace Maze.Implementation
             return imageBitmap;
         }
 
-        private void DrawBorder(Graphics graphics)
+        protected virtual void DrawBorder(Graphics graphics)
         {
             Pen borderPen = new Pen(drawingSettings.BorderColor, 1);
             graphics.DrawRectangle(borderPen,
@@ -45,7 +45,7 @@ namespace Maze.Implementation
                 drawingSettings.CellHeight * rowCount));
         }
 
-        private void DrawMaze(Graphics graphics, IMazeData maze)
+        protected virtual void DrawMaze(Graphics graphics, IMazeData maze)
         {
             Pen sizePen = new Pen(drawingSettings.SideColor, 1);
             int cellWidth = drawingSettings.CellWidth;
@@ -77,7 +77,7 @@ namespace Maze.Implementation
             }
         }
 
-        private void DrawClusters(Graphics graphics, MazeClusters clusters)
+        protected virtual void DrawClusters(Graphics graphics, MazeClusters clusters)
         {
             int clustersNumber = clusters.Count();
             Brush[] brushes = new Brush[clustersNumber];

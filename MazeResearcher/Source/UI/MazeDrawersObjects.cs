@@ -9,7 +9,8 @@ namespace Maze.UI
     internal enum MazeDrawersEnum
     {
         SimpleMazeDrawer,
-        StandardMazeDrawer
+        StandardMazeDrawer,
+        CellDebugMazeDrawer
     }
 
     internal class MazeDrawersObjects :
@@ -36,6 +37,10 @@ namespace Maze.UI
             RegisterObject(MazeDrawersEnum.StandardMazeDrawer, 
                 new StandardMazeDrawer(),
                 "Стандартная отрисовка");
+
+            RegisterObject(MazeDrawersEnum.CellDebugMazeDrawer,
+                new CellDebugMazeDrawer(),
+                "Отладка содержимого ячеек");
         }
     }
 }

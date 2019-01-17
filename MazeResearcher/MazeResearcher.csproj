@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="Source\Implementation\DebugConsole.cs" />
     <Compile Include="Source\Implementation\IMazeData\BaseMazeData.cs" />
+    <Compile Include="Source\Implementation\MazeDrawer\CellDebugMazeDrawer.cs" />
     <Compile Include="Source\Implementation\MazeDrawer\StandardMazeDrawer.cs" />
     <Compile Include="Source\Implementation\MazeDrawingSettings.cs" />
     <Compile Include="Source\Implementation\MazePoint.cs" />
