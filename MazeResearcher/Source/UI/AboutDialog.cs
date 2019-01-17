@@ -14,7 +14,7 @@ namespace Maze.UI
         public AboutDialog()
         {
             InitializeComponent();
-            this.Text = String.Format("О программе {0}", AssemblyTitle);
+            this.Text = string.Format("О программе {0}", AssemblyTitle);
             this.labelProductName.Text = AssemblyProduct;
             this.labelCopyright.Text = AssemblyCopyright;
             this.labelCompanyName.Text = AssemblyCompany;

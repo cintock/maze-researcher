@@ -17,7 +17,7 @@ namespace Maze.UI
 
         MazeDrawingSettings mazeDrawingSettings = new MazeDrawingSettings();
 
-        List<String> debugLog = new List<String>();
+        List<string> debugLog = new List<string>();
 
         IMazeData maze;
 
@@ -71,6 +71,7 @@ namespace Maze.UI
             IMazeClusterer clusterer = new MazeClustererRecursion();
             clusters = clusterer.Cluster(maze);
             clusterCountTextbox.Text = clusters.Count().ToString();
+            OutputDebugMessages();
         }
 
         private Bitmap RenderMaze()
@@ -127,22 +128,23 @@ namespace Maze.UI
             OutputDebugMessages();
         }
 
+        // todo: это переделать надо
         void OutputDebugMessages()
         {
             if (debugLog.Count > 0)
             {
-                debugConsole.Text = String.Join(Environment.NewLine, debugLog);
+                debugConsole.Text = string.Join(Environment.NewLine, debugLog);
                 debugLog.Clear();
             }
         }
 
         void SizeTrackbarChanged(object sender, EventArgs e)
         {
-            mazeSizeLabel.Text = String.Format("Строк {0}; Столбцов {1}",
+            mazeSizeLabel.Text = string.Format("Строк {0}; Столбцов {1}",
                                                 mazeRowsTrackbar.Value, mazeColumnsTrackbar.Value);
         }
 
-        void WriteDebug(String mes)
+        void WriteDebug(string mes)
         {
             debugLog.Add(mes);
         }

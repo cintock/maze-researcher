@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace Maze.Implementation
 {
-	public delegate void DebugMessageCallbackDelegate(String message);
+	public delegate void DebugMessageCallbackDelegate(string message);
 	
 	/// <summary>
 	/// Синглтон для выполнения отладочного логирования
@@ -39,7 +39,7 @@ namespace Maze.Implementation
 			debugOutput = output;
 		}
 		
-		public void Log(String message)
+		public void Log(string message)
 		{
 			if (debugOutput != null)
 			{
@@ -47,9 +47,9 @@ namespace Maze.Implementation
 			}
 		}
 		
-		public void LogNumLine(String name, Int32[] val)
+		public void LogNumLine(string name, int[] val)
 		{
-			Log(String.Format("{0,15}: {1,30}", name, String.Join(" ", val)));
+			Log(string.Format("{0,15}: {1,30}", name, string.Join(" ", val)));
 		}
 	}
 }

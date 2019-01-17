@@ -19,7 +19,7 @@ namespace Maze.UI
         protected abstract void RegisterObjects();
 
         protected void RegisterObject(Index index, 
-            T drawer, String userFriendlyName)
+            T drawer, string userFriendlyName)
         {
             NamedObject<T> obj = new NamedObject<T>(drawer, userFriendlyName);
             indexedNamedObjects.Add(index, obj);
@@ -30,18 +30,21 @@ namespace Maze.UI
             return indexedNamedObjects[index].ObjectValue;
         }
 
-        public T GetObject(Int32 index)
+        public T GetObject(int index)
         {
+            // тут можно оптимизировать (выполняется поиск с проходом по элементам)
             return indexedNamedObjects.ElementAt(index).Value.ObjectValue;
         }
 
-        public List<String> GetNamesList()
+        public List<string> GetNamesList()
         {
-            List<String> names = new List<String>();
+            List<string> names = new List<string>();
             foreach (NamedObject<T> obj in indexedNamedObjects.Values)
             {
                 names.Add(obj.Name);
             }
+
+
 
             return names;
         }

@@ -16,21 +16,21 @@ namespace Maze.Implementation
 		{
 		}
 		
-		public IMazeData Generate(Int32 row, Int32 col)
+		public IMazeData Generate(int row, int col)
 		{
 			MazeData maze = new MazeData(row, col);
 			Random rnd = new Random();
-			for (Int32 i = 0; i < row; i++)
+			for (int r = 0; r < row; r++)
 			{
-				for (Int32 j = 0; j < col; j++)
+				for (int c = 0; c < col; c++)
 				{
 					if (rnd.Next() % 2 == 0)
 					{
-						maze.SetCell(i, j, MazeSide.Right);
+                        maze.AddSides(r, c, MazeSide.Right);
 					}
 					if (rnd.Next() % 2 == 0)
 					{
-						maze.SetCell(i, j, maze.GetCell(i, j) | MazeSide.Bottom);
+                        maze.AddSides(r, c, MazeSide.Bottom);
 					}
 				}
 			}

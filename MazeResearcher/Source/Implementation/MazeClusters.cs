@@ -16,13 +16,13 @@ namespace Maze.Implementation
 	/// </summary>
 	public class MazeClusters
 	{
-		private Int32[,] attainableCells;
-		private readonly Int32 rowCount;
-		private readonly Int32 colCount;
+		private readonly int[,] attainableCells;
+		private readonly int rowCount;
+		private readonly int colCount;
 		
-		public MazeClusters(Int32 row, Int32 col)
+		public MazeClusters(int row, int col)
 		{
-			attainableCells = new Int32[row, col];
+			attainableCells = new int[row, col];
 			rowCount = row;
 			colCount = col;
 		}
@@ -32,27 +32,53 @@ namespace Maze.Implementation
 		{			
 		}
 		
-		public Boolean IsNonclustered(Int32 row, Int32 col)
+		public Boolean IsNonclustered(int row, int col)
 		{
 			return (attainableCells[row, col] == 0);				
 		}
 		
-		public void SetClusterIndex(Int32 row, Int32 col, Int32 clusterIndex)
+		public void SetClusterIndex(int row, int col, int clusterIndex)
 		{
 			attainableCells[row, col] = clusterIndex;
 		}
 		
-		public Int32 GetClusterIndex(Int32 row, Int32 col)
+		public int GetClusterIndex(int row, int col)
 		{
 			return attainableCells[row, col];
 		}
 
-		public Int32 Count()
+        public bool GetNextNonClusteredCell(out int nextRow, out int nextCol)
+        {
+            bool exists = false;
+            nextRow = -1;
+            nextCol = -1;
+            for (int row = 0; row < rowCount; row++)
+            {
+                for (int col = 0; col < colCount; col++)
+                {
+                    if (IsNonclustered(row, col))
+                    {
+                        exists = true;
+                        nextRow = row;
+                        nextCol = col;
+                        break;
+                    }
+                }
+                if (exists)
+                {
+                    break;
+                }
+            }
+
+            return exists;
+        }
+
+        public int Count()
 		{
-			HashSet<Int32> clusters = new HashSet<Int32>();
-			for (Int32 row = 0; row < rowCount; row++)
+			HashSet<int> clusters = new HashSet<int>();
+			for (int row = 0; row < rowCount; row++)
 			{
-				for (Int32 col = 0; col < colCount; col++)
+				for (int col = 0; col < colCount; col++)
 				{
 					if (attainableCells[row, col] != 0)
 					{

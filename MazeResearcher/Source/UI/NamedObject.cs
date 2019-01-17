@@ -14,7 +14,7 @@ namespace Maze.UI
 	/// </summary>    
 	internal class NamedObject<T>
     {
-		public NamedObject(T objectValue, String name)
+		public NamedObject(T objectValue, string name)
 		{
 			ObjectValue = objectValue;
 			Name = name;
@@ -26,7 +26,7 @@ namespace Maze.UI
 			private set; 
 		}
 		
-		public String Name 
+		public string Name 
 		{ 
 			get; 
 			private set; 
