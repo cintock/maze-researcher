@@ -60,41 +60,48 @@ namespace Maze.Implementation
             Int32 nextRow = 0;
             Int32 nextCol = 0;
             Int32 clusterIndex = 1;
-            Boolean allClustered = false;
+            Boolean containsNonClusteredCells = true;
             try
             {
-                while (!allClustered)
+                while (containsNonClusteredCells)
                 {
                     GoCell(nextRow, nextCol, clusterIndex++);
-                    allClustered = true;
-                    for (Int32 row = 0; row < rowCount; row++)
-                    {
-                        for (Int32 col = 0; col < colCount; col++)
-                        {
-                            if (clusters.IsNonclustered(row, col))
-                            {
-                                allClustered = false;
-                                nextRow = row;
-                                nextCol = col;
-                                break;
-                            }
-                        }
-                        if (!allClustered)
-                        {
-                            break;
-                        }
-                    }
+                    containsNonClusteredCells = NextNonClusteredCell(ref nextRow, ref nextCol);
                 }
             }
             catch (Exception ex)
             {
-                // мы ловим тут исключения, поскольку мето выполняется в потоке,
+                // мы ловим тут исключения, поскольку метод выполняется в потоке,
                 // но StackOverflowException здесь все равно не отловится
                 threadExceptionMessage = ex.Message;
             }
         }
-		
-		Boolean IsCellExists(Int32 row, Int32 col)
+
+        private bool NextNonClusteredCell(ref int nextRow, ref int nextCol)
+        {
+            bool exists = false;
+            for (Int32 row = 0; row < rowCount; row++)
+            {
+                for (Int32 col = 0; col < colCount; col++)
+                {
+                    if (clusters.IsNonclustered(row, col))
+                    {
+                        exists = true;
+                        nextRow = row;
+                        nextCol = col;
+                        break;
+                    }
+                }
+                if (exists)
+                {
+                    break;
+                }
+            }
+
+            return exists;
+        }
+
+        Boolean IsCellExists(Int32 row, Int32 col)
 		{
 			return ((row >= 0) && (row < rowCount) && (col >= 0) && (col < colCount));
 		}
