@@ -12,56 +12,18 @@ namespace Maze.Implementation
     /// Содержит только размеры лабиринта.
     /// Внутренней матрицы значений ячеек нет.
 	/// </summary>
-	public class EmptyMazeData : IMazeData
+	public class EmptyMazeData : BaseMazeData
 	{
-		public EmptyMazeData(int row, int col)
+		public EmptyMazeData(int row, int col) : 
+            base(row, col)
 		{
-			rowCount = row;
-			colCount = col;
 		}
-		
-		private readonly int rowCount;
-		private readonly int colCount;
-		
-		public int RowCount 
-		{
-			get 
-			{
-				return rowCount;
-			}
-		}
-		
-		public int ColCount
-		{
-			get
-			{
-				return colCount;
-			}
-		}
-		
-		public MazeSide GetCell(int r, int c)
-		{
-			MazeSide cell = MazeSide.None;
-			if (r == 0)
-			{
-				cell |= MazeSide.Top;				
-			}
-			
-			if (c == 0)
-			{
-				cell |= MazeSide.Left;
-			}
-			
-			if (r == rowCount - 1)
-			{
-				cell |= MazeSide.Bottom;
-			}
-			
-			if (c == colCount - 1)
-			{
-				cell |= MazeSide.Right;
-			}
-			return cell;
-		}
-	}
+
+        public override MazeSide GetCell(int row, int col)
+        {
+            MazeSide cell = MazeSide.None;
+            cell = AddExternalBorders(row, col, cell);
+            return cell;
+        }
+    }
 }

@@ -106,13 +106,13 @@ namespace Maze.Implementation
 			{
 				if (mazeLineData[c] == mazeLineData[c + 1])
 				{
-					maze.SetCell(row, c, MazeSide.Right);
+					maze.AddSides(row, c, MazeSide.Right);
 				}
 				else
 				{
 					if (rnd.Next() % 2 == 0)
 					{
-						maze.SetCell(row, c, MazeSide.Right);
+						maze.AddSides(row, c, MazeSide.Right);
 					}
 					else
 					{
@@ -156,7 +156,7 @@ namespace Maze.Implementation
 						if (c != segment.FirstPos + openBottomPos)
 						{
                             // todo: когда появится новый метод - поменять
-                            maze.SetCell(row, c, maze.GetCell(row, c) | MazeSide.Bottom);
+                            maze.AddSides(row, c, MazeSide.Bottom);
 						}
 					}
 				}

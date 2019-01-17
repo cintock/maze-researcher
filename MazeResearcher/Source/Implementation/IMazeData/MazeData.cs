@@ -10,40 +10,14 @@ namespace Maze.Implementation
 	/// <summary>
 	/// Класс для хранения лабиринта
 	/// </summary>
-	public class MazeData : IMazeData
+	public class MazeData : BaseMazeData
 	{
         private readonly MazeSide[,] mazeMatrix;
-		
-		public int RowCount { get; private set; }
-		public int ColCount { get; private set; }
 
-        public MazeData(int row, int col)
-		{
-			CheckDimensions(row, col);
-			RowCount = row;
-			ColCount = col;
-			mazeMatrix = new MazeSide[RowCount, ColCount];
-		}
-		
-		public Boolean IsCellExists(int row, int col)
-		{
-			return ((row >= 0) && (row < RowCount) && (col >= 0) && (col < ColCount));
-		}
-		
-		private static void CheckDimensions(int row, int col)
-		{
-			if (!((row > 0) && (col > 0)))
-			{
-				throw new IndexOutOfRangeException("Некорректная размерность лабиринта");
-			}			
-		}	
-		
-		private void CheckCellExists(int row, int col)
-		{
-			if (!IsCellExists(row, col))
-			{
-				throw new IndexOutOfRangeException("Ячейка лабиринта не существует");
-			}
+        public MazeData(int row, int col) : 
+            base(row, col)
+		{			
+			mazeMatrix = new MazeSide[rowCount, colCount];
 		}
 		
         private MazeSide CompleteCell(int row, int col)
@@ -102,20 +76,58 @@ namespace Maze.Implementation
             return resultCell;
         }
 
-		public MazeSide GetCell(int row, int col)
+		public override MazeSide GetCell(int row, int col)
 		{
             CheckCellExists(row, col);
-
-			return CompleteCell(row, col);
+            MazeSide cell = AddExternalBorders(row, col, mazeMatrix[row, col]);
+            return cell;
 		}
 		
-        // todo: добавить метод, чтобы просто ставить границу
+        private void UpdateNeighbourCells(int row, int col, MazeSide sides)
+        {
+            if (sides.HasFlag(MazeSide.Top))
+            {
+                int upperRow = row - 1;
+                if (IsCellExists(upperRow, col))
+                {
+                    mazeMatrix[upperRow, col] |= MazeSide.Bottom;
+                }
+            }
 
-		public void SetCell(int row, int col, MazeSide cell)
-		{
-			CheckCellExists(row, col);
-			mazeMatrix[row, col] = cell;
-		}
-		
+            if (sides.HasFlag(MazeSide.Bottom))
+            {
+                int lowerRow = row + 1;
+                if (IsCellExists(lowerRow, col))
+                {
+                    mazeMatrix[lowerRow, col] |= MazeSide.Top;
+                }
+            }
+
+            if (sides.HasFlag(MazeSide.Right))
+            {
+                int rightCol = col + 1;
+                if (IsCellExists(row, rightCol))
+                {
+                    mazeMatrix[row, rightCol] |= MazeSide.Left;
+                }
+            }
+
+            if (sides.HasFlag(MazeSide.Left))
+            {
+                int leftCol = col - 1;
+                if (IsCellExists(row, leftCol))
+                {
+                    mazeMatrix[row, leftCol] |= MazeSide.Right;
+                }
+            }
+        }
+
+        public void AddSides(int row, int col, MazeSide sides)
+        {
+            CheckCellExists(row, col);
+            mazeMatrix[row, col] |= sides;
+            UpdateNeighbourCells(row, col, sides);
+        }
+
 	}
 }
