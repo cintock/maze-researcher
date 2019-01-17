@@ -15,6 +15,6 @@ namespace Maze.Implementation
 	{
         void SetDrawingSettings(MazeDrawingSettings settings);
 
-        Bitmap Draw(IMazeData maze, MazeClusters clusters = null);
+        Bitmap Draw(IMazeView maze, MazeClusters clusters = null);
 	}
 }

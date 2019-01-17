@@ -19,11 +19,11 @@ namespace Maze.UI
 
         List<string> debugLog = new List<string>();
 
-        IMazeData maze;
+        IMazeView maze;
 
         MazeClusters clusters;
 
-        Boolean debugConsoleEnabled;
+        bool debugConsoleEnabled;
 
         public AppForm()
         {

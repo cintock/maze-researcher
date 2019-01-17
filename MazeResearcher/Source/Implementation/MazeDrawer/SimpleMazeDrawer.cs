@@ -24,7 +24,7 @@ namespace Maze.Implementation
 		{
 		}
 		
-		private void DrawMaze(Graphics painter, IMazeData maze)
+		private void DrawMaze(Graphics painter, IMazeView maze)
 		{
 			for (int row = 0; row < maze.RowCount; row++)
 			{
@@ -60,7 +60,7 @@ namespace Maze.Implementation
 			}
 		}
 		
-		private void DrawClusters(Graphics painter, IMazeData maze, MazeClusters clusters)
+		private void DrawClusters(Graphics painter, IMazeView maze, MazeClusters clusters)
 		{
 			int clustersNumber = clusters.Count();
 			Brush[] brushes = new Brush[clustersNumber];
@@ -89,7 +89,7 @@ namespace Maze.Implementation
 			}
 		}
 		
-		public Bitmap Draw(IMazeData maze, MazeClusters clusters = null)
+		public Bitmap Draw(IMazeView maze, MazeClusters clusters = null)
 		{
 			Bitmap imageBitmap = new Bitmap(maze.ColCount * cellSize + 1, maze.RowCount * cellSize + 1);
 			using (Graphics painter = Graphics.FromImage(imageBitmap))

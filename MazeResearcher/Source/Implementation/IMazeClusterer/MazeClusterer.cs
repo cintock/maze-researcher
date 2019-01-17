@@ -19,7 +19,7 @@ namespace Maze.Implementation
         private const int recursionStackSize = 10 * 1024 * 1024;
 
         private MazeClusters clusters;
-		private IMazeData workMaze;
+		private IMazeView processedMaze;
 		private int rowCount;
 		private int colCount;
 
@@ -29,12 +29,12 @@ namespace Maze.Implementation
 		{
         }
 		
-		public MazeClusters Cluster(IMazeData maze)
+		public MazeClusters Cluster(IMazeView maze)
 		{
-			workMaze = maze;
+			processedMaze = maze;
 			rowCount = maze.RowCount;
 			colCount = maze.ColCount;
-			clusters = new MazeClusters(workMaze);
+			clusters = new MazeClusters(processedMaze);
 
             threadExceptionMessage = null;
 
@@ -64,7 +64,7 @@ namespace Maze.Implementation
             int nextRow = 0;
             int nextCol = 0;
             int clusterIndex = 1;
-            Boolean containsNonClusteredCells = true;
+            bool containsNonClusteredCells = true;
             try
             {
                 while (containsNonClusteredCells)
@@ -73,6 +73,8 @@ namespace Maze.Implementation
                     containsNonClusteredCells = clusters.GetNextNonClusteredCell(out nextRow, out nextCol);
                 }
             }
+            // метод выполняем в отдельном потоке, 
+            // поэтому отлавливаем все возможные исключения
             catch (Exception ex)
             {
                 // мы ловим тут исключения, поскольку метод выполняется в потоке,
@@ -81,10 +83,10 @@ namespace Maze.Implementation
             }
         }
 
-
-        Boolean IsCellExists(int row, int col)
+        bool IsCellExists(int row, int col)
 		{
-			return ((row >= 0) && (row < rowCount) && (col >= 0) && (col < colCount));
+			return ((row >= 0) && (row < rowCount) && 
+                (col >= 0) && (col < colCount));
 		}
 		
 		void WalkCluster(int row, int col, int cluster)
@@ -93,7 +95,7 @@ namespace Maze.Implementation
 			{
 				if (clusters.IsNonclustered(row, col))
 				{
-					MazeSide currentCell = workMaze.GetCell(row, col);
+					MazeSide currentCell = processedMaze.GetCell(row, col);
 					clusters.SetClusterIndex(row, col, cluster);
 					
 					if (IsCellExists(row - 1, col))

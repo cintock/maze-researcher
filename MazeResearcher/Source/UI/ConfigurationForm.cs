@@ -12,7 +12,7 @@ namespace Maze.UI
 {
     public partial class ConfigurationForm : Form
     {
-        private Boolean debugLogging;
+        private bool debugLogging;
 
         private MazeDrawingSettings drawingSettings;
 
@@ -49,7 +49,7 @@ namespace Maze.UI
             }
         }
 
-        public Boolean DebugLogging
+        public bool DebugLogging
         {
             get
             {

@@ -16,7 +16,7 @@ namespace Maze.Implementation
 		{
 		}
 		
-		public IMazeData Generate(int row, int col)
+		public IMazeView Generate(int row, int col)
 		{
 			MazeData maze = new MazeData(row, col);
 			Random rnd = new Random();

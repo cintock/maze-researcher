@@ -12,7 +12,7 @@ namespace Maze.Implementation
         protected int rowCount;
         protected int colCount;
 
-        public Bitmap Draw(IMazeData maze, MazeClusters clusters = null)
+        public Bitmap Draw(IMazeView maze, MazeClusters clusters = null)
         {
             rowCount = maze.RowCount;
             colCount = maze.ColCount;
@@ -45,7 +45,7 @@ namespace Maze.Implementation
                 drawingSettings.CellHeight * rowCount));
         }
 
-        protected virtual void DrawMaze(Graphics graphics, IMazeData maze)
+        protected virtual void DrawMaze(Graphics graphics, IMazeView maze)
         {
             Pen sizePen = new Pen(drawingSettings.SideColor, 1);
             int cellWidth = drawingSettings.CellWidth;

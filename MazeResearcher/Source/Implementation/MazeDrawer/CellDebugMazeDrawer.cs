@@ -13,7 +13,7 @@ namespace Maze.Implementation
 
         }
 
-        protected override void DrawMaze(Graphics graphics, IMazeData maze)
+        protected override void DrawMaze(Graphics graphics, IMazeView maze)
         {
             const int borderShift = 2;
             Pen sizePen = new Pen(drawingSettings.SideColor, 1);

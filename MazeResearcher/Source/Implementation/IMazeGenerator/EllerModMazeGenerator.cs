@@ -179,7 +179,7 @@ namespace Maze.Implementation
 		}
 		#endregion
 		
-		public IMazeData Generate(int row, int col)
+		public IMazeView Generate(int row, int col)
 		{
 			rowCount = row;
 			colCount = col;

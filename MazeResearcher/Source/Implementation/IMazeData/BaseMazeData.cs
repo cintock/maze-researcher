@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Maze.Implementation
 {
-    public abstract class BaseMazeData : IMazeData
+    public abstract class BaseMazeData : IMazeView
     {
         protected readonly int rowCount;
         protected readonly int colCount;
@@ -58,7 +58,7 @@ namespace Maze.Implementation
             return cell;
         }
 
-        public Boolean IsCellExists(int row, int col)
+        public bool IsCellExists(int row, int col)
         {
             return ((row >= 0) && (row < rowCount) && 
                 (col >= 0) && (col < colCount));

@@ -13,6 +13,6 @@ namespace Maze.Implementation
 	/// </summary>
 	public interface IMazeClusterer
 	{
-		MazeClusters Cluster(IMazeData maze);
+		MazeClusters Cluster(IMazeView maze);
 	}
 }
