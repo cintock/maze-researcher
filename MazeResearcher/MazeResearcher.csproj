@@ -80,7 +80,7 @@
     <Compile Include="Source\Implementation\IMazeGenerator\EmptyDummyMazeGenerator.cs" />
     <Compile Include="Source\Implementation\IMazeGenerator\EmptyMazeGenerator.cs" />
     <Compile Include="Source\Implementation\IMazeGenerator\RandomMazeGenerator.cs" />
-    <Compile Include="Source\Implementation\Interfaces\IMazeData.cs" />
+    <Compile Include="Source\Implementation\Interfaces\IMazeView.cs" />
     <Compile Include="Source\Implementation\Interfaces\IMazeDrawer.cs" />
     <Compile Include="Source\Implementation\Interfaces\IMazeGenerator.cs" />
     <Compile Include="Source\Implementation\Interfaces\IMazeClusterer.cs" />

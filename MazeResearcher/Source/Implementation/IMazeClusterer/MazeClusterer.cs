@@ -83,22 +83,16 @@ namespace Maze.Implementation
             }
         }
 
-        bool IsCellExists(int row, int col)
-		{
-			return ((row >= 0) && (row < rowCount) && 
-                (col >= 0) && (col < colCount));
-		}
-		
 		void WalkCluster(int row, int col, int cluster)
 		{
-			if (IsCellExists(row, col))
+			if (processedMaze.IsCellExists(row, col))
 			{
 				if (clusters.IsNonclustered(row, col))
 				{
 					MazeSide currentCell = processedMaze.GetCell(row, col);
 					clusters.SetClusterIndex(row, col, cluster);
 					
-					if (IsCellExists(row - 1, col))
+					if (processedMaze.IsCellExists(row - 1, col))
 					{
 						if (!currentCell.HasFlag(MazeSide.Top))
 						{
@@ -106,7 +100,7 @@ namespace Maze.Implementation
 						}
 					}
 					
-					if (IsCellExists(row + 1, col))
+					if (processedMaze.IsCellExists(row + 1, col))
 					{
 						if (!currentCell.HasFlag(MazeSide.Bottom))
 						{
@@ -114,7 +108,7 @@ namespace Maze.Implementation
 						}
 					}					
 					
-					if (IsCellExists(row, col - 1))
+					if (processedMaze.IsCellExists(row, col - 1))
 					{
 						if (!currentCell.HasFlag(MazeSide.Left))
 						{
@@ -122,7 +116,7 @@ namespace Maze.Implementation
 						}
 					}		
 
-					if (IsCellExists(row, col + 1))
+					if (processedMaze.IsCellExists(row, col + 1))
 					{
 						if (!currentCell.HasFlag(MazeSide.Right))
 						{
