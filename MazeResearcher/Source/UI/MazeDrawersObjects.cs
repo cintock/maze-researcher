@@ -21,26 +21,22 @@ namespace Maze.UI
 
         private MazeDrawersObjects()
         {
-        }
-
-        public static MazeDrawersObjects Instance()
-        {
-            return mazeDrawersNamedList;
-        }
-
-        protected override void RegisterObjects()
-        {
-            RegisterObject(MazeDrawersEnum.SimpleMazeDrawer, 
-                new SimpleMazeDrawer(), 
+            RegisterObject(MazeDrawersEnum.SimpleMazeDrawer,
+                new SimpleMazeDrawer(),
                 "Простая отрисовка (без настроек, для отладки)");
 
-            RegisterObject(MazeDrawersEnum.StandardMazeDrawer, 
+            RegisterObject(MazeDrawersEnum.StandardMazeDrawer,
                 new StandardMazeDrawer(),
                 "Стандартная отрисовка");
 
             RegisterObject(MazeDrawersEnum.CellDebugMazeDrawer,
                 new CellDebugMazeDrawer(),
                 "Отладка содержимого ячеек");
+        }
+
+        public static MazeDrawersObjects Instance()
+        {
+            return mazeDrawersNamedList;
         }
     }
 }

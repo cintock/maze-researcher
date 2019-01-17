@@ -19,7 +19,7 @@ namespace Maze.UI
             this.labelCopyright.Text = AssemblyCopyright;
             this.labelCompanyName.Text = AssemblyCompany;
             this.textBoxDescription.Text = AssemblyDescription;
-            this.textBoxVersion.Text = ProgramVersion.Instance.VersionString();
+            this.textBoxVersion.Text = ProgramVersion.Instance().VersionString();
 
             using (Stream logoStream =
                 Assembly.GetExecutingAssembly().GetManifestResourceStream("Maze.logo.png"))

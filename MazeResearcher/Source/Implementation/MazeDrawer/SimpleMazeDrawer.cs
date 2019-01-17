@@ -16,7 +16,7 @@ namespace Maze.Implementation
 	public class SimpleMazeDrawer : IMazeDrawer
 	{
 		private readonly Color backgroundColor = Color.White;
-		private readonly Pen bluePen = new Pen(Color.Blue, 1);
+		
 		private readonly int cellSize = 10;
 		private readonly int circleSize = 6;
 
@@ -26,38 +26,41 @@ namespace Maze.Implementation
 		
 		private void DrawMaze(Graphics painter, IMazeView maze)
 		{
-			for (int row = 0; row < maze.RowCount; row++)
-			{
-				for (int col = 0; col < maze.ColCount; col++)
-				{
-					Single BaseX = col * cellSize;
-					Single BaseY = row * cellSize;
-					MazeSide currentCell = maze.GetCell(row, col);
-					
-					if (currentCell.HasFlag(MazeSide.Top))
-					{
-						painter.DrawLine(bluePen, BaseX, BaseY, BaseX + cellSize, BaseY);
-					}
+            using (Pen bluePen = new Pen(Color.Blue, 1))
+            {
+                for (int row = 0; row < maze.RowCount; row++)
+                {
+                    for (int col = 0; col < maze.ColCount; col++)
+                    {
+                        Single BaseX = col * cellSize;
+                        Single BaseY = row * cellSize;
+                        MazeSide currentCell = maze.GetCell(row, col);
 
-					if (currentCell.HasFlag(MazeSide.Bottom))
-					{
-						painter.DrawLine(bluePen, BaseX, BaseY + cellSize, 
-						                 BaseX + cellSize, BaseY + cellSize);
-					}
-					
-					if (currentCell.HasFlag(MazeSide.Right))
-					{
-						painter.DrawLine(bluePen, BaseX + cellSize, BaseY, 
-						                 BaseX + cellSize, BaseY + cellSize);
-					}				
+                        if (currentCell.HasFlag(MazeSide.Top))
+                        {
+                            painter.DrawLine(bluePen, BaseX, BaseY, BaseX + cellSize, BaseY);
+                        }
 
-					if (currentCell.HasFlag(MazeSide.Left))
-					{
-						painter.DrawLine(bluePen, BaseX, BaseY, 
-						                 BaseX, BaseY + cellSize);
-					}	
-				}
-			}
+                        if (currentCell.HasFlag(MazeSide.Bottom))
+                        {
+                            painter.DrawLine(bluePen, BaseX, BaseY + cellSize,
+                                             BaseX + cellSize, BaseY + cellSize);
+                        }
+
+                        if (currentCell.HasFlag(MazeSide.Right))
+                        {
+                            painter.DrawLine(bluePen, BaseX + cellSize, BaseY,
+                                             BaseX + cellSize, BaseY + cellSize);
+                        }
+
+                        if (currentCell.HasFlag(MazeSide.Left))
+                        {
+                            painter.DrawLine(bluePen, BaseX, BaseY,
+                                             BaseX, BaseY + cellSize);
+                        }
+                    }
+                }
+            }
 		}
 		
 		private void DrawClusters(Graphics painter, IMazeView maze, MazeClusters clusters)

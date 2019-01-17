@@ -13,10 +13,7 @@ namespace Maze.UI
 
         public ObjectsDescription()
         {
-            RegisterObjects();
         }
-
-        protected abstract void RegisterObjects();
 
         protected void RegisterObject(Index index, 
             T drawer, string userFriendlyName)
@@ -44,8 +41,6 @@ namespace Maze.UI
                 names.Add(obj.Name);
             }
 
-
-
             return names;
         }
 
@@ -56,8 +51,8 @@ namespace Maze.UI
             {
                 namedObjects.Add(obj);
             }
+
             return namedObjects;
         }
-
     }
 }

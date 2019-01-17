@@ -41,11 +41,8 @@ namespace Maze.Implementation
 		
 		public void Log(string message)
 		{
-			if (debugOutput != null)
-			{
-				debugOutput(message + Environment.NewLine);
-			}
-		}
+            debugOutput?.Invoke(message + Environment.NewLine);
+        }
 		
 		public void LogNumLine(string name, int[] val)
 		{

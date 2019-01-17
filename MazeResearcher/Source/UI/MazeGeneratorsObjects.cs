@@ -25,18 +25,9 @@ namespace Maze.UI
 
         private MazeGeneratorsObjects()
         {
-        }
-
-        public static MazeGeneratorsObjects Instance()
-        {
-            return instance;
-        }
-
-        protected override void RegisterObjects()
-        {
             RegisterObject(
-                MazeGeneratorsEnum.RandomMazeGenerator, 
-                new RandomMazeGenerator(), 
+                MazeGeneratorsEnum.RandomMazeGenerator,
+                new RandomMazeGenerator(),
                 "Полностью случайный лабиринт");
 
             RegisterObject(
@@ -54,5 +45,12 @@ namespace Maze.UI
                 new EllerModMazeGenerator(),
                 "Вариация алгоритма Эллера");
         }
+
+        public static MazeGeneratorsObjects Instance()
+        {
+            return instance;
+        }
+
+
     }
 }
