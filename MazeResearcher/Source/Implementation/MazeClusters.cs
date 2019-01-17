@@ -16,7 +16,7 @@ namespace Maze.Implementation
 	/// </summary>
 	public class MazeClusters
 	{
-		private Int32[,] attainableCells;
+		private readonly Int32[,] attainableCells;
 		private readonly Int32 rowCount;
 		private readonly Int32 colCount;
 		
@@ -47,7 +47,33 @@ namespace Maze.Implementation
 			return attainableCells[row, col];
 		}
 
-		public Int32 Count()
+        public bool GetNextNonClusteredCell(out int nextRow, out int nextCol)
+        {
+            bool exists = false;
+            nextRow = -1;
+            nextCol = -1;
+            for (Int32 row = 0; row < rowCount; row++)
+            {
+                for (Int32 col = 0; col < colCount; col++)
+                {
+                    if (IsNonclustered(row, col))
+                    {
+                        exists = true;
+                        nextRow = row;
+                        nextCol = col;
+                        break;
+                    }
+                }
+                if (exists)
+                {
+                    break;
+                }
+            }
+
+            return exists;
+        }
+
+        public Int32 Count()
 		{
 			HashSet<Int32> clusters = new HashSet<Int32>();
 			for (Int32 row = 0; row < rowCount; row++)

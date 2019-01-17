@@ -10,7 +10,9 @@ using System.Threading;
 namespace Maze.Implementation
 {
     /// <summary>
-    /// Простой рекурсивный алгоритм поиска связанных областей в лабиринте
+    /// Простой (но не эффективный) рекурсивный алгоритм 
+    /// поиска связанных областей в лабиринте.
+    /// Использует много памяти для рекурсивных вызовов.
     /// </summary>
     public class MazeClustererRecursion : IMazeClusterer
 	{
@@ -49,7 +51,9 @@ namespace Maze.Implementation
 
             if (threadExceptionMessage != null)
             {
-                DebugConsole.Instance().Log(threadExceptionMessage);                
+                DebugConsole.Instance().Log(threadExceptionMessage);
+                // todo: можно подумать про добавление своих типов исключений,
+                // здесь можно будет использовать
             }
 
             return clusters;
@@ -65,8 +69,8 @@ namespace Maze.Implementation
             {
                 while (containsNonClusteredCells)
                 {
-                    GoCell(nextRow, nextCol, clusterIndex++);
-                    containsNonClusteredCells = NextNonClusteredCell(ref nextRow, ref nextCol);
+                    WalkCluster(nextRow, nextCol, clusterIndex++);
+                    containsNonClusteredCells = clusters.GetNextNonClusteredCell(out nextRow, out nextCol);
                 }
             }
             catch (Exception ex)
@@ -77,36 +81,13 @@ namespace Maze.Implementation
             }
         }
 
-        private bool NextNonClusteredCell(ref int nextRow, ref int nextCol)
-        {
-            bool exists = false;
-            for (Int32 row = 0; row < rowCount; row++)
-            {
-                for (Int32 col = 0; col < colCount; col++)
-                {
-                    if (clusters.IsNonclustered(row, col))
-                    {
-                        exists = true;
-                        nextRow = row;
-                        nextCol = col;
-                        break;
-                    }
-                }
-                if (exists)
-                {
-                    break;
-                }
-            }
-
-            return exists;
-        }
 
         Boolean IsCellExists(Int32 row, Int32 col)
 		{
 			return ((row >= 0) && (row < rowCount) && (col >= 0) && (col < colCount));
 		}
 		
-		void GoCell(Int32 row, Int32 col, Int32 cluster)
+		void WalkCluster(Int32 row, Int32 col, Int32 cluster)
 		{
 			if (IsCellExists(row, col))
 			{
@@ -119,7 +100,7 @@ namespace Maze.Implementation
 					{
 						if (!currentCell.HasFlag(MazeSide.Top))
 						{
-							GoCell(row - 1, col, cluster);
+							WalkCluster(row - 1, col, cluster);
 						}
 					}
 					
@@ -127,7 +108,7 @@ namespace Maze.Implementation
 					{
 						if (!currentCell.HasFlag(MazeSide.Bottom))
 						{
-							GoCell(row + 1, col, cluster);
+							WalkCluster(row + 1, col, cluster);
 						}
 					}					
 					
@@ -135,7 +116,7 @@ namespace Maze.Implementation
 					{
 						if (!currentCell.HasFlag(MazeSide.Left))
 						{
-							GoCell(row, col - 1, cluster);
+							WalkCluster(row, col - 1, cluster);
 						}
 					}		
 
@@ -143,7 +124,7 @@ namespace Maze.Implementation
 					{
 						if (!currentCell.HasFlag(MazeSide.Right))
 						{
-							GoCell(row, col + 1, cluster);
+							WalkCluster(row, col + 1, cluster);
 						}
 					}						
 				}

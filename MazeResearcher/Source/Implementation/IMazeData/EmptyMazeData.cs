@@ -14,20 +14,20 @@ namespace Maze.Implementation
 	/// </summary>
 	public class EmptyMazeData : IMazeData
 	{
-		public EmptyMazeData(Int32 r, Int32 c)
+		public EmptyMazeData(Int32 row, Int32 col)
 		{
-			row = r;
-			col = c;
+			rowCount = row;
+			colCount = col;
 		}
 		
-		private Int32 row;
-		private Int32 col;
+		private readonly Int32 rowCount;
+		private readonly Int32 colCount;
 		
 		public Int32 RowCount 
 		{
 			get 
 			{
-				return row;
+				return rowCount;
 			}
 		}
 		
@@ -35,7 +35,7 @@ namespace Maze.Implementation
 		{
 			get
 			{
-				return col;
+				return colCount;
 			}
 		}
 		
@@ -52,12 +52,12 @@ namespace Maze.Implementation
 				cell |= MazeSide.Left;
 			}
 			
-			if (r == row - 1)
+			if (r == rowCount - 1)
 			{
 				cell |= MazeSide.Bottom;
 			}
 			
-			if (c == col - 1)
+			if (c == colCount - 1)
 			{
 				cell |= MazeSide.Right;
 			}
