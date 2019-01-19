@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace Maze.Implementation
@@ -20,29 +19,71 @@ namespace Maze.Implementation
             clusters = new MazeClusters(maze);
             int row = 0;
             int col = 0;
-            int index = 1;
+            int index = 0;
             if (maze.IsCellExists(row, col))
             {
-                NextStep(new MazePoint(row, col), index);
+                List<MazePoint> foundPoints = Walk(new MazePoint(row, col), ++index); 
+                while (foundPoints.Count > 0)
+                {
+                    List<MazePoint> nextPoints = new List<MazePoint>(foundPoints);
+                    foundPoints.Clear();
+                    foreach (MazePoint point in nextPoints)
+                    {
+                        foundPoints.AddRange(Walk(point, index));
+                    }                                        
+                };
             }
             return clusters;
         }
 
-        private void NextStep(MazePoint coord, int index)
+        private List<MazePoint> Walk(MazePoint coord, int index)
         {
             int row = coord.Row;
             int col = coord.Col;
-            MazeSide cell = maze.GetCell(row, col);
 
-            while (!maze.GetCell(row, col).HasFlag(MazeSide.Bottom))
+            List<MazePoint> openedPoints = new List<MazePoint>(4);
+
+            ProcessCell(row, col, index);
+
+            MazeSide currentCell = maze.GetCell(row, col);
+
+            if (!currentCell.HasFlag(MazeSide.Bottom))
             {
-                row++;
-                if (!ProcessCell(row, col, index))
+                int nextRow = row + 1;
+                if (ProcessCell(nextRow, col, index))
                 {
-                    break;
+                    openedPoints.Add(new MazePoint(nextRow, col));
                 }
             }
 
+            if (!currentCell.HasFlag(MazeSide.Right))
+            {
+                int nextCol = col + 1;
+                if (ProcessCell(row, nextCol, index))
+                {
+                    openedPoints.Add(new MazePoint(row, nextCol));
+                }
+            }
+
+            if (!currentCell.HasFlag(MazeSide.Top))
+            {
+                int nextRow = row - 1;
+                if (ProcessCell(nextRow, col, index))
+                {
+                    openedPoints.Add(new MazePoint(nextRow, col));
+                }
+            }
+
+            if (!currentCell.HasFlag(MazeSide.Left))
+            {
+                int nextCol = col - 1;
+                if (ProcessCell(row, nextCol, index))
+                {
+                    openedPoints.Add(new MazePoint(row, nextCol));
+                }
+            }
+
+            return openedPoints;
         }
 
         private bool ProcessCell(int row, int col, int index)
