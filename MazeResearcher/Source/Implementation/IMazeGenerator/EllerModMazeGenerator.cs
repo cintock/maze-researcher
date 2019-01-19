@@ -4,7 +4,6 @@
  * Created by SharpDevelop.
  */
 using System;
-using System.Linq;
 using System.Collections.Generic;
 
 namespace Maze.Implementation
@@ -58,39 +57,35 @@ namespace Maze.Implementation
 			maze = new MazeData(rowCount, colCount);
 		}
 		
-        private static IList<int> CalcAvailableNumbers(IList<int> numbersArray)
+        private static Queue<int> CalcUnallocatedNumbers(IList<int> numbersArray)
         {
-            // выделять память на всю строку быстрее, чем считать
-            // количество реально нужных элементов (в контексте вызова),
-            // проверил профилировщиком
-            int[] availableNums = new int[numbersArray.Count];
+            Queue<int> unallocatedNumbers = new Queue<int>(numbersArray.Count);
 
             HashSet<int> usedNumbers = new HashSet<int>(numbersArray);
 
             int num = 1;
-            for (int i = 0; i < availableNums.Length; i++)
+            for (int i = 0; i < numbersArray.Count; i++)
             {
                 while (usedNumbers.Contains(num))
                 {
                     num++;
                 }
-                availableNums[i] = num++;
+                unallocatedNumbers.Enqueue(num++);
             }
 
-            return availableNums;
+            return unallocatedNumbers;
         }
 
 		#region Step 2
 		private void InitRow(int row)
 		{
-            IList<int> availableNums = CalcAvailableNumbers(mazeLineData);
+            Queue<int> unallocatedNums = CalcUnallocatedNumbers(mazeLineData);
 
-            int index = 0;
 			for (int c = 0; c < colCount; c++)
 			{
 				if (mazeLineData[c] == 0)
 				{
-					mazeLineData[c] = availableNums[index++];
+					mazeLineData[c] = unallocatedNums.Dequeue();
 				}
 			}
 
@@ -156,7 +151,6 @@ namespace Maze.Implementation
 					{
 						if (c != segment.FirstPos + openBottomPos)
 						{
-                            // todo: когда появится новый метод - поменять
                             maze.AddSides(row, c, MazeSide.Bottom);
 						}
 					}
