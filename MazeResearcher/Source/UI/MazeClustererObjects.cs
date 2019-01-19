@@ -9,7 +9,7 @@ namespace Maze.UI
     enum MazeClusterersEnum
     {
         MazeClustererRecursion,
-        MazeClusterer
+        MazeClustererCyclic
     }
 
     class MazeClustererObjects : ObjectsDescription<MazeClusterersEnum, IMazeClusterer>
@@ -24,8 +24,8 @@ namespace Maze.UI
                 "Простой рекурсивный алгоритм");
 
             RegisterObject(
-                MazeClusterersEnum.MazeClusterer, 
-                new MazeClusterer(), 
+                MazeClusterersEnum.MazeClustererCyclic, 
+                new MazeClustererCyclic(), 
                 "Новый алгоритм поиска областей");
         }
 

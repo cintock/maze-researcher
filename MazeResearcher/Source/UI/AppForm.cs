@@ -69,7 +69,7 @@ namespace Maze.UI
                 MazeDrawersEnum.StandardMazeDrawer);
 
             clusterer = MazeClustererObjects.Instance().GetObject(
-                MazeClusterersEnum.MazeClusterer);
+                MazeClusterersEnum.MazeClustererCyclic);
         }
 
         void ClearImageBitmap()

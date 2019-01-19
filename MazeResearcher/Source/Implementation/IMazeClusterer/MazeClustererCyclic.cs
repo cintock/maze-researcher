@@ -4,12 +4,15 @@ using System.Text;
 
 namespace Maze.Implementation
 {
-    public class MazeClusterer : IMazeClusterer
+    /// <summary>
+    /// Циклический алгоритм поиска связанных областей
+    /// </summary>
+    public class MazeClustererCyclic : IMazeClusterer
     {
         private MazeClusters clusters;
         private IMazeView maze;
 
-        public MazeClusterer()
+        public MazeClustererCyclic()
         {
         }
 

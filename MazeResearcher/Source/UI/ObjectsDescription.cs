@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Maze.Implementation;
+
 
 namespace Maze.UI
 {
@@ -16,10 +14,10 @@ namespace Maze.UI
         }
 
         protected void RegisterObject(Index index, 
-            T drawer, string userFriendlyName)
+            T obj, string userFriendlyName)
         {
-            NamedObject<T> obj = new NamedObject<T>(drawer, userFriendlyName);
-            indexedNamedObjects.Add(index, obj);
+            NamedObject<T> namedObject = new NamedObject<T>(obj, userFriendlyName);
+            indexedNamedObjects.Add(index, namedObject);
         }
 
         public T GetObject(Index index)
