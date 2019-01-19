@@ -27,12 +27,12 @@ namespace Maze.Implementation
 			colCount = col;
 		}
 		
-		public MazeClusters(IMazeData maze)
+		public MazeClusters(IMazeView maze)
 			: this(maze.RowCount, maze.ColCount)
 		{			
 		}
 		
-		public Boolean IsNonclustered(int row, int col)
+		public bool IsNonclustered(int row, int col)
 		{
 			return (attainableCells[row, col] == 0);				
 		}

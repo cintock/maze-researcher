@@ -14,38 +14,54 @@ namespace Maze
     /// </summary>
     public sealed class ProgramVersion
 	{
-        private readonly string VersionResourceName = "Maze.versioninfo.txt";
-        private readonly string UndefinedVersionString = "undefined";
+        private readonly string versionResourceName = "Maze.versioninfo.txt";
+        private string versionString = "undefined";
+        private bool versionReceived = false;
 
-        private static ProgramVersion instance = null;
+        private static readonly ProgramVersion instance = new ProgramVersion();
 		
-		public static ProgramVersion Instance {
-			get {
-				if (instance == null)
-				{
-					instance = new ProgramVersion();
-				}
-				return instance;
-			}
+		public static ProgramVersion Instance()
+        {
+			return instance;
 		}
 		
 		public string VersionString()
 		{
-			string version = UndefinedVersionString;
-			using (Stream versionInfo =
-				Assembly.GetExecutingAssembly().GetManifestResourceStream(VersionResourceName))
-			{
+			if (!versionReceived)
+            {
+                ReadVersion();
+            }
+            
+			return versionString;
+		}
+		
+        private void ReadVersion()
+        {
+            Stream versionInfo = null;
+            try
+            {
+                versionInfo =
+                    Assembly.GetExecutingAssembly().GetManifestResourceStream(versionResourceName);
+
                 if (versionInfo != null)
                 {
                     using (StreamReader reader = new StreamReader(versionInfo))
                     {
-                        version = reader.ReadToEnd();
+                        versionInfo = null;
+                        versionString = reader.ReadToEnd();
                     }
                 }
-			}
-			return version;
-		}
-		
+            }
+            finally
+            {
+                if (versionInfo != null)
+                {
+                    versionInfo.Dispose();
+                }
+            }
+            versionReceived = true;
+        }
+
 		private ProgramVersion()
 		{
 		}

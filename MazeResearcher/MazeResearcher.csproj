@@ -67,19 +67,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Source\Implementation\DebugConsole.cs" />
-    <Compile Include="Source\Implementation\IMazeData\BaseMazeData.cs" />
+    <Compile Include="Source\Implementation\IMazeClusterer\MazeClustererCyclic.cs" />
+    <Compile Include="Source\Implementation\MazeData\BaseMazeData.cs" />
+    <Compile Include="Source\Implementation\MazeDrawer\CellDebugMazeDrawer.cs" />
+    <Compile Include="Source\Implementation\MazeDrawer\EmptyMazeDrawer.cs" />
     <Compile Include="Source\Implementation\MazeDrawer\StandardMazeDrawer.cs" />
     <Compile Include="Source\Implementation\MazeDrawingSettings.cs" />
     <Compile Include="Source\Implementation\MazePoint.cs" />
     <Compile Include="Source\Implementation\MazeSide.cs" />
-    <Compile Include="Source\Implementation\IMazeClusterer\MazeClusterer.cs" />
-    <Compile Include="Source\Implementation\IMazeData\EmptyMazeData.cs" />
-    <Compile Include="Source\Implementation\IMazeData\MazeData.cs" />
+    <Compile Include="Source\Implementation\IMazeClusterer\MazeClustererRecursion.cs" />
+    <Compile Include="Source\Implementation\MazeData\EmptyMazeData.cs" />
+    <Compile Include="Source\Implementation\MazeData\MazeData.cs" />
     <Compile Include="Source\Implementation\IMazeGenerator\EllerModMazeGenerator.cs" />
     <Compile Include="Source\Implementation\IMazeGenerator\EmptyDummyMazeGenerator.cs" />
     <Compile Include="Source\Implementation\IMazeGenerator\EmptyMazeGenerator.cs" />
     <Compile Include="Source\Implementation\IMazeGenerator\RandomMazeGenerator.cs" />
-    <Compile Include="Source\Implementation\Interfaces\IMazeData.cs" />
+    <Compile Include="Source\Implementation\Interfaces\IMazeView.cs" />
     <Compile Include="Source\Implementation\Interfaces\IMazeDrawer.cs" />
     <Compile Include="Source\Implementation\Interfaces\IMazeGenerator.cs" />
     <Compile Include="Source\Implementation\Interfaces\IMazeClusterer.cs" />
@@ -107,6 +110,7 @@
     <Compile Include="Source\UI\ConfigurationForm.Designer.cs">
       <DependentUpon>ConfigurationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source\UI\MazeClustererObjects.cs" />
     <Compile Include="Source\UI\MazeDrawersObjects.cs" />
     <Compile Include="Source\UI\ObjectsDescription.cs" />
     <Compile Include="Source\UI\NamedObject.cs" />

@@ -60,10 +60,10 @@ namespace Maze.Implementation
 		
         private static IList<int> CalcAvailableNumbers(IList<int> numbersArray)
         {
-            // todo: выделять память на всю строку быстрее, чем считать через linq
-            // количество реально нужных элементов (скороее всего)
-            // это можно проверить, если будет тест производительности
-            int[] availableNums = new int[numbersArray.Count(x => x == 0)];
+            // выделять память на всю строку быстрее, чем считать
+            // количество реально нужных элементов (в контексте вызова),
+            // проверил профилировщиком
+            int[] availableNums = new int[numbersArray.Count];
 
             HashSet<int> usedNumbers = new HashSet<int>(numbersArray);
 
@@ -94,7 +94,8 @@ namespace Maze.Implementation
 				}
 			}
 
-            // todo: receive list
+            // todo: надо принимать список без преобразования, потом логирование
+            // поменяется, и надо будет подумать
             DebugConsole.Instance().LogNumLine("InitRow", mazeLineData.ToArray());
 		}
 		#endregion
@@ -179,7 +180,7 @@ namespace Maze.Implementation
 		}
 		#endregion
 		
-		public IMazeData Generate(int row, int col)
+		public IMazeView Generate(int row, int col)
 		{
 			rowCount = row;
 			colCount = col;

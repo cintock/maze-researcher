@@ -9,7 +9,7 @@ using System;
 namespace Maze.Implementation
 {
 	[Flags]
-	public enum MazeSide
+	public enum MazeSide : byte
 	{
 		None = 0,
 		Bottom = 1,
