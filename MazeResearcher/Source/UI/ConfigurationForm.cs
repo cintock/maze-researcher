@@ -13,10 +13,9 @@ namespace Maze.UI
     public partial class ConfigurationForm : Form
     {
         private bool debugLogging;
-
         private MazeDrawingSettings drawingSettings;
-
         private IMazeDrawer drawer;
+        private IMazeClusterer clusterer;
 
         public IMazeDrawer Drawer
         {
@@ -24,10 +23,11 @@ namespace Maze.UI
             {
                 return drawer;
             }
+
             set
             {
                 drawer = value;
-                drawingAlgoComboBox.SelectedValue = drawer;
+                drawingAlgoCombobox.SelectedValue = drawer;
             }
         }
 
@@ -37,6 +37,7 @@ namespace Maze.UI
             {
                 return drawingSettings;
             }
+
             set
             {
                 drawingSettings = value;
@@ -55,6 +56,7 @@ namespace Maze.UI
             {
                 return debugLogging;
             }
+
             set
             {
                 debugLogging = value;
@@ -62,15 +64,35 @@ namespace Maze.UI
             }
         }
 
+        public IMazeClusterer Clusterer
+        {
+            get
+            {
+                return clusterer;
+            }
+
+            set
+            {
+                clusterer = value;
+                clustererCombobox.SelectedValue = value;
+            }
+        }
+
         public ConfigurationForm()
         {
             InitializeComponent();
 
-            drawingAlgoComboBox.DataSource =
+            drawingAlgoCombobox.DataSource =
                 MazeDrawersObjects.Instance().GetNamedObjectsList();
 
-            drawingAlgoComboBox.DisplayMember = "Name";
-            drawingAlgoComboBox.ValueMember = "ObjectValue";
+            drawingAlgoCombobox.DisplayMember = "Name";
+            drawingAlgoCombobox.ValueMember = "ObjectValue";
+
+            clustererCombobox.DataSource =
+                MazeClustererObjects.Instance().GetNamedObjectsList();
+
+            clustererCombobox.DisplayMember = "Name";
+            clustererCombobox.ValueMember = "ObjectValue";
         }
 
         public ConfigurationForm(IMazeDrawer drawer, MazeDrawingSettings drawingSettings) : 
@@ -116,11 +138,19 @@ namespace Maze.UI
         private void OKButtonClick(Object sender, EventArgs e)
         {
             IMazeDrawer drawerSelected = 
-                (IMazeDrawer)drawingAlgoComboBox.SelectedValue;
+                (IMazeDrawer)drawingAlgoCombobox.SelectedValue;
 
             if (drawerSelected != null)
             {
                 drawer = drawerSelected;
+            }
+
+            IMazeClusterer clustererSelected =
+                (IMazeClusterer)clustererCombobox.SelectedValue;
+
+            if (clustererSelected != null)
+            {
+                clusterer = clustererSelected;
             }
 
             drawingSettings.CellHeight = (int)cellHeightNumericUpDown.Value;

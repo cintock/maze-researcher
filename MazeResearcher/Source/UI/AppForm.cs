@@ -12,12 +12,13 @@ namespace Maze.UI
 {
     public partial class AppForm : Form
     {
-        IMazeDrawer mazeDrawer = MazeDrawersObjects.Instance().GetObject(
-            MazeDrawersEnum.StandardMazeDrawer);
+        IMazeDrawer mazeDrawer;
 
-        MazeDrawingSettings mazeDrawingSettings = new MazeDrawingSettings();
+        MazeDrawingSettings mazeDrawingSettings;
 
         List<string> debugLog = new List<string>();
+
+        IMazeClusterer clusterer;
 
         IMazeView maze;
 
@@ -33,12 +34,13 @@ namespace Maze.UI
                 MazeGeneratorsObjects.Instance().GetNamedObjectsList();
 
             mazeGenerationAlgoCombobox.DisplayMember = "Name";
+            mazeGenerationAlgoCombobox.ValueMember = "ObjectValue";
 
             SizeTrackbarChanged(null, null);
 
             DebugState();
 
-            DefaultMazeDrawingSettings();
+            DefaultSettings();
 
             // todo: отобразить связанность областей вынести в меню вид
             // todo: простое рисование убрать совсем, потому что уже есть выбор алгоритма в настройках
@@ -52,13 +54,22 @@ namespace Maze.UI
             // копировать, сохранить изображение
         }
 
-        void DefaultMazeDrawingSettings()
+        void DefaultSettings()
         {
-            mazeDrawingSettings.CellHeight = 10;
-            mazeDrawingSettings.CellWidth = 10;
-            mazeDrawingSettings.BorderColor = Color.Black;
-            mazeDrawingSettings.BackgroundColor = Color.Azure;
-            mazeDrawingSettings.SideColor = Color.DarkGreen;
+            mazeDrawingSettings = new MazeDrawingSettings
+            {
+                CellHeight = 10,
+                CellWidth = 10,
+                BorderColor = Color.Black,
+                BackgroundColor = Color.Azure,
+                SideColor = Color.DarkGreen
+            };
+
+            mazeDrawer = MazeDrawersObjects.Instance().GetObject(
+                MazeDrawersEnum.StandardMazeDrawer);
+
+            clusterer = MazeClustererObjects.Instance().GetObject(
+                MazeClusterersEnum.MazeClusterer);
         }
 
         void ClearImageBitmap()
@@ -67,8 +78,7 @@ namespace Maze.UI
         }
 
         void FindClusters()
-        {
-            IMazeClusterer clusterer = new MazeClustererRecursion();
+        {            
             clusters = clusterer.Cluster(maze);
             clusterCountTextbox.Text = clusters.Count().ToString();
             OutputDebugMessages();
@@ -101,22 +111,24 @@ namespace Maze.UI
             mazePicturebox.Image = RenderMaze();
         }
 
+        private void ClearClusters()
+        {
+            clusters = null;
+            clusterCountTextbox.Clear();
+        }
+
         void CreateMazeButtonClick(object sender, EventArgs e)
         {
-            NamedObject<IMazeGenerator> selectedGeneratorNamed = 
-                (NamedObject<IMazeGenerator>)mazeGenerationAlgoCombobox.SelectedValue;
-
-            IMazeGenerator selectedGenerator = selectedGeneratorNamed.ObjectValue;
+            IMazeGenerator selectedGenerator = 
+                (IMazeGenerator)mazeGenerationAlgoCombobox.SelectedValue;
 
             if (selectedGenerator != null)
             {
-                clusters = null;
+                ClearClusters();
 
                 maze = selectedGenerator.Generate(
                     mazeRowsTrackbar.Value, 
                     mazeColumnsTrackbar.Value);
-
-                clusterCountTextbox.Clear();
 
                 DrawMaze();
             }
@@ -173,16 +185,21 @@ namespace Maze.UI
             ConfigurationForm form = new ConfigurationForm(mazeDrawer,
                 mazeDrawingSettings)
             {
-                DebugLogging = debugConsoleEnabled
+                DebugLogging = debugConsoleEnabled,
+                Clusterer = clusterer
             };
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
                 mazeDrawer = form.Drawer;
 
+                clusterer = form.Clusterer;
+
                 debugConsoleEnabled = form.DebugLogging;
 
                 DebugState();
+
+                ClearClusters();
 
                 DrawMaze();
             }
@@ -190,6 +207,7 @@ namespace Maze.UI
 
         private void SaveMazeImage(Object sender, EventArgs e)
         {
+            // todo: добавить обработку исключений
             if (maze != null)
             {
                 SaveFileDialog dialog = new SaveFileDialog
