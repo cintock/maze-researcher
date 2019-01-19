@@ -4,15 +4,16 @@
  * Created by SharpDevelop.
  */
 using System;
-using System.Collections.Generic;
 using System.Threading;
 
 namespace Maze.Implementation
 {
     /// <summary>
-    /// Простой (но не эффективный) рекурсивный алгоритм 
+    /// Простой рекурсивный алгоритм 
     /// поиска связанных областей в лабиринте.
-    /// Использует много памяти для рекурсивных вызовов.
+    /// Использует много памяти стека для рекурсивных вызовов.
+    /// Если лабиринт слишком большой может привести к 
+    /// переполнению стека.
     /// </summary>
     public class MazeClustererRecursion : IMazeClusterer
 	{

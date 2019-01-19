@@ -17,10 +17,8 @@ namespace Maze.Implementation
         {
             this.maze = maze;
             clusters = new MazeClusters(maze);
-            int row = 0;
-            int col = 0;
             int index = 0;
-            if (maze.IsCellExists(row, col))
+            while (clusters.GetNextNonClusteredCell(out int row, out int col))
             {
                 List<MazePoint> foundPoints = Walk(new MazePoint(row, col), ++index); 
                 while (foundPoints.Count > 0)
@@ -43,14 +41,14 @@ namespace Maze.Implementation
 
             List<MazePoint> openedPoints = new List<MazePoint>(4);
 
-            ProcessCell(row, col, index);
+            ClusterCell(row, col, index);
 
             MazeSide currentCell = maze.GetCell(row, col);
 
             if (!currentCell.HasFlag(MazeSide.Bottom))
             {
                 int nextRow = row + 1;
-                if (ProcessCell(nextRow, col, index))
+                if (ClusterCell(nextRow, col, index))
                 {
                     openedPoints.Add(new MazePoint(nextRow, col));
                 }
@@ -59,7 +57,7 @@ namespace Maze.Implementation
             if (!currentCell.HasFlag(MazeSide.Right))
             {
                 int nextCol = col + 1;
-                if (ProcessCell(row, nextCol, index))
+                if (ClusterCell(row, nextCol, index))
                 {
                     openedPoints.Add(new MazePoint(row, nextCol));
                 }
@@ -68,7 +66,7 @@ namespace Maze.Implementation
             if (!currentCell.HasFlag(MazeSide.Top))
             {
                 int nextRow = row - 1;
-                if (ProcessCell(nextRow, col, index))
+                if (ClusterCell(nextRow, col, index))
                 {
                     openedPoints.Add(new MazePoint(nextRow, col));
                 }
@@ -77,7 +75,7 @@ namespace Maze.Implementation
             if (!currentCell.HasFlag(MazeSide.Left))
             {
                 int nextCol = col - 1;
-                if (ProcessCell(row, nextCol, index))
+                if (ClusterCell(row, nextCol, index))
                 {
                     openedPoints.Add(new MazePoint(row, nextCol));
                 }
@@ -86,7 +84,7 @@ namespace Maze.Implementation
             return openedPoints;
         }
 
-        private bool ProcessCell(int row, int col, int index)
+        private bool ClusterCell(int row, int col, int index)
         {
             bool processed = false;
             if (maze.IsCellExists(row, col))
