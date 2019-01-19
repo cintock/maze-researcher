@@ -10,7 +10,8 @@ namespace Maze.UI
     {
         SimpleMazeDrawer,
         StandardMazeDrawer,
-        CellDebugMazeDrawer
+        CellDebugMazeDrawer,
+        EmptyMazeDrawer
     }
 
     internal class MazeDrawersObjects :
@@ -32,6 +33,10 @@ namespace Maze.UI
             RegisterObject(MazeDrawersEnum.CellDebugMazeDrawer,
                 new CellDebugMazeDrawer(),
                 "Отладка содержимого ячеек");
+
+            RegisterObject(MazeDrawersEnum.EmptyMazeDrawer,
+                new EmptyMazeDrawer(),
+                "Пустое отображение (для отладки)");
         }
 
         public static MazeDrawersObjects Instance()
