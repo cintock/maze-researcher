@@ -6,6 +6,12 @@ using System.Drawing;
 
 namespace Maze.Implementation
 {
+    /// <summary>
+    /// Класс для рисования границ всех ячеек.
+    /// Нужен для отладки согласованности данных в лабиринте 
+    /// (выявления случаев, когда в одной ячейке есть правая граница,
+    /// а в ячейке правее нее нет левой и т. д.)
+    /// </summary>
     public class CellDebugMazeDrawer : StandardMazeDrawer
     {
         public CellDebugMazeDrawer()

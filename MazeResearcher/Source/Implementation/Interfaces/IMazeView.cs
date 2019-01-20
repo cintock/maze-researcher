@@ -8,7 +8,7 @@ using System;
 namespace Maze.Implementation
 {	
 	/// <summary>
-	/// Интерфейс для просмотра лабиринта
+	/// Интерфейс для получения данных лабиринта
 	/// </summary>
 	public interface IMazeView
 	{

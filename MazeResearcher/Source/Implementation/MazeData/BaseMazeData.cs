@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Maze.Implementation
 {
+    /// <summary>
+    /// Базовый класс для представления лабиринта
+    /// </summary>
     public abstract class BaseMazeData : IMazeView
     {
         protected readonly int rowCount;
@@ -33,6 +36,14 @@ namespace Maze.Implementation
             colCount = col;
         }
 
+        private static void CheckDimensions(int row, int col)
+        {
+            if (!((row > 0) && (col > 0)))
+            {
+                throw new IndexOutOfRangeException("Некорректная размерность лабиринта");
+            }
+        }
+
         protected MazeSide AddExternalBorders(int row, int col, MazeSide cell)
         {
             if (row == 0)
@@ -58,26 +69,18 @@ namespace Maze.Implementation
             return cell;
         }
 
-        public bool IsCellExists(int row, int col)
-        {
-            return ((row >= 0) && (row < rowCount) && 
-                (col >= 0) && (col < colCount));
-        }
-
-        private static void CheckDimensions(int row, int col)
-        {
-            if (!((row > 0) && (col > 0)))
-            {
-                throw new IndexOutOfRangeException("Некорректная размерность лабиринта");
-            }
-        }
-
         protected void CheckCellExists(int row, int col)
         {
             if (!IsCellExists(row, col))
             {
                 throw new IndexOutOfRangeException("Ячейка лабиринта не существует");
             }
+        }
+
+        public bool IsCellExists(int row, int col)
+        {
+            return ((row >= 0) && (row < rowCount) && 
+                (col >= 0) && (col < colCount));
         }
 
         public abstract  MazeSide GetCell(int row, int col);

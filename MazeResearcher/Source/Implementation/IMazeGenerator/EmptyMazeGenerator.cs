@@ -8,7 +8,8 @@ using System;
 namespace Maze.Implementation
 {
 	/// <summary>
-	/// Description of EmptyMazeGenerator.
+	/// Класс для создания пустого лабиринта.
+    /// Выделяется память как для лабиринта, содержащего значения.
 	/// </summary>
 	public class EmptyMazeGenerator : IMazeGenerator
 	{

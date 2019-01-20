@@ -44,29 +44,48 @@ namespace Maze.Implementation
 		int colCount;
 		List<int> mazeLineData;
 		MazeData maze;
-		Random rnd;
+
+		Random randomValues = new Random();
 		
 		public EllerModMazeGenerator()
 		{
-			rnd = new Random();
 		}
 				
-		private void CreateMazeData()
+		private void InitMaze(int row, int col)
 		{
-			mazeLineData = new List<int>(new int[colCount]);
+            CheckDimensions(row, col);
+            rowCount = row;
+            colCount = col;
+            mazeLineData = new List<int>(new int[colCount]);
 			maze = new MazeData(rowCount, colCount);
 		}
-		
-        private static Queue<int> CalcUnallocatedNumbers(IList<int> numbersArray)
-        {
-            Queue<int> unallocatedNumbers = new Queue<int>(numbersArray.Count);
 
-            HashSet<int> usedNumbers = new HashSet<int>(numbersArray);
+        private void CheckDimensions(int row, int col)
+        {
+            if ((row < 1) || (col < 1))
+            {
+                throw new ArgumentOutOfRangeException(
+                    "Размеры лабиринта должны быть положительными значениями");
+            }
+        }
+		
+        private bool RandomBool()
+        {
+            return (randomValues.Next() % 2 == 0);
+        }
+
+        private static Queue<int> CalcUnallocatedNumbers(IList<int> valuesArray)
+        {
+            int requiredValuesCount = valuesArray.Count;
+
+            Queue<int> unallocatedNumbers = new Queue<int>(requiredValuesCount);
+
+            HashSet<int> usedValues = new HashSet<int>(valuesArray);
 
             int num = 1;
-            for (int i = 0; i < numbersArray.Count; i++)
+            for (int i = 0; i < requiredValuesCount; i++)
             {
-                while (usedNumbers.Contains(num))
+                while (usedValues.Contains(num))
                 {
                     num++;
                 }
@@ -74,6 +93,31 @@ namespace Maze.Implementation
             }
 
             return unallocatedNumbers;
+        }
+
+        private static List<LineSegment> DivideSegments(List<int> line)
+        {
+            int lineLength = line.Count;
+            var lineSegments = new List<LineSegment>(lineLength);
+            int startIndex = 0;
+
+            while (startIndex < lineLength - 1)
+            {
+                int endIndex;
+                for (endIndex = startIndex + 1; endIndex < lineLength; endIndex++)
+                {
+                    if (line[startIndex] != line[endIndex])
+                    {
+                        break;
+                    }
+                }
+
+                lineSegments.Add(new LineSegment(startIndex, endIndex - 1));
+
+                startIndex = endIndex;
+            }
+
+            return lineSegments;
         }
 
 		#region Step 2
@@ -106,7 +150,7 @@ namespace Maze.Implementation
 				}
 				else
 				{
-					if (rnd.Next() % 2 == 0)
+					if (RandomBool())
 					{
 						maze.AddSides(row, c, MazeSide.Right);
 					}
@@ -118,35 +162,19 @@ namespace Maze.Implementation
 			}
 			DebugConsole.Instance().LogNumLine("CrRightBor", mazeLineData.ToArray());
 		}
-		#endregion
-		
+		#endregion		
+
 		#region Step 4
 		private void CreateBottomBorders(int row)
 		{
-            var lineSegments = new List<LineSegment>(mazeLineData.Count);
-            int startIndex = 0;
-			while (startIndex < colCount - 1)
-			{
-                int endIndex;
-				for (endIndex = startIndex + 1; endIndex < colCount; endIndex++)
-				{
-					if (mazeLineData[startIndex] != mazeLineData[endIndex])
-					{
-						break;
-					}
-				}
-
-                lineSegments.Add(new LineSegment(startIndex, endIndex - 1));
-		
-				startIndex = endIndex;
-			}
+            List<LineSegment> lineSegments = DivideSegments(mazeLineData);
 						
 			foreach (LineSegment segment in lineSegments)
 			{
                 int length = segment.Length();
                 if (length > 1)
 				{
-					int openBottomPos = rnd.Next(length - 1);
+					int openBottomPos = randomValues.Next(length - 1);
 					for (int c = segment.FirstPos; c <= segment.LastPos; c++)
 					{
 						if (c != segment.FirstPos + openBottomPos)
@@ -176,10 +204,7 @@ namespace Maze.Implementation
 		
 		public IMazeView Generate(int row, int col)
 		{
-			rowCount = row;
-			colCount = col;
-
-			CreateMazeData();
+			InitMaze(row, col);
 			
 			DebugConsole.Instance().Log(Environment.NewLine);
 			
@@ -187,10 +212,8 @@ namespace Maze.Implementation
 			{
 				DebugConsole.Instance().Log(Environment.NewLine);
 				
-				InitRow(r);
-			
-				CreateRightBorders(r);
-			
+				InitRow(r);			
+				CreateRightBorders(r);			
 				CreateBottomBorders(r);
 			
 				if (r < rowCount - 2)

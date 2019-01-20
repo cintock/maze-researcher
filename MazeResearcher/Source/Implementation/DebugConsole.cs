@@ -16,7 +16,7 @@ namespace Maze.Implementation
 	/// </summary>
 	public class DebugConsole
 	{
-		private static DebugConsole console = null;
+		private static DebugConsole console = new DebugConsole();
 		
 		private DebugMessageCallbackDelegate debugOutput;
 		
@@ -26,11 +26,6 @@ namespace Maze.Implementation
 		
 		public static DebugConsole Instance()
 		{
-			if (console == null)
-			{
-				console = new DebugConsole();
-			}
-			
 			return console;			
 		}
 		

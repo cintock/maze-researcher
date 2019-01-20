@@ -26,7 +26,7 @@ namespace Maze.UI
             RegisterObject(
                 MazeClusterersEnum.MazeClustererCyclic, 
                 new MazeClustererCyclic(), 
-                "Новый алгоритм поиска областей");
+                "Циклический алгоритм");
         }
 
         public static MazeClustererObjects Instance()
