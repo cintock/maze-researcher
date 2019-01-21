@@ -34,7 +34,7 @@ namespace Maze.UI
 
             DefaultSettings();
 
-            DebugState();
+            SetDebugConsoleState(false);
 
             // todo: отобразить связанность областей вынести в меню вид
 
@@ -75,7 +75,12 @@ namespace Maze.UI
         void FindClusters()
         {            
             clusters = clusterer.Cluster(maze);
-            clusterCountTextbox.Text = clusters.Count().ToString();
+            string clustersCountStr = clusters.Count().ToString();
+            clusterCountTextbox.Text = clustersCountStr;
+
+            DebugConsole.Instance.Info(
+                string.Format("Выполнен поиск областей. Найдено областей: {0}", 
+                clustersCountStr));
         }
 
         private Bitmap RenderMaze()
@@ -135,6 +140,7 @@ namespace Maze.UI
                     ClearClusters();
 
                     Stopwatch methodTime = Stopwatch.StartNew();
+
                     maze = selectedGenerator.Generate(
                         mazeRowsTrackbar.Value,
                         mazeColumnsTrackbar.Value);
@@ -165,8 +171,9 @@ namespace Maze.UI
                                                 mazeRowsTrackbar.Value, mazeColumnsTrackbar.Value);
         }
 
-        void DebugState()
+        void SetDebugConsoleState(bool show)
         {
+            debugConsoleEnabled = show;
             debugConsole.Visible = debugConsoleEnabled;
             mazeViewSplitContainer.Panel2Collapsed = !debugConsoleEnabled;
 
@@ -180,8 +187,7 @@ namespace Maze.UI
 
         private void AppFormClosing(object sender, FormClosingEventArgs e)
         {
-            debugConsoleEnabled = false;
-            DebugState();
+            SetDebugConsoleState(false);
         }
 
         private void ExitApplication(object sender, EventArgs e)
@@ -191,6 +197,7 @@ namespace Maze.UI
 
         private void StartConfigurationForm(object sender, EventArgs e)
         {
+            // todo: провести рефакторинг ConfigurationForm и тут внести правки
             ConfigurationForm form = new ConfigurationForm(drawer,
                 drawingSettings)
             {
@@ -201,12 +208,9 @@ namespace Maze.UI
             if (form.ShowDialog(this) == DialogResult.OK)
             {
                 drawer = form.Drawer;
-
                 clusterer = form.Clusterer;
 
-                debugConsoleEnabled = form.DebugLogging;
-
-                DebugState();
+                SetDebugConsoleState(form.DebugLogging);
 
                 ClearClusters();
 
