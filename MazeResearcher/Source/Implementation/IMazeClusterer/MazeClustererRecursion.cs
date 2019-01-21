@@ -24,7 +24,7 @@ namespace Maze.Implementation
 		private int rowCount;
 		private int colCount;
 
-        private string threadExceptionMessage = null;
+        private Exception threadException = null;
 		
 		public MazeClustererRecursion()
 		{
@@ -37,7 +37,7 @@ namespace Maze.Implementation
 			colCount = maze.ColCount;
 			clusters = new MazeClusters(processedMaze);
 
-            threadExceptionMessage = null;
+            threadException = null;
 
             // Создаем поток с единственной целью - увеличение стека.
             // Это нужно чтобы простой рекурсивный алгоритм мог выполниться для
@@ -50,11 +50,10 @@ namespace Maze.Implementation
             Thread.Yield();
             clusterThread.Join();
 
-            if (threadExceptionMessage != null)
+            if (threadException != null)
             {
-                DebugConsole.Instance().Log(threadExceptionMessage);
-                // todo: можно подумать про добавление своих типов исключений,
-                // здесь можно будет использовать
+                throw new MazeException("Ошибка при рекурсивном поиске областей лабиринта", 
+                    threadException);
             }
 
             return clusters;
@@ -79,8 +78,8 @@ namespace Maze.Implementation
             catch (Exception ex)
             {
                 // мы ловим тут исключения, поскольку метод выполняется в потоке,
-                // но StackOverflowException здесь все равно не отловится
-                threadExceptionMessage = ex.Message;
+                // то StackOverflowException здесь все равно не отловится
+                threadException = ex;
             }
         }
 

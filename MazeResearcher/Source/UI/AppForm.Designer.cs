@@ -243,6 +243,7 @@
             this.debugConsole.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.debugConsole.Size = new System.Drawing.Size(316, 388);
             this.debugConsole.TabIndex = 0;
+            this.debugConsole.WordWrap = false;
             // 
             // mainTableLayoutPanel
             // 

@@ -132,10 +132,6 @@ namespace Maze.Implementation
 					mazeLineData[c] = unallocatedNums.Dequeue();
 				}
 			}
-
-            // todo: надо принимать список без преобразования, потом логирование
-            // поменяется, и надо будет подумать
-            DebugConsole.Instance().LogNumLine("InitRow", mazeLineData.ToArray());
 		}
 		#endregion
 		
@@ -160,7 +156,6 @@ namespace Maze.Implementation
 					}
 				}
 			}
-			DebugConsole.Instance().LogNumLine("CrRightBor", mazeLineData.ToArray());
 		}
 		#endregion		
 
@@ -196,9 +191,7 @@ namespace Maze.Implementation
 				{
 					mazeLineData[c] = 0;
 				}
-			}
-			DebugConsole.Instance().LogNumLine("PrepNextRow", mazeLineData.ToArray());
-			
+			}			
 		}
 		#endregion
 		
@@ -206,12 +199,8 @@ namespace Maze.Implementation
 		{
 			InitMaze(row, col);
 			
-			DebugConsole.Instance().Log(Environment.NewLine);
-			
 			for (int r = 0; r < rowCount - 1; r++)
 			{
-				DebugConsole.Instance().Log(Environment.NewLine);
-				
 				InitRow(r);			
 				CreateRightBorders(r);			
 				CreateBottomBorders(r);
