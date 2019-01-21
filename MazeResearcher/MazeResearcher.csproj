@@ -47,6 +47,9 @@
     <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -66,7 +69,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Source\Implementation\DebugConsole.cs" />
+    <Compile Include="Source\Implementation\MazeException.cs" />
+    <Compile Include="Source\UI\DebugConsole.cs" />
     <Compile Include="Source\Implementation\IMazeClusterer\MazeClustererCyclic.cs" />
     <Compile Include="Source\Implementation\MazeData\BaseMazeData.cs" />
     <Compile Include="Source\Implementation\MazeDrawer\CellDebugMazeDrawer.cs" />
@@ -110,14 +114,18 @@
     <Compile Include="Source\UI\ConfigurationForm.Designer.cs">
       <DependentUpon>ConfigurationForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Source\UI\MazeClustererObjects.cs" />
-    <Compile Include="Source\UI\MazeDrawersObjects.cs" />
-    <Compile Include="Source\UI\ObjectsDescription.cs" />
-    <Compile Include="Source\UI\NamedObject.cs" />
-    <Compile Include="Source\UI\MazeGeneratorsObjects.cs" />
+    <Compile Include="Source\UI\LogTextboxAppender.cs" />
+    <Compile Include="Source\UI\ComboboxHelpers\MazeClustererObjects.cs" />
+    <Compile Include="Source\UI\ComboboxHelpers\MazeDrawersObjects.cs" />
+    <Compile Include="Source\UI\ComboboxHelpers\ObjectsDescription.cs" />
+    <Compile Include="Source\UI\ComboboxHelpers\NamedObject.cs" />
+    <Compile Include="Source\UI\ComboboxHelpers\MazeGeneratorsObjects.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <EmbeddedResource Include="Source\UI\AboutDialog.resx">
+      <DependentUpon>AboutDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Source\UI\AppForm.resx">
       <DependentUpon>AppForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -125,6 +133,7 @@
       <DependentUpon>ConfigurationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="versioninfo.txt" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="logo.png" />

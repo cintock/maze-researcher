@@ -8,7 +8,9 @@ using System;
 namespace Maze.Implementation
 {
 	/// <summary>
-	/// Description of EmptyDummyMazeGenerator.
+	/// Класс для создания пустого лабиринта.
+    /// Используется пустое представление лабиринта 
+    /// (не выделяется память под матрицу лабиринта).
 	/// </summary>
 	public class EmptyDummyMazeGenerator : IMazeGenerator
 	{

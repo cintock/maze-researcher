@@ -16,7 +16,7 @@ namespace Maze.Implementation
 	/// </summary>
 	public static class Palette
 	{
-		private const UInt32 OpaqueColor = 0xFF000000;
+		private const uint OpaqueColor = 0xFF000000;
 		
 		public static Color GetColor(int index)
 		{
@@ -24,12 +24,12 @@ namespace Maze.Implementation
 			{
 				index = index % colors.Length;
 			}
-			UInt32 argbValue = OpaqueColor | colors[index];
+			uint argbValue = OpaqueColor | colors[index];
 			return Color.FromArgb(unchecked((int)argbValue));
 		}
 		
 		// Список хорошо различимых цветов
-		static private readonly UInt32[] colors = 
+		static private readonly uint[] colors = 
 		{
 			0x000000, 0xFFFF00, 0x1CE6FF, 0xFF34FF, 0xFF4A46, 0x008941, 0x006FA6, 0xA30059,
 			0xFFDBE5, 0x7A4900, 0x0000A6, 0x63FFAC, 0xB79762, 0x004D43, 0x8FB0FF, 0x997D87,

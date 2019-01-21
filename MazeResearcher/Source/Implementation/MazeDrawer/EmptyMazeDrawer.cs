@@ -6,6 +6,10 @@ using System.Text;
 
 namespace Maze.Implementation
 {
+    /// <summary>
+    /// Класс, который возвращает пустую картинку для любого лабиринта.
+    /// Может использоваться для отладки.
+    /// </summary>
     public class EmptyMazeDrawer : IMazeDrawer
     {
         public Bitmap Draw(IMazeView maze, MazeClusters clusters = null)

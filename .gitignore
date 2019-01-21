@@ -1,5 +1,6 @@
 /MazeResearcher/versioninfo.txt
 /.vs/*
+/packages/*
 */bin/*
 */obj/*
 */.idea/*

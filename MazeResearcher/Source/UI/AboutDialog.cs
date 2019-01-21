@@ -19,7 +19,7 @@ namespace Maze.UI
             this.labelCopyright.Text = AssemblyCopyright;
             this.labelCompanyName.Text = AssemblyCompany;
             this.textBoxDescription.Text = AssemblyDescription;
-            this.textBoxVersion.Text = ProgramVersion.Instance().VersionString();
+            this.textBoxVersion.Text = FullVersion;
 
             using (Stream logoStream =
                 Assembly.GetExecutingAssembly().GetManifestResourceStream("Maze.logo.png"))
@@ -33,13 +33,26 @@ namespace Maze.UI
             }
         }
 
+        public string FullVersion
+        {
+            get
+            {
+                string fullVersion = string.Format("{0} ({1})",
+                    ProgramVersion.Instance().VersionString(),
+                    Assembly.GetExecutingAssembly().GetName().Version.ToString());
+
+                return fullVersion;
+            }
+        }
+
         #region Методы доступа к атрибутам сборки
 
         public string AssemblyTitle
         {
             get
             {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
+                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(
+                    typeof(AssemblyTitleAttribute), false);
                 if (attributes.Length > 0)
                 {
                     AssemblyTitleAttribute titleAttribute = (AssemblyTitleAttribute)attributes[0];
@@ -52,19 +65,12 @@ namespace Maze.UI
             }
         }
 
-        public string AssemblyVersion
-        {
-            get
-            {
-                return Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            }
-        }
-
         public string AssemblyDescription
         {
             get
             {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
+                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(
+                    typeof(AssemblyDescriptionAttribute), false);
                 if (attributes.Length == 0)
                 {
                     return "";
@@ -77,7 +83,8 @@ namespace Maze.UI
         {
             get
             {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyProductAttribute), false);
+                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(
+                    typeof(AssemblyProductAttribute), false);
                 if (attributes.Length == 0)
                 {
                     return "";
@@ -90,7 +97,8 @@ namespace Maze.UI
         {
             get
             {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
+                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(
+                    typeof(AssemblyCopyrightAttribute), false);
                 if (attributes.Length == 0)
                 {
                     return "";
@@ -103,7 +111,8 @@ namespace Maze.UI
         {
             get
             {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCompanyAttribute), false);
+                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(
+                    typeof(AssemblyCompanyAttribute), false);
                 if (attributes.Length == 0)
                 {
                     return "";

@@ -27,7 +27,6 @@ namespace Maze.UI
 
         public T GetObject(int index)
         {
-            // тут можно оптимизировать (выполняется поиск с проходом по элементам)
             return indexedNamedObjects.ElementAt(index).Value.ObjectValue;
         }
 

@@ -6,12 +6,13 @@
 using System;
 using System.Windows.Forms;
 
+
 namespace Maze.UI
 {
-	/// <summary>
-	/// Class with program entry point.
-	/// </summary>
-	internal sealed class Program
+    /// <summary>
+    /// Class with program entry point.
+    /// </summary>
+    internal sealed class Program
 	{
 		/// <summary>
 		/// Program entry point.

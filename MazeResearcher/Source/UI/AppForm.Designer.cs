@@ -243,6 +243,7 @@
             this.debugConsole.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.debugConsole.Size = new System.Drawing.Size(316, 388);
             this.debugConsole.TabIndex = 0;
+            this.debugConsole.WordWrap = false;
             // 
             // mainTableLayoutPanel
             // 
@@ -367,6 +368,7 @@
             this.Name = "AppForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Генератор лабиринтов";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AppFormClosing);
             this.mazeConfigurationTableLayoutPanel.ResumeLayout(false);
             this.mazeConfigurationTableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mazeColumnsTrackbar)).EndInit();
