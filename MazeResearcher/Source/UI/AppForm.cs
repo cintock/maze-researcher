@@ -157,7 +157,6 @@ namespace Maze.UI
                     string.Format("При создании лабиринта произошла ошибка: {0}", 
                     ex.ToString()));
             }
-
         }
 
         void SizeTrackbarChanged(object sender, EventArgs e)
@@ -190,7 +189,7 @@ namespace Maze.UI
             Application.Exit();
         }
 
-        private void StartConfigurationForm(Object sender, EventArgs e)
+        private void StartConfigurationForm(object sender, EventArgs e)
         {
             ConfigurationForm form = new ConfigurationForm(drawer,
                 drawingSettings)
@@ -215,7 +214,7 @@ namespace Maze.UI
             }
         }
 
-        private void SaveMazeImage(Object sender, EventArgs e)
+        private void SaveMazeImage(object sender, EventArgs e)
         {
             try
             {
@@ -252,7 +251,7 @@ namespace Maze.UI
             }
         }
 
-        private void AboutDialog(Object sender, EventArgs e)
+        private void AboutDialog(object sender, EventArgs e)
         {
             AboutDialog about = new AboutDialog();
             about.ShowDialog(this);
