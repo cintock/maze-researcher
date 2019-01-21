@@ -19,7 +19,7 @@ namespace Maze.UI
             this.labelCopyright.Text = AssemblyCopyright;
             this.labelCompanyName.Text = AssemblyCompany;
             this.textBoxDescription.Text = AssemblyDescription;
-            this.textBoxVersion.Text = AssemblyVersion;
+            this.textBoxVersion.Text = FullVersion;
 
             using (Stream logoStream =
                 Assembly.GetExecutingAssembly().GetManifestResourceStream("Maze.logo.png"))
@@ -30,6 +30,18 @@ namespace Maze.UI
                     logoPictureBox.Image = logoImage;
                     logoPictureBox.Size = logoImage.Size;
                 }
+            }
+        }
+
+        public string FullVersion
+        {
+            get
+            {
+                string fullVersion = string.Format("{0} ({1})",
+                    ProgramVersion.Instance().VersionString(),
+                    Assembly.GetExecutingAssembly().GetName().Version.ToString());
+
+                return fullVersion;
             }
         }
 
@@ -50,18 +62,6 @@ namespace Maze.UI
                     }
                 }
                 return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
-            }
-        }
-
-        public string AssemblyVersion
-        {
-            get
-            {
-                string fullVersion = string.Format("{0} ({1})",
-                    ProgramVersion.Instance().VersionString(), 
-                    Assembly.GetExecutingAssembly().GetName().Version.ToString());
-
-                return fullVersion;
             }
         }
 

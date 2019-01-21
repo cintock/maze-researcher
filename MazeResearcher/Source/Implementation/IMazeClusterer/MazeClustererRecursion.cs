@@ -78,7 +78,7 @@ namespace Maze.Implementation
             catch (Exception ex)
             {
                 // мы ловим тут исключения, поскольку метод выполняется в потоке,
-                // то StackOverflowException здесь все равно не отловится
+                // но StackOverflowException здесь все равно не отловится
                 threadException = ex;
             }
         }
