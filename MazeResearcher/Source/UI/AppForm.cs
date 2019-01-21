@@ -183,7 +183,13 @@ namespace Maze.UI
             DrawMaze();
         }
 
-        private void ExitApplication(Object sender, EventArgs e)
+        private void AppFormClosing(object sender, FormClosingEventArgs e)
+        {
+            debugConsoleEnabled = false;
+            DebugState();
+        }
+
+        private void ExitApplication(object sender, EventArgs e)
         {
             Application.Exit();
         }

@@ -368,6 +368,7 @@
             this.Name = "AppForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Генератор лабиринтов";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AppFormClosing);
             this.mazeConfigurationTableLayoutPanel.ResumeLayout(false);
             this.mazeConfigurationTableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mazeColumnsTrackbar)).EndInit();
