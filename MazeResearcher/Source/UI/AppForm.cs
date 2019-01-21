@@ -13,17 +13,12 @@ namespace Maze.UI
 {
     public partial class AppForm : Form
     {
-        IMazeDrawer mazeDrawer;
-
-        MazeDrawingSettings mazeDrawingSettings;
-
-        IMazeClusterer clusterer;
-
-        IMazeView maze;
-
-        MazeClusters clusters;
-
-        bool debugConsoleEnabled;
+        private IMazeDrawer drawer;
+        private MazeDrawingSettings drawingSettings;
+        private IMazeClusterer clusterer;
+        private IMazeView maze;
+        private MazeClusters clusters;
+        private bool debugConsoleEnabled;
 
         public AppForm()
         {
@@ -35,14 +30,13 @@ namespace Maze.UI
             mazeGenerationAlgoCombobox.DisplayMember = "Name";
             mazeGenerationAlgoCombobox.ValueMember = "ObjectValue";
 
-            SizeTrackbarChanged(null, null);
-
-            DebugState();
+            SizeTrackbarChanged(null, null);            
 
             DefaultSettings();
 
+            DebugState();
+
             // todo: отобразить связанность областей вынести в меню вид
-            // todo: простое рисование убрать совсем, потому что уже есть выбор алгоритма в настройках
 
             // todo: сделать IMazeDrawer, который рисует лабиринт с ячейками-стенами (стена
             // и коридор имеют одинаковый размер)
@@ -62,7 +56,7 @@ namespace Maze.UI
 
         void DefaultSettings()
         {
-            mazeDrawingSettings = new MazeDrawingSettings
+            drawingSettings = new MazeDrawingSettings()
             {
                 CellHeight = 10,
                 CellWidth = 10,
@@ -71,16 +65,11 @@ namespace Maze.UI
                 SideColor = Color.DarkGreen
             };
 
-            mazeDrawer = MazeDrawersObjects.Instance().GetObject(
+            drawer = MazeDrawersObjects.Instance().GetObject(
                 MazeDrawersEnum.StandardMazeDrawer);
 
             clusterer = MazeClustererObjects.Instance().GetObject(
                 MazeClusterersEnum.MazeClustererCyclic);
-        }
-
-        void ClearImageBitmap()
-        {
-            mazePicturebox.Image = null;
         }
 
         void FindClusters()
@@ -96,31 +85,36 @@ namespace Maze.UI
             {
                 if (maze != null)
                 {
-                    mazeDrawer.SetDrawingSettings(mazeDrawingSettings);
+                    drawer.SetDrawingSettings(drawingSettings);
                     if (showMazeClustersCheckbox.Checked)
                     {
-                        if (clusters == null)
-                        {
-                            FindClusters();
-                        }
-                        mazeImage = mazeDrawer.Draw(maze, clusters);
+                        mazeImage = drawer.Draw(maze, clusters);
                     }
                     else
                     {
-                        mazeImage = mazeDrawer.Draw(maze, null);
+                        mazeImage = drawer.Draw(maze);
                     }
                 }
             }
             catch (MazeException ex)
             {
-                DebugConsole.Instance.Error(string.Format("Возникло исключение: {0}", ex.ToString()));
+                DebugConsole.Instance.Error(
+                    string.Format("Возникло исключение: {0}", ex.ToString()));
             }
             return mazeImage;
         }
 
-        void DrawMaze()
+        private void ShowMaze()
         {
-            mazePicturebox.Image = RenderMaze();
+            if (maze != null)
+            {
+                if (showMazeClustersCheckbox.Checked && clusters == null)
+                {
+                    FindClusters();
+                }
+
+                mazePicturebox.Image = RenderMaze();
+            }
         }
 
         private void ClearClusters()
@@ -130,8 +124,7 @@ namespace Maze.UI
         }
 
         void CreateMazeButtonClick(object sender, EventArgs e)
-        {
-            Stopwatch methodTime = Stopwatch.StartNew();
+        {            
             try
             {
                 IMazeGenerator selectedGenerator =
@@ -141,11 +134,17 @@ namespace Maze.UI
                 {
                     ClearClusters();
 
+                    Stopwatch methodTime = Stopwatch.StartNew();
                     maze = selectedGenerator.Generate(
                         mazeRowsTrackbar.Value,
                         mazeColumnsTrackbar.Value);
 
-                    DrawMaze();
+                    ShowMaze();
+
+                    methodTime.Stop();
+                    DebugConsole.Instance.Info(
+                        string.Format("Лабиринт ({0} x {1}) создан и нарисован за {2} мс",
+                        maze.RowCount, maze.ColCount, methodTime.ElapsedMilliseconds));
                 }
                 else
                 {
@@ -158,10 +157,7 @@ namespace Maze.UI
                     string.Format("При создании лабиринта произошла ошибка: {0}", 
                     ex.ToString()));
             }
-            methodTime.Stop();
-            DebugConsole.Instance.Info(
-                string.Format("Лабиринт ({0} x {1}) создан и нарисован за {2} мс",
-                maze.RowCount, maze.ColCount, methodTime.ElapsedMilliseconds));
+
         }
 
         void SizeTrackbarChanged(object sender, EventArgs e)
@@ -180,7 +176,7 @@ namespace Maze.UI
 
         void ShowMazeClustersCheckboxChanged(object sender, EventArgs e)
         {
-            DrawMaze();
+            ShowMaze();
         }
 
         private void AppFormClosing(object sender, FormClosingEventArgs e)
@@ -196,8 +192,8 @@ namespace Maze.UI
 
         private void StartConfigurationForm(Object sender, EventArgs e)
         {
-            ConfigurationForm form = new ConfigurationForm(mazeDrawer,
-                mazeDrawingSettings)
+            ConfigurationForm form = new ConfigurationForm(drawer,
+                drawingSettings)
             {
                 DebugLogging = debugConsoleEnabled,
                 Clusterer = clusterer
@@ -205,7 +201,7 @@ namespace Maze.UI
 
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                mazeDrawer = form.Drawer;
+                drawer = form.Drawer;
 
                 clusterer = form.Clusterer;
 
@@ -215,7 +211,7 @@ namespace Maze.UI
 
                 ClearClusters();
 
-                DrawMaze();
+                ShowMaze();
             }
         }
 
