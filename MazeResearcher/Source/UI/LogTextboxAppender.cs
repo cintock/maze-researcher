@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using log4net.Appender;
 using log4net.Core;
@@ -11,7 +9,20 @@ namespace Maze.UI
 {
     public class LogTextboxAppender : AppenderSkeleton
     {
+        private const int flushTimeoutMs = 100;
+
         private static volatile TextBox loggingTextbox;
+
+        private SpinLock lockBuffer = new SpinLock();
+
+        private List<string> buffer = new List<string>();
+
+        private System.Threading.Timer flushTimer;
+
+        public LogTextboxAppender()
+        {
+            flushTimer = new System.Threading.Timer(Flush);
+        }
 
         public static TextBox LoggingTextbox
         { 
@@ -21,18 +32,16 @@ namespace Maze.UI
             }
         }
 
-        private static SpinLock lockBuffer = new SpinLock();
-
-        private static List<String> buffer = new List<string>();
-
-        private System.Threading.Timer flushTimer = new System.Threading.Timer(Flush);
-
         protected override void Append(LoggingEvent loggingEvent)
         {
+            // если просто записывать данные в текстове поле на форме (по одной строчке),
+            // то получается очень долго, поэтому если идет непрерывный поток логов, то
+            // собираем их и ждем пока наступит затишье, чтобы отдать их выводиться на форму в
+            // визуальный компонент
             TextBox textbox = loggingTextbox;
             if (textbox != null)
             {
-                String mes = RenderLoggingEvent(loggingEvent) + Environment.NewLine;
+                string mes = RenderLoggingEvent(loggingEvent) + Environment.NewLine;
                 bool lockIsOk = false;
                 try
                 {
@@ -46,21 +55,21 @@ namespace Maze.UI
                         lockBuffer.Exit();
                     }
                 }
-                flushTimer.Change(100, System.Threading.Timeout.Infinite);
+                flushTimer.Change(flushTimeoutMs, Timeout.Infinite);
             }
         }
 
-        private static void Flush(object state)
+        private void Flush(object state)
         {
             TextBox textbox = loggingTextbox;
             if (textbox != null)
             {
                 bool lockIsOk = false;
-                String cachedMessages;
+                string bufferMessages;
                 try
                 {
                     lockBuffer.Enter(ref lockIsOk);
-                    cachedMessages = String.Join("", buffer.ToArray());
+                    bufferMessages = string.Join("", buffer.ToArray());
                     buffer.Clear();
                 }
                 finally
@@ -70,10 +79,12 @@ namespace Maze.UI
                         lockBuffer.Exit();
                     }
                 }
-                textbox.Invoke((Action)(() =>
-                {
-                    textbox.AppendText(cachedMessages);
-                }));
+                textbox.Invoke(
+                    (Action)(() =>
+                    {
+                        textbox.AppendText(bufferMessages);
+                    }
+                ));
             }
         }
     }

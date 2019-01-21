@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using Maze.Implementation;
 
@@ -27,7 +22,9 @@ namespace Maze.UI
             set
             {
                 drawer = value;
+
                 drawingAlgoCombobox.SelectedValue = drawer;
+                drawingAlgoCombobox.Enabled = true;
             }
         }
 
@@ -41,12 +38,21 @@ namespace Maze.UI
             set
             {
                 drawingSettings = value;
+
                 cellWidthNumericUpDown.Value = drawingSettings.CellWidth;
+                cellWidthNumericUpDown.Enabled = true;
+
                 cellHeightNumericUpDown.Value = drawingSettings.CellHeight;
+                cellHeightNumericUpDown.Enabled = true;
 
                 backgroundColorButton.BackColor = drawingSettings.BackgroundColor;
+                backgroundColorButton.Enabled = true;
+
                 borderColorButton.BackColor = drawingSettings.BorderColor;
+                borderColorButton.Enabled = true;
+
                 sideColorButton.BackColor = drawingSettings.SideColor;
+                sideColorButton.Enabled = true;
             }
         }
 
@@ -60,7 +66,9 @@ namespace Maze.UI
             set
             {
                 debugLogging = value;
+
                 debugLoggingCheckbox.Checked = debugLogging;
+                debugLoggingCheckbox.Enabled = true;
             }
         }
 
@@ -74,7 +82,9 @@ namespace Maze.UI
             set
             {
                 clusterer = value;
+
                 clustererCombobox.SelectedValue = value;
+                clustererCombobox.Enabled = true;
             }
         }
 
@@ -93,13 +103,6 @@ namespace Maze.UI
 
             clustererCombobox.DisplayMember = "Name";
             clustererCombobox.ValueMember = "ObjectValue";
-        }
-
-        public ConfigurationForm(IMazeDrawer drawer, MazeDrawingSettings drawingSettings) : 
-            this()
-        {
-            Drawer = drawer;
-            DrawingSettings = drawingSettings;
         }
 
         private void BackgroundColorSelect(Object sender, EventArgs e)

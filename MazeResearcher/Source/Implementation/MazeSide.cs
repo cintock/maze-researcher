@@ -3,7 +3,6 @@
  * Date: 10.01.2019
  * Created by SharpDevelop.
  */
-
 using System;
 
 namespace Maze.Implementation

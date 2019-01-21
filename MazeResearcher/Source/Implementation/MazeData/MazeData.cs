@@ -3,14 +3,13 @@
  * Date: 05.01.2019
  * Created by SharpDevelop.
  */
-using System;
 
 namespace Maze.Implementation
 {
-	/// <summary>
-	/// Класс для хранения лабиринта
-	/// </summary>
-	public class MazeData : BaseMazeData
+    /// <summary>
+    /// Класс для хранения лабиринта
+    /// </summary>
+    public class MazeData : BaseMazeData
 	{
         private readonly MazeSide[,] mazeMatrix;
 

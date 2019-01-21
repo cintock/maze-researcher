@@ -3,18 +3,17 @@
  * Date: 05.01.2019
  * Created by SharpDevelop.
  */
-using System;
 using System.Collections.Generic;
 
 namespace Maze.Implementation
 {
-	/// <summary>
-	/// Класс для хранения представления связанных областей лабиринта.
-	/// Из любой точки связанной области можно попасть в любую другую
-	/// точку связанной области. Каждой связанной области соответствует
-	/// отличное от 0 числовое значение
-	/// </summary>
-	public class MazeClusters
+    /// <summary>
+    /// Класс для хранения представления связанных областей лабиринта.
+    /// Из любой точки связанной области можно попасть в любую другую
+    /// точку связанной области. Каждой связанной области соответствует
+    /// отличное от 0 числовое значение
+    /// </summary>
+    public class MazeClusters
 	{
 		private readonly int[,] attainableCells;
 		private readonly int rowCount;

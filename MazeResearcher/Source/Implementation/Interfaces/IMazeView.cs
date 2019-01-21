@@ -3,14 +3,13 @@
  * Date: 06.01.2019
  * Created by SharpDevelop.
  */
-using System;
 
 namespace Maze.Implementation
-{	
-	/// <summary>
-	/// Интерфейс для получения данных лабиринта
-	/// </summary>
-	public interface IMazeView
+{
+    /// <summary>
+    /// Интерфейс для получения данных лабиринта
+    /// </summary>
+    public interface IMazeView
 	{
 		int RowCount { get; }
 		int ColCount { get; }

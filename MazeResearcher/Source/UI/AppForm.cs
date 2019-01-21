@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using Maze.Implementation;
 
@@ -180,6 +175,11 @@ namespace Maze.UI
             LogTextboxAppender.LoggingTextbox = debugConsoleEnabled ? debugConsole : null;
         }
 
+        bool IsDebugConsoleEnabled()
+        {
+            return debugConsoleEnabled;
+        }
+
         void ShowMazeClustersCheckboxChanged(object sender, EventArgs e)
         {
             ShowMaze();
@@ -197,23 +197,21 @@ namespace Maze.UI
 
         private void StartConfigurationForm(object sender, EventArgs e)
         {
-            // todo: провести рефакторинг ConfigurationForm и тут внести правки
-            ConfigurationForm form = new ConfigurationForm(drawer,
-                drawingSettings)
+            ConfigurationForm dialog = new ConfigurationForm()
             {
-                DebugLogging = debugConsoleEnabled,
-                Clusterer = clusterer
+                Drawer = drawer,
+                DrawingSettings = drawingSettings,                
+                Clusterer = clusterer,
+                DebugLogging = IsDebugConsoleEnabled(),
             };
 
-            if (form.ShowDialog(this) == DialogResult.OK)
+            if (dialog.ShowDialog(this) == DialogResult.OK)
             {
-                drawer = form.Drawer;
-                clusterer = form.Clusterer;
-
-                SetDebugConsoleState(form.DebugLogging);
+                drawer = dialog.Drawer;
+                clusterer = dialog.Clusterer;
+                SetDebugConsoleState(dialog.DebugLogging);
 
                 ClearClusters();
-
                 ShowMaze();
             }
         }
