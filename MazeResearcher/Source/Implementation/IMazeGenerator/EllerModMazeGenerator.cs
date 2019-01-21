@@ -39,26 +39,26 @@ namespace Maze.Implementation
     /// уровне всегда оставляем только один выход, поэтому они сходятся внизу.
     /// </summary>
     public class EllerModMazeGenerator : IMazeGenerator
-	{
+    {
         int rowCount;
-		int colCount;
-		List<int> mazeLineData;
-		MazeData maze;
+        int colCount;
+        List<int> mazeLineData;
+        MazeData maze;
 
-		Random randomValues = new Random();
-		
-		public EllerModMazeGenerator()
-		{
-		}
-				
-		private void InitMaze(int row, int col)
-		{
+        Random randomValues = new Random();
+
+        public EllerModMazeGenerator()
+        {
+        }
+
+        private void InitMaze(int row, int col)
+        {
             CheckDimensions(row, col);
             rowCount = row;
             colCount = col;
             mazeLineData = new List<int>(new int[colCount]);
-			maze = new MazeData(rowCount, colCount);
-		}
+            maze = new MazeData(rowCount, colCount);
+        }
 
         private void CheckDimensions(int row, int col)
         {
@@ -68,7 +68,7 @@ namespace Maze.Implementation
                     "Размеры лабиринта должны быть положительными значениями");
             }
         }
-		
+
         private bool RandomBool()
         {
             return (randomValues.Next() % 2 == 0);
@@ -120,98 +120,98 @@ namespace Maze.Implementation
             return lineSegments;
         }
 
-		#region Step 2
-		private void InitRow(int row)
-		{
+        #region Step 2
+        private void InitRow(int row)
+        {
             Queue<int> unallocatedNums = CalcUnallocatedNumbers(mazeLineData);
 
-			for (int c = 0; c < colCount; c++)
-			{
-				if (mazeLineData[c] == 0)
-				{
-					mazeLineData[c] = unallocatedNums.Dequeue();
-				}
-			}
-		}
-		#endregion
-		
-		#region Step 3
-		private void CreateRightBorders(int row)
-		{
-			for (int c = 0; c < colCount - 1; c++)
-			{
-				if (mazeLineData[c] == mazeLineData[c + 1])
-				{
-					maze.AddSides(row, c, MazeSide.Right);
-				}
-				else
-				{
-					if (RandomBool())
-					{
-						maze.AddSides(row, c, MazeSide.Right);
-					}
-					else
-					{
-						mazeLineData[c + 1] = mazeLineData[c];
-					}
-				}
-			}
-		}
-		#endregion		
+            for (int c = 0; c < colCount; c++)
+            {
+                if (mazeLineData[c] == 0)
+                {
+                    mazeLineData[c] = unallocatedNums.Dequeue();
+                }
+            }
+        }
+        #endregion
 
-		#region Step 4
-		private void CreateBottomBorders(int row)
-		{
+        #region Step 3
+        private void CreateRightBorders(int row)
+        {
+            for (int c = 0; c < colCount - 1; c++)
+            {
+                if (mazeLineData[c] == mazeLineData[c + 1])
+                {
+                    maze.AddSides(row, c, MazeSide.Right);
+                }
+                else
+                {
+                    if (RandomBool())
+                    {
+                        maze.AddSides(row, c, MazeSide.Right);
+                    }
+                    else
+                    {
+                        mazeLineData[c + 1] = mazeLineData[c];
+                    }
+                }
+            }
+        }
+        #endregion
+
+        #region Step 4
+        private void CreateBottomBorders(int row)
+        {
             List<LineSegment> lineSegments = DivideSegments(mazeLineData);
-						
-			foreach (LineSegment segment in lineSegments)
-			{
+
+            foreach (LineSegment segment in lineSegments)
+            {
                 int length = segment.Length();
                 if (length > 1)
-				{
-					int openBottomPos = randomValues.Next(length - 1);
-					for (int c = segment.FirstPos; c <= segment.LastPos; c++)
-					{
-						if (c != segment.FirstPos + openBottomPos)
-						{
+                {
+                    int openBottomPos = randomValues.Next(length - 1);
+                    for (int c = segment.FirstPos; c <= segment.LastPos; c++)
+                    {
+                        if (c != segment.FirstPos + openBottomPos)
+                        {
                             maze.AddSides(row, c, MazeSide.Bottom);
-						}
-					}
-				}
-			}
-		}
-		#endregion
-		
-		#region Step 5
-		private void PrepareNextRow(int row)
-		{
-			for (int c = 0; c < colCount; c++)
-			{
-				if (maze.GetCell(row, c).HasFlag(MazeSide.Bottom))
-				{
-					mazeLineData[c] = 0;
-				}
-			}			
-		}
-		#endregion
-		
-		public IMazeView Generate(int row, int col)
-		{
-			InitMaze(row, col);
-			
-			for (int r = 0; r < rowCount - 1; r++)
-			{
-				InitRow(r);			
-				CreateRightBorders(r);			
-				CreateBottomBorders(r);
-			
-				if (r < rowCount - 2)
-				{
-					PrepareNextRow(r);
-				}
-			}
+                        }
+                    }
+                }
+            }
+        }
+        #endregion
 
-			return maze;
-		}
-	}
+        #region Step 5
+        private void PrepareNextRow(int row)
+        {
+            for (int c = 0; c < colCount; c++)
+            {
+                if (maze.GetCell(row, c).HasFlag(MazeSide.Bottom))
+                {
+                    mazeLineData[c] = 0;
+                }
+            }
+        }
+        #endregion
+
+        public IMazeView Generate(int row, int col)
+        {
+            InitMaze(row, col);
+
+            for (int r = 0; r < rowCount - 1; r++)
+            {
+                InitRow(r);
+                CreateRightBorders(r);
+                CreateBottomBorders(r);
+
+                if (r < rowCount - 2)
+                {
+                    PrepareNextRow(r);
+                }
+            }
+
+            return maze;
+        }
+    }
 }

@@ -7,14 +7,14 @@
 namespace Maze.Implementation
 {
     public struct MazePoint
-	{
-		public MazePoint(int row, int col)
-		{
-			Row = row;
-			Col = col;
-		}
-		
-		public int Row { get; }
-		public int Col { get; }
-	}
+    {
+        public MazePoint(int row, int col)
+        {
+            Row = row;
+            Col = col;
+        }
+
+        public int Row { get; }
+        public int Col { get; }
+    }
 }

@@ -76,10 +76,10 @@ namespace Maze.Implementation
 
         public bool IsCellExists(int row, int col)
         {
-            return ((row >= 0) && (row < rowCount) && 
+            return ((row >= 0) && (row < rowCount) &&
                 (col >= 0) && (col < colCount));
         }
 
-        public abstract  MazeSide GetCell(int row, int col);
+        public abstract MazeSide GetCell(int row, int col);
     }
 }

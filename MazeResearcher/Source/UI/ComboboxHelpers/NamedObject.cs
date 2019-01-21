@@ -12,22 +12,22 @@ namespace Maze.UI
     /// </summary>    
     internal class NamedObject<T>
     {
-		public NamedObject(T objectValue, string name)
-		{
-			ObjectValue = objectValue;
-			Name = name;
-		}
-		
-		public T ObjectValue
-        { 
-			get;
-			private set; 
-		}
-		
-		public string Name 
-		{ 
-			get; 
-			private set; 
-		}
-	}
+        public NamedObject(T objectValue, string name)
+        {
+            ObjectValue = objectValue;
+            Name = name;
+        }
+
+        public T ObjectValue
+        {
+            get;
+            private set;
+        }
+
+        public string Name
+        {
+            get;
+            private set;
+        }
+    }
 }

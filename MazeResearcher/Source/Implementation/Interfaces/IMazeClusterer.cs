@@ -11,7 +11,7 @@ namespace Maze.Implementation
     /// Из одной части лабиринта нельзя попасть в другую часть лабиринта.
     /// </summary>
     public interface IMazeClusterer
-	{
-		MazeClusters Cluster(IMazeView maze);
-	}
+    {
+        MazeClusters Cluster(IMazeView maze);
+    }
 }

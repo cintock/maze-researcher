@@ -8,7 +8,7 @@ namespace Maze.Implementation
         {
         }
 
-        public MazeException(string message) : 
+        public MazeException(string message) :
             base(message)
         {
         }

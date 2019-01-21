@@ -15,7 +15,7 @@ namespace Maze.Implementation
 
         public void SetDrawingSettings(MazeDrawingSettings settings)
         {
-            
+
         }
     }
 }

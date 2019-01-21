@@ -140,7 +140,7 @@ namespace Maze.UI
 
         private void OKButtonClick(Object sender, EventArgs e)
         {
-            IMazeDrawer drawerSelected = 
+            IMazeDrawer drawerSelected =
                 (IMazeDrawer)drawingAlgoCombobox.SelectedValue;
 
             if (drawerSelected != null)

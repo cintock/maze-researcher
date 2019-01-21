@@ -11,9 +11,9 @@ namespace Maze.Implementation
     /// Интерфейс для рисования лабиринта
     /// </summary>
     public interface IMazeDrawer
-	{
+    {
         void SetDrawingSettings(MazeDrawingSettings settings);
 
         Bitmap Draw(IMazeView maze, MazeClusters clusters = null);
-	}
+    }
 }

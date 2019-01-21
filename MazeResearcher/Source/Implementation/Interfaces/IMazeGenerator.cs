@@ -10,7 +10,7 @@ namespace Maze.Implementation
     /// Интерфейс для классов, создающих лабиринты
     /// </summary>
     public interface IMazeGenerator
-	{
-		IMazeView Generate(int row, int col);
-	}
+    {
+        IMazeView Generate(int row, int col);
+    }
 }

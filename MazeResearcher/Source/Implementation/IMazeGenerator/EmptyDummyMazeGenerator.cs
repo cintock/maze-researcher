@@ -12,15 +12,15 @@ namespace Maze.Implementation
     /// (не выделяется память под матрицу лабиринта).
     /// </summary>
     public class EmptyDummyMazeGenerator : IMazeGenerator
-	{
-		public EmptyDummyMazeGenerator()
-		{
-		}
-		
-		public IMazeView Generate(int row, int col)
-		{
-			IMazeView maze = new EmptyMazeData(row, col);
-			return maze;
-		}
-	}
+    {
+        public EmptyDummyMazeGenerator()
+        {
+        }
+
+        public IMazeView Generate(int row, int col)
+        {
+            IMazeView maze = new EmptyMazeData(row, col);
+            return maze;
+        }
+    }
 }

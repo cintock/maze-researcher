@@ -10,12 +10,12 @@ namespace Maze.Implementation
     /// Интерфейс для получения данных лабиринта
     /// </summary>
     public interface IMazeView
-	{
-		int RowCount { get; }
-		int ColCount { get; }
+    {
+        int RowCount { get; }
+        int ColCount { get; }
 
         bool IsCellExists(int row, int col);
-		
-		MazeSide GetCell(int row, int col);
-	}
+
+        MazeSide GetCell(int row, int col);
+    }
 }

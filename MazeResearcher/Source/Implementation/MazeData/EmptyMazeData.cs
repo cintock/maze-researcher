@@ -12,11 +12,11 @@ namespace Maze.Implementation
     /// Внутренней матрицы значений ячеек нет.
     /// </summary>
     public class EmptyMazeData : BaseMazeData
-	{
-		public EmptyMazeData(int row, int col) : 
+    {
+        public EmptyMazeData(int row, int col) :
             base(row, col)
-		{
-		}
+        {
+        }
 
         public override MazeSide GetCell(int row, int col)
         {

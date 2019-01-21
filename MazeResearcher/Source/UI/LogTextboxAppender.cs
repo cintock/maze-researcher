@@ -25,7 +25,7 @@ namespace Maze.UI
         }
 
         public static TextBox LoggingTextbox
-        { 
+        {
             set
             {
                 loggingTextbox = value;
