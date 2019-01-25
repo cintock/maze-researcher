@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace Maze.Implementation
+namespace Maze.Logic
 {
     public class StandardMazeDrawer : IMazeDrawer
     {

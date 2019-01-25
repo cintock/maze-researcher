@@ -4,7 +4,7 @@
  * Created by SharpDevelop.
  */
 
-namespace Maze.Implementation
+namespace Maze.Logic
 {
     /// <summary>
     /// Класс для хранения лабиринта

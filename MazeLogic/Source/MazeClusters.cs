@@ -5,7 +5,7 @@
  */
 using System.Collections.Generic;
 
-namespace Maze.Implementation
+namespace Maze.Logic
 {
     /// <summary>
     /// Класс для хранения представления связанных областей лабиринта.

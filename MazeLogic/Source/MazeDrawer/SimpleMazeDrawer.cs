@@ -6,7 +6,7 @@
 using System;
 using System.Drawing;
 
-namespace Maze.Implementation
+namespace Maze.Logic
 {
     /// <summary>
     /// Класс для рисования лабиринта.

@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace Maze.Implementation
+namespace Maze.Logic
 {
     /// <summary>
     /// Класс, который возвращает пустую картинку для любого лабиринта.

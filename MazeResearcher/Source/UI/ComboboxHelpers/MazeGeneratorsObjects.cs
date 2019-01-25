@@ -3,7 +3,7 @@
  * Date: 06.01.2019
  * Created by SharpDevelop.
  */
-using Maze.Implementation;
+using Maze.Logic;
 
 namespace Maze.UI
 {

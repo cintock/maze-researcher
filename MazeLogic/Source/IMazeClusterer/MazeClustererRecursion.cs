@@ -6,7 +6,7 @@
 using System;
 using System.Threading;
 
-namespace Maze.Implementation
+namespace Maze.Logic
 {
     /// <summary>
     /// Простой рекурсивный алгоритм 

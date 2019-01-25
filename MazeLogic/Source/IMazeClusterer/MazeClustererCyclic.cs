@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Maze.Implementation
+namespace Maze.Logic
 {
     /// <summary>
     /// Циклический алгоритм поиска связанных областей

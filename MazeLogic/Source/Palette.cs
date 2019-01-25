@@ -5,7 +5,7 @@
  */
 using System.Drawing;
 
-namespace Maze.Implementation
+namespace Maze.Logic
 {
     /// <summary>
     /// Статический класс для получения хорошо различимых цветов.

@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
-using Maze.Implementation;
+using Maze.Logic;
 
 namespace Maze.UI
 {
