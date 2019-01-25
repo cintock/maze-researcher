@@ -98,6 +98,7 @@
             // 
             // sideColorButton
             // 
+            this.sideColorButton.Enabled = false;
             this.sideColorButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.sideColorButton.Location = new System.Drawing.Point(154, 183);
             this.sideColorButton.Name = "sideColorButton";
@@ -108,6 +109,7 @@
             // 
             // borderColorButton
             // 
+            this.borderColorButton.Enabled = false;
             this.borderColorButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.borderColorButton.Location = new System.Drawing.Point(154, 153);
             this.borderColorButton.Name = "borderColorButton";
@@ -130,6 +132,7 @@
             // 
             this.drawingAlgoCombobox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.drawingAlgoCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.drawingAlgoCombobox.Enabled = false;
             this.drawingAlgoCombobox.FormattingEnabled = true;
             this.drawingAlgoCombobox.Location = new System.Drawing.Point(154, 3);
             this.drawingAlgoCombobox.Name = "drawingAlgoCombobox";
@@ -158,6 +161,7 @@
             // 
             // cellWidthNumericUpDown
             // 
+            this.cellWidthNumericUpDown.Enabled = false;
             this.cellWidthNumericUpDown.Location = new System.Drawing.Point(154, 63);
             this.cellWidthNumericUpDown.Name = "cellWidthNumericUpDown";
             this.cellWidthNumericUpDown.Size = new System.Drawing.Size(88, 20);
@@ -165,6 +169,7 @@
             // 
             // cellHeightNumericUpDown
             // 
+            this.cellHeightNumericUpDown.Enabled = false;
             this.cellHeightNumericUpDown.Location = new System.Drawing.Point(154, 93);
             this.cellHeightNumericUpDown.Name = "cellHeightNumericUpDown";
             this.cellHeightNumericUpDown.Size = new System.Drawing.Size(88, 20);
@@ -182,6 +187,7 @@
             // 
             // backgroundColorButton
             // 
+            this.backgroundColorButton.Enabled = false;
             this.backgroundColorButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.backgroundColorButton.Location = new System.Drawing.Point(154, 123);
             this.backgroundColorButton.Name = "backgroundColorButton";
@@ -224,6 +230,7 @@
             // 
             this.clustererCombobox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.clustererCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.clustererCombobox.Enabled = false;
             this.clustererCombobox.FormattingEnabled = true;
             this.clustererCombobox.Location = new System.Drawing.Point(154, 33);
             this.clustererCombobox.Name = "clustererCombobox";
@@ -243,6 +250,7 @@
             // debugLoggingCheckbox
             // 
             this.debugLoggingCheckbox.AutoSize = true;
+            this.debugLoggingCheckbox.Enabled = false;
             this.debugLoggingCheckbox.Location = new System.Drawing.Point(15, 271);
             this.debugLoggingCheckbox.Name = "debugLoggingCheckbox";
             this.debugLoggingCheckbox.Size = new System.Drawing.Size(131, 17);

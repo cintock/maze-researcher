@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Maze.Implementation;
+﻿using Maze.Implementation;
 
 namespace Maze.UI
 {

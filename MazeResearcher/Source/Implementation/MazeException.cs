@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Maze.Implementation
 {
@@ -11,7 +8,7 @@ namespace Maze.Implementation
         {
         }
 
-        public MazeException(string message) : 
+        public MazeException(string message) :
             base(message)
         {
         }

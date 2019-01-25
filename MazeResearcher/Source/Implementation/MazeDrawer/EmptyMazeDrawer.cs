@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+﻿using System.Drawing;
 
 namespace Maze.Implementation
 {
@@ -19,7 +15,7 @@ namespace Maze.Implementation
 
         public void SetDrawingSettings(MazeDrawingSettings settings)
         {
-            
+
         }
     }
 }

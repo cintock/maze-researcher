@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-
 namespace Maze.UI
 {
     internal abstract class ObjectsDescription<Index, T> where Index: struct

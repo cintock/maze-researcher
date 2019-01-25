@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using Maze.Implementation;
 
@@ -24,13 +19,13 @@ namespace Maze.UI
         {
             InitializeComponent();
 
-            mazeGenerationAlgoCombobox.DataSource = 
+            mazeGenerationAlgoCombobox.DataSource =
                 MazeGeneratorsObjects.Instance().GetNamedObjectsList();
 
             mazeGenerationAlgoCombobox.DisplayMember = "Name";
             mazeGenerationAlgoCombobox.ValueMember = "ObjectValue";
 
-            SizeTrackbarChanged(null, null);            
+            SizeTrackbarChanged(null, null);
 
             DefaultSettings();
 
@@ -73,19 +68,19 @@ namespace Maze.UI
         }
 
         void FindClusters()
-        {            
+        {
             clusters = clusterer.Cluster(maze);
             string clustersCountStr = clusters.Count().ToString();
             clusterCountTextbox.Text = clustersCountStr;
 
             DebugConsole.Instance.Info(
-                string.Format("Выполнен поиск областей. Найдено областей: {0}", 
+                string.Format("Выполнен поиск областей. Найдено областей: {0}",
                 clustersCountStr));
         }
 
         private Bitmap RenderMaze()
         {
-            Bitmap mazeImage = null;            
+            Bitmap mazeImage = null;
             try
             {
                 if (maze != null)
@@ -129,7 +124,7 @@ namespace Maze.UI
         }
 
         void CreateMazeButtonClick(object sender, EventArgs e)
-        {            
+        {
             try
             {
                 IMazeGenerator selectedGenerator =
@@ -160,7 +155,7 @@ namespace Maze.UI
             catch (MazeException ex)
             {
                 DebugConsole.Instance.Error(
-                    string.Format("При создании лабиринта произошла ошибка: {0}", 
+                    string.Format("При создании лабиринта произошла ошибка: {0}",
                     ex.ToString()));
             }
         }
@@ -180,6 +175,11 @@ namespace Maze.UI
             LogTextboxAppender.LoggingTextbox = debugConsoleEnabled ? debugConsole : null;
         }
 
+        bool IsDebugConsoleEnabled()
+        {
+            return debugConsoleEnabled;
+        }
+
         void ShowMazeClustersCheckboxChanged(object sender, EventArgs e)
         {
             ShowMaze();
@@ -197,23 +197,21 @@ namespace Maze.UI
 
         private void StartConfigurationForm(object sender, EventArgs e)
         {
-            // todo: провести рефакторинг ConfigurationForm и тут внести правки
-            ConfigurationForm form = new ConfigurationForm(drawer,
-                drawingSettings)
+            ConfigurationForm dialog = new ConfigurationForm()
             {
-                DebugLogging = debugConsoleEnabled,
-                Clusterer = clusterer
+                Drawer = drawer,
+                DrawingSettings = drawingSettings,
+                Clusterer = clusterer,
+                DebugLogging = IsDebugConsoleEnabled(),
             };
 
-            if (form.ShowDialog(this) == DialogResult.OK)
+            if (dialog.ShowDialog(this) == DialogResult.OK)
             {
-                drawer = form.Drawer;
-                clusterer = form.Clusterer;
-
-                SetDebugConsoleState(form.DebugLogging);
+                drawer = dialog.Drawer;
+                clusterer = dialog.Clusterer;
+                SetDebugConsoleState(dialog.DebugLogging);
 
                 ClearClusters();
-
                 ShowMaze();
             }
         }
@@ -237,7 +235,7 @@ namespace Maze.UI
                         }
                         else
                         {
-                            MessageBox.Show(this, 
+                            MessageBox.Show(this,
                                 "Не удалось получить изображение лабиринта");
                         }
                     }

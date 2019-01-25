@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+﻿using System.Drawing;
 
 namespace Maze.Implementation
 {
@@ -17,7 +13,7 @@ namespace Maze.Implementation
             rowCount = maze.RowCount;
             colCount = maze.ColCount;
 
-            Bitmap imageBitmap = new Bitmap(colCount * drawingSettings.CellWidth + 1, 
+            Bitmap imageBitmap = new Bitmap(colCount * drawingSettings.CellWidth + 1,
                 rowCount * drawingSettings.CellHeight + 1);
 
             using (Graphics painter = Graphics.FromImage(imageBitmap))
@@ -40,8 +36,8 @@ namespace Maze.Implementation
         {
             Pen borderPen = new Pen(drawingSettings.BorderColor, 1);
             graphics.DrawRectangle(borderPen,
-                new Rectangle(0, 0, 
-                drawingSettings.CellWidth * colCount, 
+                new Rectangle(0, 0,
+                drawingSettings.CellWidth * colCount,
                 drawingSettings.CellHeight * rowCount));
         }
 
@@ -96,7 +92,7 @@ namespace Maze.Implementation
                     int index = clusters.GetClusterIndex(row, col);
                     if (index > 0)
                     {
-                        Rectangle cellRect = new Rectangle(col * cellWidth, row * cellHeight, 
+                        Rectangle cellRect = new Rectangle(col * cellWidth, row * cellHeight,
                             cellWidth, cellHeight);
 
                         graphics.FillRectangle(brushes[index - 1], cellRect);

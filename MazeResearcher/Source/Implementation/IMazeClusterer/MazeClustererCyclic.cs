@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Maze.Implementation
 {
@@ -23,7 +21,7 @@ namespace Maze.Implementation
             int index = 0;
             while (clusters.GetNextNonClusteredCell(out int row, out int col))
             {
-                List<MazePoint> foundPoints = Walk(new MazePoint(row, col), ++index); 
+                List<MazePoint> foundPoints = Walk(new MazePoint(row, col), ++index);
                 while (foundPoints.Count > 0)
                 {
                     List<MazePoint> nextPoints = new List<MazePoint>(foundPoints);
@@ -31,7 +29,7 @@ namespace Maze.Implementation
                     foreach (MazePoint point in nextPoints)
                     {
                         foundPoints.AddRange(Walk(point, index));
-                    }                                        
+                    }
                 };
             }
             return clusters;

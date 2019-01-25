@@ -3,30 +3,29 @@
  * Date: 05.01.2019
  * Created by SharpDevelop.
  */
-using System;
 
 namespace Maze.Implementation
 {
-	/// <summary>
-	/// Класс для хранения лабиринта
-	/// </summary>
-	public class MazeData : BaseMazeData
-	{
+    /// <summary>
+    /// Класс для хранения лабиринта
+    /// </summary>
+    public class MazeData : BaseMazeData
+    {
         private readonly MazeSide[,] mazeMatrix;
 
-        public MazeData(int row, int col) : 
+        public MazeData(int row, int col) :
             base(row, col)
-		{			
-			mazeMatrix = new MazeSide[rowCount, colCount];
-		}
+        {
+            mazeMatrix = new MazeSide[rowCount, colCount];
+        }
 
-		public override MazeSide GetCell(int row, int col)
-		{
+        public override MazeSide GetCell(int row, int col)
+        {
             CheckCellExists(row, col);
             MazeSide cell = AddExternalBorders(row, col, mazeMatrix[row, col]);
             return cell;
-		}
-		
+        }
+
         private void UpdateNeighbourCells(int row, int col, MazeSide sides)
         {
             if (sides.HasFlag(MazeSide.Top))
@@ -72,5 +71,5 @@ namespace Maze.Implementation
             mazeMatrix[row, col] |= sides;
             UpdateNeighbourCells(row, col, sides);
         }
-	}
+    }
 }

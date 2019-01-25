@@ -3,8 +3,6 @@
  * Date: 06.01.2019
  * Created by SharpDevelop.
  */
-using System;
-using System.Collections.Generic;
 using Maze.Implementation;
 
 namespace Maze.UI

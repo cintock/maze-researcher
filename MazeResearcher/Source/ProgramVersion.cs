@@ -13,28 +13,28 @@ namespace Maze
     /// Синглтон для получения версии программы из встраиваемого ресурса
     /// </summary>
     public sealed class ProgramVersion
-	{
+    {
         private readonly string versionResourceName = "Maze.versioninfo.txt";
         private string versionString = "undefined";
         private bool versionReceived = false;
 
         private static readonly ProgramVersion instance = new ProgramVersion();
-		
-		public static ProgramVersion Instance()
+
+        public static ProgramVersion Instance()
         {
-			return instance;
-		}
-		
-		public string VersionString()
-		{
-			if (!versionReceived)
+            return instance;
+        }
+
+        public string VersionString()
+        {
+            if (!versionReceived)
             {
                 ReadVersion();
             }
-            
-			return versionString;
-		}
-		
+
+            return versionString;
+        }
+
         private void ReadVersion()
         {
             Stream versionInfo = null;
@@ -62,8 +62,8 @@ namespace Maze
             versionReceived = true;
         }
 
-		private ProgramVersion()
-		{
-		}
-	}
+        private ProgramVersion()
+        {
+        }
+    }
 }

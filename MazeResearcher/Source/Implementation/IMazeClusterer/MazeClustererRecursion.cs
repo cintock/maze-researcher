@@ -16,26 +16,26 @@ namespace Maze.Implementation
     /// переполнению стека.
     /// </summary>
     public class MazeClustererRecursion : IMazeClusterer
-	{
+    {
         private const int recursionStackSize = 10 * 1024 * 1024;
 
         private MazeClusters clusters;
-		private IMazeView processedMaze;
-		private int rowCount;
-		private int colCount;
+        private IMazeView processedMaze;
+        private int rowCount;
+        private int colCount;
 
         private Exception threadException = null;
-		
-		public MazeClustererRecursion()
-		{
+
+        public MazeClustererRecursion()
+        {
         }
-		
-		public MazeClusters Cluster(IMazeView maze)
-		{
-			processedMaze = maze;
-			rowCount = maze.RowCount;
-			colCount = maze.ColCount;
-			clusters = new MazeClusters(processedMaze);
+
+        public MazeClusters Cluster(IMazeView maze)
+        {
+            processedMaze = maze;
+            rowCount = maze.RowCount;
+            colCount = maze.ColCount;
+            clusters = new MazeClusters(processedMaze);
 
             threadException = null;
 
@@ -52,12 +52,12 @@ namespace Maze.Implementation
 
             if (threadException != null)
             {
-                throw new MazeException("Ошибка при рекурсивном поиске областей лабиринта", 
+                throw new MazeException("Ошибка при рекурсивном поиске областей лабиринта",
                     threadException);
             }
 
             return clusters;
-		}
+        }
 
         private void FindClusters()
         {
@@ -77,54 +77,53 @@ namespace Maze.Implementation
             // поэтому отлавливаем все возможные исключения
             catch (Exception ex)
             {
-                // мы ловим тут исключения, поскольку метод выполняется в потоке,
-                // но StackOverflowException здесь все равно не отловится
+                // StackOverflowException здесь все равно не отловится
                 threadException = ex;
             }
         }
 
-		void WalkCluster(int row, int col, int cluster)
-		{
-			if (processedMaze.IsCellExists(row, col))
-			{
-				if (clusters.IsNonclustered(row, col))
-				{
-					MazeSide currentCell = processedMaze.GetCell(row, col);
-					clusters.SetClusterIndex(row, col, cluster);
-					
-					if (processedMaze.IsCellExists(row - 1, col))
-					{
-						if (!currentCell.HasFlag(MazeSide.Top))
-						{
-							WalkCluster(row - 1, col, cluster);
-						}
-					}
-					
-					if (processedMaze.IsCellExists(row + 1, col))
-					{
-						if (!currentCell.HasFlag(MazeSide.Bottom))
-						{
-							WalkCluster(row + 1, col, cluster);
-						}
-					}					
-					
-					if (processedMaze.IsCellExists(row, col - 1))
-					{
-						if (!currentCell.HasFlag(MazeSide.Left))
-						{
-							WalkCluster(row, col - 1, cluster);
-						}
-					}		
+        void WalkCluster(int row, int col, int cluster)
+        {
+            if (processedMaze.IsCellExists(row, col))
+            {
+                if (clusters.IsNonclustered(row, col))
+                {
+                    MazeSide currentCell = processedMaze.GetCell(row, col);
+                    clusters.SetClusterIndex(row, col, cluster);
 
-					if (processedMaze.IsCellExists(row, col + 1))
-					{
-						if (!currentCell.HasFlag(MazeSide.Right))
-						{
-							WalkCluster(row, col + 1, cluster);
-						}
-					}						
-				}
-			}
-		}
-	}
+                    if (processedMaze.IsCellExists(row - 1, col))
+                    {
+                        if (!currentCell.HasFlag(MazeSide.Top))
+                        {
+                            WalkCluster(row - 1, col, cluster);
+                        }
+                    }
+
+                    if (processedMaze.IsCellExists(row + 1, col))
+                    {
+                        if (!currentCell.HasFlag(MazeSide.Bottom))
+                        {
+                            WalkCluster(row + 1, col, cluster);
+                        }
+                    }
+
+                    if (processedMaze.IsCellExists(row, col - 1))
+                    {
+                        if (!currentCell.HasFlag(MazeSide.Left))
+                        {
+                            WalkCluster(row, col - 1, cluster);
+                        }
+                    }
+
+                    if (processedMaze.IsCellExists(row, col + 1))
+                    {
+                        if (!currentCell.HasFlag(MazeSide.Right))
+                        {
+                            WalkCluster(row, col + 1, cluster);
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
