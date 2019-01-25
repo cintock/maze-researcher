@@ -1,4 +1,4 @@
-﻿using Maze.Implementation;
+﻿using Maze.Logic;
 
 namespace Maze.UI
 {

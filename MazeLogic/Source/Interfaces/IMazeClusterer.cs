@@ -4,7 +4,7 @@
  * Created by SharpDevelop.
  */
 
-namespace Maze.Implementation
+namespace Maze.Logic
 {
     /// <summary>
     /// Интерфейс поиска отдельных, несвязанных частей в лабиринте.

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Maze.Implementation
+namespace Maze.Logic
 {
     /// <summary>
     /// Базовый класс для представления лабиринта

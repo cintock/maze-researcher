@@ -5,7 +5,7 @@
  */
 using System.Drawing;
 
-namespace Maze.Implementation
+namespace Maze.Logic
 {
     /// <summary>
     /// Статический класс для получения хорошо различимых цветов.
@@ -13,7 +13,7 @@ namespace Maze.Implementation
     /// Значение индекса не ограничивается, но после исчерпания реального
     /// набора цветов цвета начнут повторяться.
     /// </summary>
-    public static class Palette
+    internal static class Palette
     {
         private const uint OpaqueColor = 0xFF000000;
 

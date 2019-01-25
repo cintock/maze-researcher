@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <PropertyGroup>
     <ProjectGuid>{4318D809-712C-41DC-A96A-DE0691E6B679}</ProjectGuid>
     <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Maze</RootNamespace>
     <AssemblyName>MazeResearcher</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <NoWin32Manifest>False</NoWin32Manifest>
     <SignAssembly>False</SignAssembly>
@@ -19,6 +19,7 @@
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -46,6 +47,12 @@
     <DefineConstants>TRACE</DefineConstants>
     <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net40-full\log4net.dll</HintPath>
@@ -69,30 +76,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Source\Implementation\MazeException.cs" />
     <Compile Include="Source\UI\DebugConsole.cs" />
-    <Compile Include="Source\Implementation\IMazeClusterer\MazeClustererCyclic.cs" />
-    <Compile Include="Source\Implementation\MazeData\BaseMazeData.cs" />
-    <Compile Include="Source\Implementation\MazeDrawer\CellDebugMazeDrawer.cs" />
-    <Compile Include="Source\Implementation\MazeDrawer\EmptyMazeDrawer.cs" />
-    <Compile Include="Source\Implementation\MazeDrawer\StandardMazeDrawer.cs" />
-    <Compile Include="Source\Implementation\MazeDrawingSettings.cs" />
-    <Compile Include="Source\Implementation\MazePoint.cs" />
-    <Compile Include="Source\Implementation\MazeSide.cs" />
-    <Compile Include="Source\Implementation\IMazeClusterer\MazeClustererRecursion.cs" />
-    <Compile Include="Source\Implementation\MazeData\EmptyMazeData.cs" />
-    <Compile Include="Source\Implementation\MazeData\MazeData.cs" />
-    <Compile Include="Source\Implementation\IMazeGenerator\EllerModMazeGenerator.cs" />
-    <Compile Include="Source\Implementation\IMazeGenerator\EmptyDummyMazeGenerator.cs" />
-    <Compile Include="Source\Implementation\IMazeGenerator\EmptyMazeGenerator.cs" />
-    <Compile Include="Source\Implementation\IMazeGenerator\RandomMazeGenerator.cs" />
-    <Compile Include="Source\Implementation\Interfaces\IMazeView.cs" />
-    <Compile Include="Source\Implementation\Interfaces\IMazeDrawer.cs" />
-    <Compile Include="Source\Implementation\Interfaces\IMazeGenerator.cs" />
-    <Compile Include="Source\Implementation\Interfaces\IMazeClusterer.cs" />
-    <Compile Include="Source\Implementation\MazeClusters.cs" />
-    <Compile Include="Source\Implementation\MazeDrawer\SimpleMazeDrawer.cs" />
-    <Compile Include="Source\Implementation\Palette.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Source\Program.cs" />
     <Compile Include="Source\ProgramVersion.cs" />
@@ -137,6 +121,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MazeLogic\MazeLogic.csproj">
+      <Project>{e7c1b4ce-7b28-4149-bf8d-bb5dabcdcaa3}</Project>
+      <Name>MazeLogic</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

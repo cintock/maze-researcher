@@ -4,9 +4,9 @@
  * Created by SharpDevelop.
  */
 
-namespace Maze.Implementation
+namespace Maze.Logic
 {
-    public struct MazePoint
+    internal struct MazePoint
     {
         public MazePoint(int row, int col)
         {

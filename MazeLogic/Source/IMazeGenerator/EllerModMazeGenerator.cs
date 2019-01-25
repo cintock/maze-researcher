@@ -6,7 +6,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Maze.Implementation
+namespace Maze.Logic
 {
     internal struct LineSegment
     {

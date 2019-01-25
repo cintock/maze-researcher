@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Maze.Implementation
+namespace Maze.Logic
 {
-    class MazeException : Exception
+    public class MazeException : Exception
     {
         public MazeException()
         {

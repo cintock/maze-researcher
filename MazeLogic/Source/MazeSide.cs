@@ -5,7 +5,7 @@
  */
 using System;
 
-namespace Maze.Implementation
+namespace Maze.Logic
 {
     [Flags]
     public enum MazeSide : byte

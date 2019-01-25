@@ -5,7 +5,7 @@
  */
 using System;
 
-namespace Maze.Implementation
+namespace Maze.Logic
 {
     /// <summary>
     /// Класс для создания полностью случайного лабиринта
