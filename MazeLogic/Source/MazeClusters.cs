@@ -19,11 +19,16 @@ namespace Maze.Logic
         private readonly int rowCount;
         private readonly int colCount;
 
+        // количество связанных областей (отрицательное значение - 
+        // необходимость посчитать)
+        private int count;
+
         public MazeClusters(int row, int col)
         {
             attainableCells = new int[row, col];
             rowCount = row;
             colCount = col;
+            count = -1;
         }
 
         public MazeClusters(IMazeView maze)
@@ -39,6 +44,7 @@ namespace Maze.Logic
         public void SetClusterIndex(int row, int col, int clusterIndex)
         {
             attainableCells[row, col] = clusterIndex;
+            count = -1;
         }
 
         public int GetClusterIndex(int row, int col)
@@ -72,7 +78,7 @@ namespace Maze.Logic
             return exists;
         }
 
-        public int Count()
+        private void CalculateClusters()
         {
             HashSet<int> clusters = new HashSet<int>();
             for (int row = 0; row < rowCount; row++)
@@ -86,7 +92,17 @@ namespace Maze.Logic
                 }
             }
 
-            return clusters.Count;
+            count = clusters.Count;
+        }
+
+        public int Count()
+        {
+            if (count < 0)
+            {
+                CalculateClusters();
+            }
+
+            return count;
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Maze.Logic
     /// Значение индекса не ограничивается, но после исчерпания реального
     /// набора цветов цвета начнут повторяться.
     /// </summary>
-    public static class Palette
+    internal static class Palette
     {
         private const uint OpaqueColor = 0xFF000000;
 
