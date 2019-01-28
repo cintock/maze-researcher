@@ -2,8 +2,6 @@
 
 namespace Maze.Logic
 {
-    // todo: доделать
-
     public class SolidSidesDrawer : IMazeDrawer
     {
         private MazeDrawingSettings drawingSettings;
@@ -12,6 +10,7 @@ namespace Maze.Logic
 
         private Brush sideBrush;
         private Brush borderBrush;
+        private Brush[] clustersBrushes;
 
         public Bitmap Draw(IMazeView maze, MazeClusters clusters = null)
         {
@@ -56,9 +55,36 @@ namespace Maze.Logic
             graphics.Clear(drawingSettings.BackgroundColor);
         }
 
+        private void CreateClusterBrushes(MazeClusters clusters)
+        {
+            int count = clusters.Count();
+            clustersBrushes = new Brush[count];
+            for (int i = 0; i < count; i++)
+            {
+                clustersBrushes[i] = new SolidBrush(Palette.GetColor(i + 1));
+            }
+        }
+
         private void DrawClusters(Graphics painter, MazeClusters clusters)
         {
+            // todo: доделать
+            CreateClusterBrushes(clusters);
+            for (int row = 0; row < rowCount; row++)
+            {
+                for (int col = 0; col < colCount; col++)
+                {
+                    int index = clusters.GetClusterIndex(row, col);
 
+                    if (index != 0)
+                    {
+                        int drawRow = row * 2 + 1;
+                        int drawCol = col * 2 + 1;
+
+                        DrawCell(painter, clustersBrushes[index - 1], 
+                            drawRow, drawCol);
+                    }
+                }
+            }
         }
 
         private void DrawMaze(Graphics painter, IMazeView maze)
