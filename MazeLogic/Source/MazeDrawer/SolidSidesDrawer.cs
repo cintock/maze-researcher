@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace Maze.Logic
 {
@@ -14,7 +9,9 @@ namespace Maze.Logic
         private MazeDrawingSettings drawingSettings;
         private int rowCount;
         private int colCount;
+
         private Brush sideBrush;
+        private Brush borderBrush;
 
         public Bitmap Draw(IMazeView maze, MazeClusters clusters = null)
         {
@@ -23,12 +20,18 @@ namespace Maze.Logic
             rowCount = maze.RowCount;
             colCount = maze.ColCount;
 
-            int width = colCount * ((drawingSettings.CellWidth + 2) * 2);
-            int height = rowCount * ((drawingSettings.CellHeight + 2) * 2);
+            int width = drawingSettings.CellWidth * (colCount + (colCount - 1)) + 
+                (2 * drawingSettings.CellWidth);
+
+            int height = drawingSettings.CellHeight * (rowCount + (rowCount - 1)) + 
+                (2 * drawingSettings.CellHeight);
+
             Bitmap bitmap = new Bitmap(width, height);
 
             using (Graphics gr = Graphics.FromImage(bitmap))
             {
+                DrawBackground(gr);
+
                 if (clusters != null)
                 {
                     DrawClusters(gr, clusters);
@@ -45,6 +48,12 @@ namespace Maze.Logic
         private void CreateBrushes()
         {
             sideBrush = new SolidBrush(drawingSettings.SideColor);
+            borderBrush = new SolidBrush(drawingSettings.BorderColor);
+        }
+
+        private void DrawBackground(Graphics graphics)
+        {
+            graphics.Clear(drawingSettings.BackgroundColor);
         }
 
         private void DrawClusters(Graphics painter, MazeClusters clusters)
@@ -64,48 +73,59 @@ namespace Maze.Logic
 
                     if (cell.HasFlag(MazeSide.Right))
                     {
-                        DrawWall(painter, drawRow - 1, drawCol + 1);
-                        DrawWall(painter, drawRow, drawCol + 1);
-                        DrawWall(painter, drawRow + 1, drawCol + 1);
+                        DrawCell(painter, sideBrush, drawRow - 1, drawCol + 1);
+                        DrawCell(painter, sideBrush, drawRow, drawCol + 1);
+                        DrawCell(painter, sideBrush, drawRow + 1, drawCol + 1);
                     }
 
                     if (cell.HasFlag(MazeSide.Bottom))
                     {
-                        DrawWall(painter, drawRow + 1, drawCol - 1);
-                        DrawWall(painter, drawRow + 1, drawCol);
-                        DrawWall(painter, drawRow + 1, drawCol + 1);
+                        DrawCell(painter, sideBrush, drawRow + 1, drawCol - 1);
+                        DrawCell(painter, sideBrush, drawRow + 1, drawCol);
+                        DrawCell(painter, sideBrush, drawRow + 1, drawCol + 1);
                     }
 
                     if (cell.HasFlag(MazeSide.Left))
                     {
-                        DrawWall(painter, drawRow - 1, drawCol - 1);
-                        DrawWall(painter, drawRow, drawCol - 1);
-                        DrawWall(painter, drawRow + 1, drawCol - 1);
+                        DrawCell(painter, sideBrush, drawRow - 1, drawCol - 1);
+                        DrawCell(painter, sideBrush, drawRow, drawCol - 1);
+                        DrawCell(painter, sideBrush, drawRow + 1, drawCol - 1);
                     }
 
                     if (cell.HasFlag(MazeSide.Top))
                     {
-                        DrawWall(painter, drawRow - 1, drawCol - 1);
-                        DrawWall(painter, drawRow - 1, drawCol);
-                        DrawWall(painter, drawRow - 1, drawCol + 1);
+                        DrawCell(painter, sideBrush, drawRow - 1, drawCol - 1);
+                        DrawCell(painter, sideBrush, drawRow - 1, drawCol);
+                        DrawCell(painter, sideBrush, drawRow - 1, drawCol + 1);
                     }
                 }
             }
         }
 
-        private void DrawWall(Graphics painter, int drawRow, int drawCol)
+        private void DrawCell(Graphics painter, Brush brush, int drawRow, int drawCol)
         {
             RectangleF rect = new RectangleF(
                 drawCol * drawingSettings.CellWidth,
                 drawRow * drawingSettings.CellHeight,
                 drawingSettings.CellWidth, drawingSettings.CellHeight);
 
-            painter.FillRectangle(sideBrush, rect);
+            painter.FillRectangle(brush, rect);
         }
 
         private void DrawBorders(Graphics painter)
         {
-
+            int drawRowMax = rowCount * 2 + 1;
+            int drawColMax = colCount * 2 + 1;
+            for (int row = 0; row < drawRowMax; row++)
+            {
+                DrawCell(painter, borderBrush, row, 0);
+                DrawCell(painter, borderBrush, row, drawColMax - 1);
+            }
+            for (int col = 0; col < drawColMax; col++)
+            {
+                DrawCell(painter, borderBrush, 0, col);
+                DrawCell(painter, borderBrush, drawRowMax - 1, col);
+            }
         }
 
         public void SetDrawingSettings(MazeDrawingSettings settings)
