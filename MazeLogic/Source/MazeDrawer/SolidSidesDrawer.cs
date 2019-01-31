@@ -33,7 +33,7 @@ namespace Maze.Logic
 
                 if (clusters != null)
                 {
-                    DrawClusters(gr, clusters);
+                    DrawClusters(gr, maze, clusters);
                 }
 
                 DrawMaze(gr, maze);
@@ -65,9 +65,8 @@ namespace Maze.Logic
             }
         }
 
-        private void DrawClusters(Graphics painter, MazeClusters clusters)
+        private void DrawClusters(Graphics painter, IMazeView maze, MazeClusters clusters)
         {
-            // todo: доделать
             CreateClusterBrushes(clusters);
             for (int row = 0; row < rowCount; row++)
             {
@@ -82,6 +81,26 @@ namespace Maze.Logic
 
                         DrawCell(painter, clustersBrushes[index - 1], 
                             drawRow, drawCol);
+
+                        MazeSide cell = maze.GetCell(row, col);
+
+                        if (!cell.HasFlag(MazeSide.Bottom))
+                        {
+                            DrawCell(painter, clustersBrushes[index - 1],
+                                drawRow + 1, drawCol);
+                        }
+
+                        if (!cell.HasFlag(MazeSide.Right))
+                        {
+                            DrawCell(painter, clustersBrushes[index - 1],
+                                drawRow, drawCol + 1);
+                        }
+
+                        if (!cell.HasFlag(MazeSide.Bottom) && !cell.HasFlag(MazeSide.Right))
+                        {
+                            DrawCell(painter, clustersBrushes[index - 1],
+                                drawRow + 1, drawCol + 1);
+                        }
                     }
                 }
             }
