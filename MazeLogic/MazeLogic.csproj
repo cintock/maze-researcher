@@ -59,6 +59,7 @@
     <Compile Include="Source\MazeDrawer\CellDebugMazeDrawer.cs" />
     <Compile Include="Source\MazeDrawer\EmptyMazeDrawer.cs" />
     <Compile Include="Source\MazeDrawer\SimpleMazeDrawer.cs" />
+    <Compile Include="Source\MazeDrawer\SolidSidesDrawer.cs" />
     <Compile Include="Source\MazeDrawer\StandardMazeDrawer.cs" />
     <Compile Include="Source\MazeDrawingSettings.cs" />
     <Compile Include="Source\MazeException.cs" />
