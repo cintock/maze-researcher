@@ -9,9 +9,10 @@ namespace Maze.UI
     {
         private bool debugLogging;
         private MazeDrawingSettings drawingSettings;
-        private MazeDrawersEnum drawer;
 
+        private MazeDrawersEnum drawer;
         private MazeClusterersEnum clusterer;
+        private MazeRotateEnum rotation;
 
         private Color backgroundColor;
         private Color borderColor;
@@ -30,6 +31,22 @@ namespace Maze.UI
 
                 ConfigureCombobox(drawingAlgoCombobox, 
                     MazeDrawersObjects.Instance(), drawer);
+            }
+        }
+
+        public MazeRotateEnum Rotation
+        {
+            get
+            {
+                return rotation;
+            }
+
+            set
+            {
+                rotation = value;
+
+                ConfigureCombobox(rotationCombobox,
+                    RotationSettings.Instance(), rotation);
             }
         }
 
@@ -164,6 +181,12 @@ namespace Maze.UI
             if (clustererIndex >= 0)
             {
                 clusterer = MazeClustererObjects.Instance().GetEnumIndexByNumIndex(clustererIndex);
+            }
+
+            int rotationIndex = rotationCombobox.SelectedIndex;
+            if (rotationIndex >= 0)
+            {
+                rotation = RotationSettings.Instance().GetEnumIndexByNumIndex(rotationIndex);
             }
 
             drawingSettings.CellHeight = (int)cellHeightNumericUpDown.Value;

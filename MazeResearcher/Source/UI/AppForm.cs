@@ -12,6 +12,7 @@ namespace Maze.UI
 
         private MazeDrawersEnum drawingAlgo;
         private MazeClusterersEnum clustererAlgo;
+        private MazeRotateEnum mazeRotation;
 
         private IMazeView maze;
         private MazeClusters clusters;
@@ -28,7 +29,8 @@ namespace Maze.UI
                 MazeGeneratorsObjects.Instance().GetNamesList().ToArray());
 
             mazeGenerationAlgoCombobox.SelectedIndex = 
-                MazeGeneratorsObjects.Instance().GetNumIndexByEnumIndex(MazeGeneratorsEnum.EllerModMazeGenerator);
+                MazeGeneratorsObjects.Instance().GetNumIndexByEnumIndex(
+                    MazeGeneratorsEnum.EllerModMazeGenerator);
 
             SizeTrackbarChanged(null, null);
 
@@ -65,6 +67,8 @@ namespace Maze.UI
             drawingAlgo = MazeDrawersEnum.StandardMazeDrawer;
 
             clustererAlgo = MazeClusterersEnum.MazeClustererCyclic;
+
+            mazeRotation = MazeRotateEnum.Rotate90;
         }
 
         void FindClusters()
@@ -86,6 +90,8 @@ namespace Maze.UI
             Bitmap mazeImage = null;
             IMazeDrawer drawer = MazeDrawersObjects.Instance().GetObject(drawingAlgo);
             drawer.SetDrawingSettings(drawingSettings);
+            drawer = new MazeDrawerRotateDecorator(drawer, mazeRotation);
+
             try
             {
                 if (maze != null)
@@ -208,12 +214,14 @@ namespace Maze.UI
                 DrawingSettings = drawingSettings,
                 Clusterer = clustererAlgo,
                 DebugLogging = IsDebugConsoleEnabled(),
+                Rotation = mazeRotation
             };
 
             if (dialog.ShowDialog(this) == DialogResult.OK)
             {
                 drawingAlgo = dialog.Drawer;
                 clustererAlgo = dialog.Clusterer;
+                mazeRotation = dialog.Rotation;
                 SetDebugConsoleState(dialog.DebugLogging);
 
                 ClearClusters();
@@ -252,7 +260,7 @@ namespace Maze.UI
             }
             catch (System.Runtime.InteropServices.ExternalException ex)
             {
-                string mes = String.Format("При сохранении произошла ошибка: {0}", ex);
+                string mes = string.Format("При сохранении произошла ошибка: {0}", ex);
                 DebugConsole.Instance.Error(mes);
                 MessageBox.Show(this, "Ошибка при сохранении");
             }

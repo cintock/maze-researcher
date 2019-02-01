@@ -76,6 +76,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Source\UI\ComboboxHelpers\RotationSettings.cs" />
     <Compile Include="Source\UI\DebugConsole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Source\Program.cs" />

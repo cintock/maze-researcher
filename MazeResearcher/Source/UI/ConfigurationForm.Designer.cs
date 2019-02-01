@@ -46,6 +46,8 @@
             this.clustererCombobox = new System.Windows.Forms.ComboBox();
             this.buttonOK = new System.Windows.Forms.Button();
             this.debugLoggingCheckbox = new System.Windows.Forms.CheckBox();
+            this.rotationLabel = new System.Windows.Forms.Label();
+            this.rotationCombobox = new System.Windows.Forms.ComboBox();
             this.groupBoxMazePaint.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cellWidthNumericUpDown)).BeginInit();
@@ -57,7 +59,7 @@
             this.groupBoxMazePaint.Controls.Add(this.tableLayoutPanel1);
             this.groupBoxMazePaint.Location = new System.Drawing.Point(12, 12);
             this.groupBoxMazePaint.Name = "groupBoxMazePaint";
-            this.groupBoxMazePaint.Size = new System.Drawing.Size(408, 238);
+            this.groupBoxMazePaint.Size = new System.Drawing.Size(408, 270);
             this.groupBoxMazePaint.TabIndex = 0;
             this.groupBoxMazePaint.TabStop = false;
             this.groupBoxMazePaint.Text = "Рисование лабиринта";
@@ -81,10 +83,12 @@
             this.tableLayoutPanel1.Controls.Add(this.label6, 0, 6);
             this.tableLayoutPanel1.Controls.Add(this.label7, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.clustererCombobox, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.rotationLabel, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.rotationCombobox, 1, 7);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 16);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 8;
+            this.tableLayoutPanel1.RowCount = 9;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
@@ -92,8 +96,9 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(402, 219);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(402, 251);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // sideColorButton
@@ -239,7 +244,7 @@
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(12, 309);
+            this.buttonOK.Location = new System.Drawing.Point(12, 349);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 1;
@@ -251,18 +256,39 @@
             // 
             this.debugLoggingCheckbox.AutoSize = true;
             this.debugLoggingCheckbox.Enabled = false;
-            this.debugLoggingCheckbox.Location = new System.Drawing.Point(15, 271);
+            this.debugLoggingCheckbox.Location = new System.Drawing.Point(15, 316);
             this.debugLoggingCheckbox.Name = "debugLoggingCheckbox";
             this.debugLoggingCheckbox.Size = new System.Drawing.Size(131, 17);
             this.debugLoggingCheckbox.TabIndex = 8;
             this.debugLoggingCheckbox.Text = "Отладочная консоль";
             this.debugLoggingCheckbox.UseVisualStyleBackColor = true;
             // 
+            // rotationLabel
+            // 
+            this.rotationLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.rotationLabel.AutoSize = true;
+            this.rotationLabel.Location = new System.Drawing.Point(3, 218);
+            this.rotationLabel.Name = "rotationLabel";
+            this.rotationLabel.Size = new System.Drawing.Size(50, 13);
+            this.rotationLabel.TabIndex = 14;
+            this.rotationLabel.Text = "Поворот";
+            // 
+            // rotationCombobox
+            // 
+            this.rotationCombobox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rotationCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.rotationCombobox.Enabled = false;
+            this.rotationCombobox.FormattingEnabled = true;
+            this.rotationCombobox.Location = new System.Drawing.Point(154, 213);
+            this.rotationCombobox.Name = "rotationCombobox";
+            this.rotationCombobox.Size = new System.Drawing.Size(245, 21);
+            this.rotationCombobox.TabIndex = 15;
+            // 
             // ConfigurationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(448, 344);
+            this.ClientSize = new System.Drawing.Size(448, 384);
             this.Controls.Add(this.debugLoggingCheckbox);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.groupBoxMazePaint);
@@ -302,5 +328,7 @@
         private System.Windows.Forms.CheckBox debugLoggingCheckbox;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox clustererCombobox;
+        private System.Windows.Forms.Label rotationLabel;
+        private System.Windows.Forms.ComboBox rotationCombobox;
     }
 }

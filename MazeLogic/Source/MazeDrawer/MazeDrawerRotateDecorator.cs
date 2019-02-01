@@ -7,17 +7,48 @@ using System.Drawing;
 
 namespace Maze.Logic
 {
+    public enum MazeRotateEnum
+    {
+        Rotate0,
+        Rotate90,
+        Rotate180,
+        Rotate270        
+    }
+
     public class MazeDrawerRotateDecorator : MazeDrawerDecorator
     {
-        public MazeDrawerRotateDecorator(IMazeDrawer drawer) : base(drawer)
-        {
+        private readonly MazeRotateEnum rotateMaze;
 
+        public MazeDrawerRotateDecorator(IMazeDrawer drawer, MazeRotateEnum rotate) : 
+            base(drawer)
+        {
+            rotateMaze = rotate;
         }
 
         public override Bitmap Draw(IMazeView maze, MazeClusters clusters = null)
         {
             Bitmap mazeImage = base.Draw(maze, clusters);
-            mazeImage.RotateFlip(RotateFlipType.Rotate90FlipNone);
+            switch (rotateMaze)
+            {
+                case MazeRotateEnum.Rotate90:
+                    mazeImage.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                    break;
+
+                case MazeRotateEnum.Rotate180:
+                    mazeImage.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                    break;
+
+                case MazeRotateEnum.Rotate270:
+                    mazeImage.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                    break;
+
+                case MazeRotateEnum.Rotate0:
+                    break;
+
+                default:
+                    throw new MazeException("Неопределенный уровень поворота");
+            }
+            
             return mazeImage;
         }
     }
