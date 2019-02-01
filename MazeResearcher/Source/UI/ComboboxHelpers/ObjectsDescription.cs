@@ -3,6 +3,8 @@ using System.Linq;
 
 namespace Maze.UI
 {
+    // todo: нет смысла тут хранить сам объект, это можно отделить
+
     internal abstract class ObjectsDescription<Index, T> where Index: struct
     {
         private Dictionary<Index, NamedObject<T>> indexedNamedObjects =
