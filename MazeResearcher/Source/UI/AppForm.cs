@@ -19,11 +19,13 @@ namespace Maze.UI
         {
             InitializeComponent();
 
-            mazeGenerationAlgoCombobox.DataSource =
-                MazeGeneratorsObjects.Instance().GetNamedObjectsList();
+            mazeGenerationAlgoCombobox.Items.Clear();
 
-            mazeGenerationAlgoCombobox.DisplayMember = "Name";
-            mazeGenerationAlgoCombobox.ValueMember = "ObjectValue";
+            mazeGenerationAlgoCombobox.Items.AddRange(
+                MazeGeneratorsObjects.Instance().GetNamesList().ToArray());
+
+            mazeGenerationAlgoCombobox.SelectedIndex = 
+                MazeGeneratorsObjects.Instance().GetNumIndexByEnumIndex(MazeGeneratorsEnum.EllerModMazeGenerator);
 
             SizeTrackbarChanged(null, null);
 
@@ -125,11 +127,12 @@ namespace Maze.UI
         {
             try
             {
-                IMazeGenerator selectedGenerator =
-                    (IMazeGenerator)mazeGenerationAlgoCombobox.SelectedValue;
-
-                if (selectedGenerator != null)
+                int generationAlgoComboboxIndex = mazeGenerationAlgoCombobox.SelectedIndex;
+                if (generationAlgoComboboxIndex >= 0)
                 {
+                    IMazeGenerator selectedGenerator =
+                        MazeGeneratorsObjects.Instance().GetObject(generationAlgoComboboxIndex);
+
                     ClearClusters();
 
                     Stopwatch methodTime = Stopwatch.StartNew();

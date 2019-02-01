@@ -19,14 +19,30 @@ namespace Maze.UI
             indexedNamedObjects.Add(index, namedObject);
         }
 
-        public T GetObject(Index index)
+        public T GetObject(Index enumIndex)
         {            
-            return indexedNamedObjects[index].ObjectValue;
+            return indexedNamedObjects[enumIndex].ObjectValue;
         }
 
-        public T GetObject(int index)
+        public T GetObject(int numIndex)
         {
-            return indexedNamedObjects.ElementAt(index).Value.ObjectValue;
+            return indexedNamedObjects.ElementAt(numIndex).Value.ObjectValue;
+        }
+
+        public int GetNumIndexByEnumIndex(Index enumIndex)
+        {
+            bool found = false;
+            int count = 0;
+            foreach (Index currIndex in indexedNamedObjects.Keys)
+            {
+                if (enumIndex.Equals(currIndex))
+                {
+                    found = true;
+                    break;
+                }
+                count++;
+            }
+            return found ? count : -1;
         }
 
         public List<string> GetNamesList()
