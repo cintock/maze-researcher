@@ -10,7 +10,8 @@ namespace Maze.UI
         private bool debugLogging;
         private MazeDrawingSettings drawingSettings;
         private IMazeDrawer drawer;
-        private IMazeClusterer clusterer;
+
+        private MazeClusterersEnum clusterer;
 
         private Color backgroundColor;
         private Color borderColor;
@@ -50,17 +51,20 @@ namespace Maze.UI
                 cellHeightNumericUpDown.Enabled = true;
 
                 backgroundColor = drawingSettings.BackgroundColor;
-                backgroundColorButton.BackColor = backgroundColor;
-                backgroundColorButton.Enabled = true;
+                SetupColorButton(backgroundColorButton, backgroundColor);
 
                 borderColor = drawingSettings.BorderColor;
-                borderColorButton.BackColor = borderColor;
-                borderColorButton.Enabled = true;
+                SetupColorButton(borderColorButton, borderColor);
 
                 sideColor = drawingSettings.SideColor;
-                sideColorButton.BackColor = sideColor;
-                sideColorButton.Enabled = true;
+                SetupColorButton(sideColorButton, sideColor);
             }
+        }
+
+        private void SetupColorButton(Button button, Color color)
+        {
+            button.BackColor = color;
+            button.Enabled = true;
         }
 
         public bool DebugLogging
@@ -79,7 +83,7 @@ namespace Maze.UI
             }
         }
 
-        public IMazeClusterer Clusterer
+        public MazeClusterersEnum Clusterer
         {
             get
             {
@@ -90,7 +94,14 @@ namespace Maze.UI
             {
                 clusterer = value;
 
-                clustererCombobox.SelectedValue = value;
+                clustererCombobox.Items.Clear();
+
+                clustererCombobox.Items.AddRange(
+                    MazeClustererObjects.Instance().GetNamesList().ToArray());
+
+                clustererCombobox.SelectedIndex = 
+                    MazeClustererObjects.Instance().GetNumIndexByEnumIndex(clusterer);
+
                 clustererCombobox.Enabled = true;
             }
         }
@@ -105,29 +116,24 @@ namespace Maze.UI
             drawingAlgoCombobox.DisplayMember = "Name";
             drawingAlgoCombobox.ValueMember = "ObjectValue";
 
-            clustererCombobox.DataSource =
-                MazeClustererObjects.Instance().GetNamedObjectsList();
-
-            clustererCombobox.DisplayMember = "Name";
-            clustererCombobox.ValueMember = "ObjectValue";
         }
 
         private void BackgroundColorSelect(Object sender, EventArgs e)
         {
             backgroundColor = SelectColorDialog(
-                backgroundColorButton, drawingSettings.BackgroundColor);
+                backgroundColorButton, backgroundColor);
         }
 
         private void BorderColorSelect(Object sender, EventArgs e)
         {
             borderColor = SelectColorDialog(
-                borderColorButton, drawingSettings.BorderColor);
+                borderColorButton, borderColor);
         }
 
         private void SideColorSelect(Object sender, EventArgs e)
         {
             sideColor = SelectColorDialog(
-                sideColorButton, drawingSettings.SideColor);
+                sideColorButton, sideColor);
         }
 
         private Color SelectColorDialog(Control colorView, Color previousColor)
@@ -155,12 +161,10 @@ namespace Maze.UI
                 drawer = drawerSelected;
             }
 
-            IMazeClusterer clustererSelected =
-                (IMazeClusterer)clustererCombobox.SelectedValue;
-
-            if (clustererSelected != null)
+            int clustererIndex = clustererCombobox.SelectedIndex;
+            if (clustererIndex >= 0)
             {
-                clusterer = clustererSelected;
+                clusterer = MazeClustererObjects.Instance().GetEnumIndexByNumIndex(clustererIndex);
             }
 
             drawingSettings.CellHeight = (int)cellHeightNumericUpDown.Value;

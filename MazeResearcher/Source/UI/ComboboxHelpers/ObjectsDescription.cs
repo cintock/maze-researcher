@@ -66,5 +66,10 @@ namespace Maze.UI
 
             return namedObjects;
         }
+
+        public Index GetEnumIndexByNumIndex(int numIndex)
+        {
+            return indexedNamedObjects.ElementAt(numIndex).Key;
+        }
     }
 }

@@ -1,8 +1,9 @@
-﻿using Maze.Logic;
+﻿using System;
+using Maze.Logic;
 
 namespace Maze.UI
 {
-    enum MazeClusterersEnum
+    public enum MazeClusterersEnum
     {
         MazeClustererRecursion,
         MazeClustererCyclic

@@ -10,7 +10,9 @@ namespace Maze.UI
     {
         private IMazeDrawer drawer;
         private MazeDrawingSettings drawingSettings;
-        private IMazeClusterer clusterer;
+
+        private MazeClusterersEnum clustererAlgo;
+
         private IMazeView maze;
         private MazeClusters clusters;
         private bool debugConsoleEnabled;
@@ -64,12 +66,14 @@ namespace Maze.UI
 
             drawer.SetDrawingSettings(drawingSettings);
 
-            clusterer = MazeClustererObjects.Instance().GetObject(
-                MazeClusterersEnum.MazeClustererCyclic);
+            clustererAlgo = MazeClusterersEnum.MazeClustererCyclic;
         }
 
         void FindClusters()
         {
+            IMazeClusterer clusterer = 
+                MazeClustererObjects.Instance().GetObject(clustererAlgo);
+
             clusters = clusterer.Cluster(maze);
             string clustersCountStr = clusters.Count().ToString();
             clusterCountTextbox.Text = clustersCountStr;
@@ -202,14 +206,14 @@ namespace Maze.UI
             {
                 Drawer = drawer,
                 DrawingSettings = drawingSettings,
-                Clusterer = clusterer,
+                Clusterer = clustererAlgo,
                 DebugLogging = IsDebugConsoleEnabled(),
             };
 
             if (dialog.ShowDialog(this) == DialogResult.OK)
             {
                 drawer = dialog.Drawer;
-                clusterer = dialog.Clusterer;
+                clustererAlgo = dialog.Clusterer;
                 SetDebugConsoleState(dialog.DebugLogging);
 
                 ClearClusters();
