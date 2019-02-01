@@ -58,6 +58,8 @@
     <Compile Include="Source\MazeData\MazeData.cs" />
     <Compile Include="Source\MazeDrawer\CellDebugMazeDrawer.cs" />
     <Compile Include="Source\MazeDrawer\EmptyMazeDrawer.cs" />
+    <Compile Include="Source\MazeDrawer\MazeDrawerDecorator.cs" />
+    <Compile Include="Source\MazeDrawer\MazeDrawerRotateDecorator.cs" />
     <Compile Include="Source\MazeDrawer\SimpleMazeDrawer.cs" />
     <Compile Include="Source\MazeDrawer\SolidSidesDrawer.cs" />
     <Compile Include="Source\MazeDrawer\StandardMazeDrawer.cs" />
