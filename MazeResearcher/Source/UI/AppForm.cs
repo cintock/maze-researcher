@@ -8,13 +8,14 @@ namespace Maze.UI
 {
     public partial class AppForm : Form
     {
-        private IMazeDrawer drawer;
         private MazeDrawingSettings drawingSettings;
 
+        private MazeDrawersEnum drawingAlgo;
         private MazeClusterersEnum clustererAlgo;
 
         private IMazeView maze;
         private MazeClusters clusters;
+
         private bool debugConsoleEnabled;
 
         public AppForm()
@@ -61,10 +62,7 @@ namespace Maze.UI
                 SideColor = Color.DarkGreen
             };
 
-            drawer = MazeDrawersObjects.Instance().GetObject(
-                MazeDrawersEnum.StandardMazeDrawer);
-
-            drawer.SetDrawingSettings(drawingSettings);
+            drawingAlgo = MazeDrawersEnum.StandardMazeDrawer;
 
             clustererAlgo = MazeClusterersEnum.MazeClustererCyclic;
         }
@@ -86,6 +84,8 @@ namespace Maze.UI
         private Bitmap RenderMaze()
         {
             Bitmap mazeImage = null;
+            IMazeDrawer drawer = MazeDrawersObjects.Instance().GetObject(drawingAlgo);
+            drawer.SetDrawingSettings(drawingSettings);
             try
             {
                 if (maze != null)
@@ -204,7 +204,7 @@ namespace Maze.UI
         {
             ConfigurationForm dialog = new ConfigurationForm()
             {
-                Drawer = drawer,
+                Drawer = drawingAlgo,
                 DrawingSettings = drawingSettings,
                 Clusterer = clustererAlgo,
                 DebugLogging = IsDebugConsoleEnabled(),
@@ -212,7 +212,7 @@ namespace Maze.UI
 
             if (dialog.ShowDialog(this) == DialogResult.OK)
             {
-                drawer = dialog.Drawer;
+                drawingAlgo = dialog.Drawer;
                 clustererAlgo = dialog.Clusterer;
                 SetDebugConsoleState(dialog.DebugLogging);
 

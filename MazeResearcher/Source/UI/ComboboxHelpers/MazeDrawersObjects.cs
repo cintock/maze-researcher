@@ -2,7 +2,7 @@
 
 namespace Maze.UI
 {
-    internal enum MazeDrawersEnum
+    public enum MazeDrawersEnum
     {
         SimpleMazeDrawer,
         StandardMazeDrawer,

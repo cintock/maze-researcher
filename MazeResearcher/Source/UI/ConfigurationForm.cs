@@ -9,7 +9,7 @@ namespace Maze.UI
     {
         private bool debugLogging;
         private MazeDrawingSettings drawingSettings;
-        private IMazeDrawer drawer;
+        private MazeDrawersEnum drawer;
 
         private MazeClusterersEnum clusterer;
 
@@ -17,7 +17,7 @@ namespace Maze.UI
         private Color borderColor;
         private Color sideColor;
 
-        public IMazeDrawer Drawer
+        public MazeDrawersEnum Drawer
         {
             get
             {
@@ -28,8 +28,8 @@ namespace Maze.UI
             {
                 drawer = value;
 
-                drawingAlgoCombobox.SelectedValue = drawer;
-                drawingAlgoCombobox.Enabled = true;
+                ConfigureCombobox(drawingAlgoCombobox, 
+                    MazeDrawersObjects.Instance(), drawer);
             }
         }
 
@@ -94,27 +94,28 @@ namespace Maze.UI
             {
                 clusterer = value;
 
-                clustererCombobox.Items.Clear();
-
-                clustererCombobox.Items.AddRange(
-                    MazeClustererObjects.Instance().GetNamesList().ToArray());
-
-                clustererCombobox.SelectedIndex = 
-                    MazeClustererObjects.Instance().GetNumIndexByEnumIndex(clusterer);
-
-                clustererCombobox.Enabled = true;
+                ConfigureCombobox(clustererCombobox, MazeClustererObjects.Instance(), clusterer);
             }
+        }
+
+        private void ConfigureCombobox<En, T>(ComboBox combo, 
+            ObjectsDescription<En, T> objectDescription, En value) 
+            where En: struct
+        {
+            combo.Items.Clear();
+
+            combo.Items.AddRange(
+                objectDescription.GetNamesList().ToArray());
+
+            combo.SelectedIndex =
+                objectDescription.GetNumIndexByEnumIndex(value);
+
+            combo.Enabled = true;
         }
 
         public ConfigurationForm()
         {
             InitializeComponent();
-
-            drawingAlgoCombobox.DataSource =
-                MazeDrawersObjects.Instance().GetNamedObjectsList();
-
-            drawingAlgoCombobox.DisplayMember = "Name";
-            drawingAlgoCombobox.ValueMember = "ObjectValue";
 
         }
 
@@ -153,12 +154,10 @@ namespace Maze.UI
 
         private void OKButtonClick(Object sender, EventArgs e)
         {
-            IMazeDrawer drawerSelected =
-                (IMazeDrawer)drawingAlgoCombobox.SelectedValue;
-
-            if (drawerSelected != null)
+            int drawerIndex = drawingAlgoCombobox.SelectedIndex;
+            if (drawerIndex >= 0)
             {
-                drawer = drawerSelected;
+                drawer = MazeDrawersObjects.Instance().GetEnumIndexByNumIndex(drawerIndex);
             }
 
             int clustererIndex = clustererCombobox.SelectedIndex;
@@ -173,8 +172,6 @@ namespace Maze.UI
             drawingSettings.BackgroundColor = backgroundColor;
             drawingSettings.BorderColor = borderColor;
             drawingSettings.SideColor = sideColor;
-
-            drawer.SetDrawingSettings(drawingSettings);
 
             debugLogging = debugLoggingCheckbox.Checked;
 
