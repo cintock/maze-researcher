@@ -33,9 +33,6 @@ namespace Maze.UI
 
             // todo: отобразить связанность областей вынести в меню вид
 
-            // todo: сделать IMazeDrawer, который рисует лабиринт с ячейками-стенами (стена
-            // и коридор имеют одинаковый размер)
-
             // todo: сделать меню правка - копировать
 
             // todo: сделать контекстное меню по правой кнопке мыши на области лабиринта ->
@@ -63,6 +60,8 @@ namespace Maze.UI
             drawer = MazeDrawersObjects.Instance().GetObject(
                 MazeDrawersEnum.StandardMazeDrawer);
 
+            drawer.SetDrawingSettings(drawingSettings);
+
             clusterer = MazeClustererObjects.Instance().GetObject(
                 MazeClusterersEnum.MazeClustererCyclic);
         }
@@ -85,7 +84,6 @@ namespace Maze.UI
             {
                 if (maze != null)
                 {
-                    drawer.SetDrawingSettings(drawingSettings);
                     if (showMazeClustersCheckbox.Checked)
                     {
                         mazeImage = drawer.Draw(maze, clusters);

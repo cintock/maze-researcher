@@ -12,6 +12,10 @@ namespace Maze.UI
         private IMazeDrawer drawer;
         private IMazeClusterer clusterer;
 
+        private Color backgroundColor;
+        private Color borderColor;
+        private Color sideColor;
+
         public IMazeDrawer Drawer
         {
             get
@@ -45,13 +49,16 @@ namespace Maze.UI
                 cellHeightNumericUpDown.Value = drawingSettings.CellHeight;
                 cellHeightNumericUpDown.Enabled = true;
 
-                backgroundColorButton.BackColor = drawingSettings.BackgroundColor;
+                backgroundColor = drawingSettings.BackgroundColor;
+                backgroundColorButton.BackColor = backgroundColor;
                 backgroundColorButton.Enabled = true;
 
-                borderColorButton.BackColor = drawingSettings.BorderColor;
+                borderColor = drawingSettings.BorderColor;
+                borderColorButton.BackColor = borderColor;
                 borderColorButton.Enabled = true;
 
-                sideColorButton.BackColor = drawingSettings.SideColor;
+                sideColor = drawingSettings.SideColor;
+                sideColorButton.BackColor = sideColor;
                 sideColorButton.Enabled = true;
             }
         }
@@ -107,19 +114,19 @@ namespace Maze.UI
 
         private void BackgroundColorSelect(Object sender, EventArgs e)
         {
-            drawingSettings.BackgroundColor = SelectColorDialog(
+            backgroundColor = SelectColorDialog(
                 backgroundColorButton, drawingSettings.BackgroundColor);
         }
 
         private void BorderColorSelect(Object sender, EventArgs e)
         {
-            drawingSettings.BorderColor = SelectColorDialog(
+            borderColor = SelectColorDialog(
                 borderColorButton, drawingSettings.BorderColor);
         }
 
         private void SideColorSelect(Object sender, EventArgs e)
         {
-            drawingSettings.SideColor = SelectColorDialog(
+            sideColor = SelectColorDialog(
                 sideColorButton, drawingSettings.SideColor);
         }
 
@@ -158,6 +165,12 @@ namespace Maze.UI
 
             drawingSettings.CellHeight = (int)cellHeightNumericUpDown.Value;
             drawingSettings.CellWidth = (int)cellWidthNumericUpDown.Value;
+
+            drawingSettings.BackgroundColor = backgroundColor;
+            drawingSettings.BorderColor = borderColor;
+            drawingSettings.SideColor = sideColor;
+
+            drawer.SetDrawingSettings(drawingSettings);
 
             debugLogging = debugLoggingCheckbox.Checked;
 
