@@ -76,6 +76,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Source\UI\ComboboxHelpers\ComboboxValues.cs" />
     <Compile Include="Source\UI\ComboboxHelpers\RotationSettings.cs" />
     <Compile Include="Source\UI\DebugConsole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="Source\UI\ConfigurationForm.Designer.cs">
       <DependentUpon>ConfigurationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source\UI\Factories\MazeGeneratorsFactory.cs" />
     <Compile Include="Source\UI\LogTextboxAppender.cs" />
     <Compile Include="Source\UI\ComboboxHelpers\MazeClustererObjects.cs" />
     <Compile Include="Source\UI\ComboboxHelpers\MazeDrawersObjects.cs" />
