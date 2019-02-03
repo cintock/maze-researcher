@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Maze.Logic;
+﻿using Maze.Logic;
+using System;
 
 namespace Maze.UI
 {
-    internal enum MazeGeneratorsEnum
+    public enum MazeGeneratorsEnum
     {
         RandomMazeGenerator,
         EmptyMazeGenerator,
@@ -15,7 +11,7 @@ namespace Maze.UI
         EllerModMazeGenerator
     }
 
-    internal class MazeGeneratorsFactory
+    public class MazeGeneratorsFactory
     {
         private MazeGeneratorsFactory()
         {

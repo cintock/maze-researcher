@@ -104,7 +104,7 @@ namespace Maze.UI
         private Bitmap RenderMaze()
         {
             Bitmap mazeImage = null;
-            IMazeDrawer drawer = MazeDrawersObjects.Instance().GetObject(drawingAlgo);
+            IMazeDrawer drawer = MazeDrawersFactory.Instance.Create(drawingAlgo);
             drawer.SetDrawingSettings(drawingSettings);
             drawer = new MazeDrawerRotateDecorator(drawer, mazeRotation);
 
