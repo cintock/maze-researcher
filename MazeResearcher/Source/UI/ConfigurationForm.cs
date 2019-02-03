@@ -11,6 +11,7 @@ namespace Maze.UI
         private MazeDrawingSettings drawingSettings;
 
         private ComboboxValues<MazeDrawersEnum> drawersComboboxValues;
+        private ComboboxValues<MazeRotateEnum> rotationComboboxValues;
 
         private MazeDrawersEnum drawer;
         private MazeClusterersEnum clusterer;
@@ -47,8 +48,8 @@ namespace Maze.UI
             {
                 rotation = value;
 
-                ConfigureCombobox(rotationCombobox,
-                    RotationSettings.Instance(), rotation);
+                rotationCombobox.SelectedIndex = rotationComboboxValues.IndexByValue(rotation);
+                rotationCombobox.Enabled = true;
             }
         }
 
@@ -101,6 +102,19 @@ namespace Maze.UI
 
             drawingAlgoCombobox.Items.Clear();
             drawingAlgoCombobox.Items.AddRange(drawersComboboxValues.Names());
+        }
+
+        private void InitRotationComboboxValues()
+        {
+            rotationComboboxValues = new ComboboxValues<MazeRotateEnum>();
+
+            rotationComboboxValues.AddElement(MazeRotateEnum.Rotate0, "Без поворорта");
+            rotationComboboxValues.AddElement(MazeRotateEnum.Rotate90, "90 по часовой");
+            rotationComboboxValues.AddElement(MazeRotateEnum.Rotate180, "На 180");
+            rotationComboboxValues.AddElement(MazeRotateEnum.Rotate270, "90 против часовой");
+
+            rotationCombobox.Items.Clear();
+            rotationCombobox.Items.AddRange(rotationComboboxValues.Names());
         }
 
         private void SetupColorButton(Button button, Color color)
@@ -160,6 +174,7 @@ namespace Maze.UI
             InitializeComponent();
 
             InitDrawersComboboxValues();
+            InitRotationComboboxValues();
         }
 
         private void BackgroundColorSelect(Object sender, EventArgs e)
@@ -212,7 +227,7 @@ namespace Maze.UI
             int rotationIndex = rotationCombobox.SelectedIndex;
             if (rotationIndex >= 0)
             {
-                rotation = RotationSettings.Instance().GetEnumIndexByNumIndex(rotationIndex);
+                rotation = rotationComboboxValues.ValueByIndex(rotationIndex);
             }
 
             drawingSettings.CellHeight = (int)cellHeightNumericUpDown.Value;
