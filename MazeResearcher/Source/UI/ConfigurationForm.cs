@@ -10,6 +10,8 @@ namespace Maze.UI
         private bool debugLogging;
         private MazeDrawingSettings drawingSettings;
 
+        private ComboboxValues<MazeDrawersEnum> drawersComboboxValues;
+
         private MazeDrawersEnum drawer;
         private MazeClusterersEnum clusterer;
         private MazeRotateEnum rotation;
@@ -29,8 +31,8 @@ namespace Maze.UI
             {
                 drawer = value;
 
-                ConfigureCombobox(drawingAlgoCombobox, 
-                    MazeDrawersObjects.Instance(), drawer);
+                drawingAlgoCombobox.SelectedIndex = drawersComboboxValues.IndexByValue(drawer);
+                drawingAlgoCombobox.Enabled = true;
             }
         }
 
@@ -76,6 +78,29 @@ namespace Maze.UI
                 sideColor = drawingSettings.SideColor;
                 SetupColorButton(sideColorButton, sideColor);
             }
+        }
+
+        private void InitDrawersComboboxValues()
+        {
+            drawersComboboxValues = new ComboboxValues<MazeDrawersEnum>();
+
+            drawersComboboxValues.AddElement(MazeDrawersEnum.SimpleMazeDrawer,
+                "Простое рисование (без настроек)");
+
+            drawersComboboxValues.AddElement(MazeDrawersEnum.StandardMazeDrawer,
+                "Стандартное рисование");
+
+            drawersComboboxValues.AddElement(MazeDrawersEnum.CellDebugMazeDrawer,
+                "Отладочное рисование (двойные стенки)");
+
+            drawersComboboxValues.AddElement(MazeDrawersEnum.SolidSidesDrawer,
+                "Толстые стены лабиринта");
+
+            drawersComboboxValues.AddElement(MazeDrawersEnum.EmptyMazeDrawer,
+                "Без рисования");
+
+            drawingAlgoCombobox.Items.Clear();
+            drawingAlgoCombobox.Items.AddRange(drawersComboboxValues.Names());
         }
 
         private void SetupColorButton(Button button, Color color)
@@ -134,6 +159,7 @@ namespace Maze.UI
         {
             InitializeComponent();
 
+            InitDrawersComboboxValues();
         }
 
         private void BackgroundColorSelect(Object sender, EventArgs e)
@@ -174,7 +200,7 @@ namespace Maze.UI
             int drawerIndex = drawingAlgoCombobox.SelectedIndex;
             if (drawerIndex >= 0)
             {
-                drawer = MazeDrawersObjects.Instance().GetEnumIndexByNumIndex(drawerIndex);
+                drawer = drawersComboboxValues.ValueByIndex(drawerIndex);
             }
 
             int clustererIndex = clustererCombobox.SelectedIndex;

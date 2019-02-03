@@ -44,10 +44,10 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.clustererCombobox = new System.Windows.Forms.ComboBox();
-            this.buttonOK = new System.Windows.Forms.Button();
-            this.debugLoggingCheckbox = new System.Windows.Forms.CheckBox();
             this.rotationLabel = new System.Windows.Forms.Label();
             this.rotationCombobox = new System.Windows.Forms.ComboBox();
+            this.buttonOK = new System.Windows.Forms.Button();
+            this.debugLoggingCheckbox = new System.Windows.Forms.CheckBox();
             this.groupBoxMazePaint.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cellWidthNumericUpDown)).BeginInit();
@@ -242,27 +242,6 @@
             this.clustererCombobox.Size = new System.Drawing.Size(245, 21);
             this.clustererCombobox.TabIndex = 13;
             // 
-            // buttonOK
-            // 
-            this.buttonOK.Location = new System.Drawing.Point(12, 349);
-            this.buttonOK.Name = "buttonOK";
-            this.buttonOK.Size = new System.Drawing.Size(75, 23);
-            this.buttonOK.TabIndex = 1;
-            this.buttonOK.Text = "OK";
-            this.buttonOK.UseVisualStyleBackColor = true;
-            this.buttonOK.Click += new System.EventHandler(this.OKButtonClick);
-            // 
-            // debugLoggingCheckbox
-            // 
-            this.debugLoggingCheckbox.AutoSize = true;
-            this.debugLoggingCheckbox.Enabled = false;
-            this.debugLoggingCheckbox.Location = new System.Drawing.Point(15, 316);
-            this.debugLoggingCheckbox.Name = "debugLoggingCheckbox";
-            this.debugLoggingCheckbox.Size = new System.Drawing.Size(131, 17);
-            this.debugLoggingCheckbox.TabIndex = 8;
-            this.debugLoggingCheckbox.Text = "Отладочная консоль";
-            this.debugLoggingCheckbox.UseVisualStyleBackColor = true;
-            // 
             // rotationLabel
             // 
             this.rotationLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -283,6 +262,27 @@
             this.rotationCombobox.Name = "rotationCombobox";
             this.rotationCombobox.Size = new System.Drawing.Size(245, 21);
             this.rotationCombobox.TabIndex = 15;
+            // 
+            // buttonOK
+            // 
+            this.buttonOK.Location = new System.Drawing.Point(12, 349);
+            this.buttonOK.Name = "buttonOK";
+            this.buttonOK.Size = new System.Drawing.Size(75, 23);
+            this.buttonOK.TabIndex = 1;
+            this.buttonOK.Text = "OK";
+            this.buttonOK.UseVisualStyleBackColor = true;
+            this.buttonOK.Click += new System.EventHandler(this.OKButtonClick);
+            // 
+            // debugLoggingCheckbox
+            // 
+            this.debugLoggingCheckbox.AutoSize = true;
+            this.debugLoggingCheckbox.Enabled = false;
+            this.debugLoggingCheckbox.Location = new System.Drawing.Point(15, 316);
+            this.debugLoggingCheckbox.Name = "debugLoggingCheckbox";
+            this.debugLoggingCheckbox.Size = new System.Drawing.Size(131, 17);
+            this.debugLoggingCheckbox.TabIndex = 8;
+            this.debugLoggingCheckbox.Text = "Отладочная консоль";
+            this.debugLoggingCheckbox.UseVisualStyleBackColor = true;
             // 
             // ConfigurationForm
             // 
