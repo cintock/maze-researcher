@@ -7,6 +7,14 @@ using Maze.Logic;
 
 namespace Maze.UI
 {
+    internal enum MazeGeneratorsEnum
+    {
+        RandomMazeGenerator,
+        EmptyMazeGenerator,
+        EmptyDummyMazeGenerator,
+        EllerModMazeGenerator
+    }
+
     internal class MazeGeneratorsFactory
     {
         private MazeGeneratorsFactory()

@@ -106,7 +106,6 @@
     <Compile Include="Source\UI\ComboboxHelpers\MazeDrawersObjects.cs" />
     <Compile Include="Source\UI\ComboboxHelpers\ObjectsDescription.cs" />
     <Compile Include="Source\UI\ComboboxHelpers\NamedObject.cs" />
-    <Compile Include="Source\UI\ComboboxHelpers\MazeGeneratorsObjects.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
