@@ -1,7 +1,6 @@
-﻿using Maze.Logic;
-using System;
+﻿using System;
 
-namespace Maze.UI
+namespace Maze.Logic
 {
     public enum MazeGeneratorsEnum
     {
@@ -47,7 +46,7 @@ namespace Maze.UI
                     break;
 
                 default:
-                    throw new ArgumentException(
+                    throw new MazeException(
                         "Не предусмотрено создание генератора лабиринта этого типа");
             }
             return mazeGenerator;

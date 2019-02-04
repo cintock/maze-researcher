@@ -99,9 +99,6 @@
     <Compile Include="Source\UI\ConfigurationForm.Designer.cs">
       <DependentUpon>ConfigurationForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Source\UI\Factories\MazeClusterersFactory.cs" />
-    <Compile Include="Source\UI\Factories\MazeDrawersFactory.cs" />
-    <Compile Include="Source\UI\Factories\MazeGeneratorsFactory.cs" />
     <Compile Include="Source\UI\LogTextboxAppender.cs" />
   </ItemGroup>
   <ItemGroup>

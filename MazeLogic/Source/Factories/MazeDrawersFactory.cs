@@ -1,6 +1,4 @@
-﻿using Maze.Logic;
-
-namespace Maze.UI
+﻿namespace Maze.Logic
 {
     public enum MazeDrawersEnum
     {
