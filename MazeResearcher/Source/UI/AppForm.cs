@@ -10,6 +10,8 @@ namespace Maze.UI
     {
         private MazeDrawingSettings drawingSettings;
 
+        private ComboboxValues<MazeGeneratorsEnum> generatorsComboboxValues;
+
         private MazeDrawersEnum drawingAlgo;
         private MazeClusterersEnum clustererAlgo;
         private MazeRotateEnum mazeRotation;
@@ -23,14 +25,7 @@ namespace Maze.UI
         {
             InitializeComponent();
 
-            mazeGenerationAlgoCombobox.Items.Clear();
-
-            mazeGenerationAlgoCombobox.Items.AddRange(
-                MazeGeneratorsObjects.Instance().GetNamesList().ToArray());
-
-            mazeGenerationAlgoCombobox.SelectedIndex = 
-                MazeGeneratorsObjects.Instance().GetNumIndexByEnumIndex(
-                    MazeGeneratorsEnum.EllerModMazeGenerator);
+            InitGeneratorsCombobox();
 
             SizeTrackbarChanged(null, null);
 
@@ -46,6 +41,27 @@ namespace Maze.UI
             // копировать, сохранить изображение
 
             InitLogger();
+        }
+
+        private void InitGeneratorsCombobox()
+        {
+            generatorsComboboxValues = new ComboboxValues<MazeGeneratorsEnum>();
+
+            generatorsComboboxValues.AddElement(
+                MazeGeneratorsEnum.EllerModMazeGenerator, "Вариация алгоритма Эллера (пустая строка внизу)");
+
+            generatorsComboboxValues.AddElement(
+                MazeGeneratorsEnum.RandomMazeGenerator, "Полностью случайный лабиринт");
+
+            generatorsComboboxValues.AddElement(
+                MazeGeneratorsEnum.EmptyDummyMazeGenerator, "Пустой");
+
+            mazeGenerationAlgoCombobox.Items.Clear();
+
+            mazeGenerationAlgoCombobox.Items.AddRange(generatorsComboboxValues.Names());
+
+            mazeGenerationAlgoCombobox.SelectedIndex = generatorsComboboxValues.IndexByValue(
+                MazeGeneratorsEnum.EllerModMazeGenerator);
         }
 
         private void InitLogger()
@@ -68,13 +84,13 @@ namespace Maze.UI
 
             clustererAlgo = MazeClusterersEnum.MazeClustererCyclic;
 
-            mazeRotation = MazeRotateEnum.Rotate90;
+            mazeRotation = MazeRotateEnum.Rotate0;
         }
 
         void FindClusters()
         {
             IMazeClusterer clusterer = 
-                MazeClustererObjects.Instance().GetObject(clustererAlgo);
+                MazeClusterersFactory.Instance.Create(clustererAlgo);
 
             clusters = clusterer.Cluster(maze);
             string clustersCountStr = clusters.Count().ToString();
@@ -88,7 +104,7 @@ namespace Maze.UI
         private Bitmap RenderMaze()
         {
             Bitmap mazeImage = null;
-            IMazeDrawer drawer = MazeDrawersObjects.Instance().GetObject(drawingAlgo);
+            IMazeDrawer drawer = MazeDrawersFactory.Instance.Create(drawingAlgo);
             drawer.SetDrawingSettings(drawingSettings);
             drawer = new MazeDrawerRotateDecorator(drawer, mazeRotation);
 
@@ -140,8 +156,9 @@ namespace Maze.UI
                 int generationAlgoComboboxIndex = mazeGenerationAlgoCombobox.SelectedIndex;
                 if (generationAlgoComboboxIndex >= 0)
                 {
-                    IMazeGenerator selectedGenerator =
-                        MazeGeneratorsObjects.Instance().GetObject(generationAlgoComboboxIndex);
+                    IMazeGenerator selectedGenerator = 
+                        MazeGeneratorsFactory.Instance.Create(
+                            generatorsComboboxValues.ValueByIndex(generationAlgoComboboxIndex));
 
                     ClearClusters();
 
