@@ -103,8 +103,6 @@
     <Compile Include="Source\UI\Factories\MazeDrawersFactory.cs" />
     <Compile Include="Source\UI\Factories\MazeGeneratorsFactory.cs" />
     <Compile Include="Source\UI\LogTextboxAppender.cs" />
-    <Compile Include="Source\UI\ComboboxHelpers\ObjectsDescription.cs" />
-    <Compile Include="Source\UI\ComboboxHelpers\NamedObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
