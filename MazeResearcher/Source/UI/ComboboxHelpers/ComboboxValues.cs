@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Maze.UI
 {
+    // todo: тут возможны проблемы при неправильном использовании, пересмотреть
     internal class ComboboxValues<EnumType>
         where EnumType : struct
     {
