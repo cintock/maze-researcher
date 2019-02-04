@@ -90,7 +90,7 @@ namespace Maze.UI
         void FindClusters()
         {
             IMazeClusterer clusterer = 
-                MazeClustererObjects.Instance().GetObject(clustererAlgo);
+                MazeClusterersFactory.Instance.Create(clustererAlgo);
 
             clusters = clusterer.Cluster(maze);
             string clustersCountStr = clusters.Count().ToString();

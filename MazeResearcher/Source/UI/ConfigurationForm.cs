@@ -12,6 +12,7 @@ namespace Maze.UI
 
         private ComboboxValues<MazeDrawersEnum> drawersComboboxValues;
         private ComboboxValues<MazeRotateEnum> rotationComboboxValues;
+        private ComboboxValues<MazeClusterersEnum> clustererComboboxValues;
 
         private MazeDrawersEnum drawer;
         private MazeClusterersEnum clusterer;
@@ -104,6 +105,20 @@ namespace Maze.UI
             drawingAlgoCombobox.Items.AddRange(drawersComboboxValues.Names());
         }
 
+        private void InitClustererComboboxValues()
+        {
+            clustererComboboxValues = new ComboboxValues<MazeClusterersEnum>();
+
+            clustererComboboxValues.AddElement(MazeClusterersEnum.MazeClustererCyclic,
+                "Циклический алгоритм поиска областей");
+
+            clustererComboboxValues.AddElement(MazeClusterersEnum.MazeClustererRecursion,
+                "Рекурсивный алгоритм поиска областей");
+
+            clustererCombobox.Items.Clear();
+            clustererCombobox.Items.AddRange(clustererComboboxValues.Names());
+        }
+
         private void InitRotationComboboxValues()
         {
             rotationComboboxValues = new ComboboxValues<MazeRotateEnum>();
@@ -150,23 +165,11 @@ namespace Maze.UI
             {
                 clusterer = value;
 
-                ConfigureCombobox(clustererCombobox, MazeClustererObjects.Instance(), clusterer);
+                clustererCombobox.SelectedIndex = 
+                    clustererComboboxValues.IndexByValue(clusterer);
+
+                clustererCombobox.Enabled = true;
             }
-        }
-
-        private void ConfigureCombobox<En, T>(ComboBox combo, 
-            ObjectsDescription<En, T> objectDescription, En value) 
-            where En: struct
-        {
-            combo.Items.Clear();
-
-            combo.Items.AddRange(
-                objectDescription.GetNamesList().ToArray());
-
-            combo.SelectedIndex =
-                objectDescription.GetNumIndexByEnumIndex(value);
-
-            combo.Enabled = true;
         }
 
         public ConfigurationForm()
@@ -175,6 +178,7 @@ namespace Maze.UI
 
             InitDrawersComboboxValues();
             InitRotationComboboxValues();
+            InitClustererComboboxValues();
         }
 
         private void BackgroundColorSelect(Object sender, EventArgs e)
@@ -221,7 +225,7 @@ namespace Maze.UI
             int clustererIndex = clustererCombobox.SelectedIndex;
             if (clustererIndex >= 0)
             {
-                clusterer = MazeClustererObjects.Instance().GetEnumIndexByNumIndex(clustererIndex);
+                clusterer = clustererComboboxValues.ValueByIndex(clustererIndex);
             }
 
             int rotationIndex = rotationCombobox.SelectedIndex;

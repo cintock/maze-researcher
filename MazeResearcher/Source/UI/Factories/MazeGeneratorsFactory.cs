@@ -18,7 +18,7 @@ namespace Maze.UI
 
         }
 
-        private static MazeGeneratorsFactory instance = new MazeGeneratorsFactory();
+        private static readonly MazeGeneratorsFactory instance = new MazeGeneratorsFactory();
 
         public static MazeGeneratorsFactory Instance
         {
