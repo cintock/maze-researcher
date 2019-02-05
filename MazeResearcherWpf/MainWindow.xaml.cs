@@ -44,7 +44,10 @@ namespace MazeResearcherWpf
             IMazeDrawer drawer =
                 MazeDrawersFactory.Instance.Create(MazeDrawersEnum.StandardMazeDrawer);
 
-            drawer.SetDrawingSettings(MazeDrawingSettings.BlackWhile);
+            MazeDrawingSettings drawingSettings = MazeDrawingSettings.BlackWhile;
+            drawingSettings.BackgroundColor = System.Drawing.Color.LightBlue;
+
+            drawer.SetDrawingSettings(drawingSettings);
 
             mazeBitmap = drawer.Draw(maze);
 
