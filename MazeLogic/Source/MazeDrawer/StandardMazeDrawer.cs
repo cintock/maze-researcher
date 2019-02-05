@@ -10,6 +10,12 @@ namespace Maze.Logic
 
         public Bitmap Draw(IMazeView maze, MazeClusters clusters = null)
         {
+            if (drawingSettings is null)
+            {
+                throw new MazeException(
+                    "Попытка нарисовать лабиринт без задания настроек рисования");
+            }
+
             rowCount = maze.RowCount;
             colCount = maze.ColCount;
 
