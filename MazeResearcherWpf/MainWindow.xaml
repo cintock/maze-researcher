@@ -5,10 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MazeResearcherWpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="577" Width="627">
+        Title="MainWindow" Height="577" Width="627" WindowStartupLocation="CenterScreen">
     <Grid Margin="0,0,0,0">
+        <Grid.Background>
+            <LinearGradientBrush>
+                <LinearGradientBrush.GradientStops>
+                    <GradientStop Offset="0.00" Color="Aqua"/>
+                    <GradientStop Offset="0.50" Color="LightBlue"/>
+                    <GradientStop Offset="1.00" Color="Blue"/>
+                </LinearGradientBrush.GradientStops>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="360*"/>
+            <ColumnDefinition Width="259*"/>
+        </Grid.ColumnDefinitions>
         <Button x:Name="createButton" Content="Создать" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" Width="75" Click="CreateMaze"/>
-        <Grid Height="100" Margin="0,0,0,0" VerticalAlignment="Top">
+        <Grid Height="100" Margin="0,0,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -22,7 +35,7 @@
             <Slider x:Name="rowSlider" Margin="10,14,10,0" VerticalAlignment="Top" Minimum="1" Maximum="100" Value="30" Grid.Column="1"/>
             <Slider x:Name="columnSlider" Margin="10,14,10,0" VerticalAlignment="Top" Minimum="1" Maximum="100" Value="30" Grid.Row="1" Grid.Column="1"/>
         </Grid>
-        <Border BorderBrush="Black" BorderThickness="1" Margin="10,142,10,10">
+        <Border BorderBrush="Black" BorderThickness="1" Margin="10,142,10,10" Grid.ColumnSpan="2">
             <ScrollViewer VerticalScrollBarVisibility="Auto"  HorizontalScrollBarVisibility="Auto" >
                 <Image x:Name="mazeImage" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,10,10" />
             </ScrollViewer>
