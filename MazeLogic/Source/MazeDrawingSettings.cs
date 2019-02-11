@@ -7,12 +7,14 @@ namespace Maze.Logic
         public static MazeDrawingSettings BlackWhile {
             get
             {
-                MazeDrawingSettings settings = new MazeDrawingSettings();
-                settings.CellWidth = 10;
-                settings.CellHeight = 10;
-                settings.SideColor = Color.Black;
-                settings.BackgroundColor = Color.White;
-                settings.BorderColor = Color.Black;
+                MazeDrawingSettings settings = new MazeDrawingSettings()
+                {
+                    CellWidth = 10,
+                    CellHeight = 10,
+                    SideColor = Color.Black,
+                    BackgroundColor = Color.White,
+                    BorderColor = Color.Black
+                };
                 return settings;
             }
         }
