@@ -17,14 +17,13 @@ namespace Maze.Logic
     {
         private const uint OpaqueColor = 0xFF000000;
 
-        public static Color GetColor(int index)
+        public static uint GetColor(int index)
         {
             if (index >= colors.Length)
             {
                 index = index % colors.Length;
             }
-            uint argbValue = OpaqueColor | colors[index];
-            return Color.FromArgb(unchecked((int)argbValue));
+            return colors[index];
         }
 
         // Список хорошо различимых цветов

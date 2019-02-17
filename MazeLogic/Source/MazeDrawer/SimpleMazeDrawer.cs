@@ -4,7 +4,11 @@
  * Created by SharpDevelop.
  */
 using System;
-using System.Drawing;
+using System.IO;
+using System.Numerics;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
 
 namespace Maze.Logic
 {
@@ -15,61 +19,64 @@ namespace Maze.Logic
     /// </summary>
     public class SimpleMazeDrawer : IMazeDrawer
     {
-        private readonly Color backgroundColor = Color.White;
+        private readonly uint backgroundColor = 0xffffff;
+        private readonly uint linesColor = 0x0000ff;
+        private IMazeView maze;
+        private MazeClusters clusters;
 
         private readonly int cellSize = 10;
-        private readonly int circleSize = 6;
+        private readonly int rectSize = 6;
 
         public SimpleMazeDrawer()
         {
         }
 
-        private void DrawMaze(Graphics painter, IMazeView maze)
+        private void DrawMaze(SimpleDrawer drawer)
         {
-            using (Pen bluePen = new Pen(Color.Blue, 1))
+            for (int row = 0; row < maze.RowCount; row++)
             {
-                for (int row = 0; row < maze.RowCount; row++)
+                for (int col = 0; col < maze.ColCount; col++)
                 {
-                    for (int col = 0; col < maze.ColCount; col++)
+                    int BaseX = col * cellSize;
+                    int BaseY = row * cellSize;
+                    MazeSide currentCell = maze.GetCell(row, col);
+
+                    if (currentCell.HasFlag(MazeSide.Top))
                     {
-                        Single BaseX = col * cellSize;
-                        Single BaseY = row * cellSize;
-                        MazeSide currentCell = maze.GetCell(row, col);
+                        drawer.DrawLine(BaseX, BaseY, BaseX + cellSize, BaseY, 
+                            linesColor);
+                    }
 
-                        if (currentCell.HasFlag(MazeSide.Top))
-                        {
-                            painter.DrawLine(bluePen, BaseX, BaseY, BaseX + cellSize, BaseY);
-                        }
+                    if (currentCell.HasFlag(MazeSide.Bottom))
+                    {
+                        drawer.DrawLine(BaseX, BaseY + cellSize,
+                            BaseX + cellSize, BaseY + cellSize,
+                            linesColor);
+                    }
 
-                        if (currentCell.HasFlag(MazeSide.Bottom))
-                        {
-                            painter.DrawLine(bluePen, BaseX, BaseY + cellSize,
-                                             BaseX + cellSize, BaseY + cellSize);
-                        }
+                    if (currentCell.HasFlag(MazeSide.Right))
+                    {
+                        drawer.DrawLine(BaseX + cellSize, BaseY,
+                            BaseX + cellSize, BaseY + cellSize,
+                            linesColor);
+                    }
 
-                        if (currentCell.HasFlag(MazeSide.Right))
-                        {
-                            painter.DrawLine(bluePen, BaseX + cellSize, BaseY,
-                                             BaseX + cellSize, BaseY + cellSize);
-                        }
-
-                        if (currentCell.HasFlag(MazeSide.Left))
-                        {
-                            painter.DrawLine(bluePen, BaseX, BaseY,
-                                             BaseX, BaseY + cellSize);
-                        }
+                    if (currentCell.HasFlag(MazeSide.Left))
+                    {
+                        drawer.DrawLine(BaseX, BaseY, BaseX, BaseY + cellSize,
+                            linesColor);
                     }
                 }
             }
         }
 
-        private void DrawClusters(Graphics painter, IMazeView maze, MazeClusters clusters)
+        private void DrawClusters(SimpleDrawer drawer)
         {
             int clustersNumber = clusters.Count();
-            Brush[] brushes = new Brush[clustersNumber];
-            for (int i = 0; i < brushes.Length; i++)
+            uint[] colors = new uint[clustersNumber];
+            for (int i = 0; i < colors.Length; i++)
             {
-                brushes[i] = new SolidBrush(Palette.GetColor(i + 1));
+                colors[i] = Palette.GetColor(i + 1);
             }
 
             for (int row = 0; row < maze.RowCount; row++)
@@ -81,33 +88,34 @@ namespace Maze.Logic
 
                     if (!clusters.IsNonclustered(row, col))
                     {
-                        int circleShift = cellSize / 2 - circleSize / 2;
-                        int brushIndex = clusters.GetClusterIndex(row, col) - 1;
-                        painter.FillEllipse(brushes[brushIndex],
-                                            BaseX + circleShift,
-                                            BaseY + circleShift,
-                                            circleSize, circleSize);
+                        int rectShift = cellSize / 2 - rectSize / 2;
+                        int colorIndex = clusters.GetClusterIndex(row, col) - 1;
+                        drawer.DrawRect(BaseX + rectShift,
+                            BaseY + rectShift,
+                            rectSize, rectSize, colors[colorIndex]);
                     }
                 }
             }
         }
 
-        public Bitmap Draw(IMazeView maze, MazeClusters clusters = null)
+        public byte[] Draw(IMazeView maze, MazeClusters clusters = null)
         {
-            Bitmap imageBitmap = new Bitmap(maze.ColCount * cellSize + 1, maze.RowCount * cellSize + 1);
-            using (Graphics painter = Graphics.FromImage(imageBitmap))
-            {
-                painter.Clear(backgroundColor);
+            this.maze = maze;
+            this.clusters = clusters;
 
-                DrawMaze(painter, maze);
+            using (SimpleDrawer drawer = new SimpleDrawer(
+                maze.ColCount * cellSize + 1, maze.RowCount * cellSize + 1, 
+                backgroundColor))
+            {
+                DrawMaze(drawer);
 
                 if (clusters != null)
                 {
-                    DrawClusters(painter, maze, clusters);
+                    DrawClusters(drawer);
                 }
-            }
 
-            return imageBitmap;
+                return drawer.ReadBmpImage();
+            }
         }
 
         public void SetDrawingSettings(MazeDrawingSettings settings)

@@ -8,8 +8,8 @@ namespace MazeResearcherWpf
     // todo: про этот момент надо основательно подумать
     internal class BitmapImageConverter 
     {
-        Bitmap image;
-        public BitmapImageConverter(Bitmap bitmap)
+        byte[] image;
+        public BitmapImageConverter(byte[] bitmap)
         {
             image = bitmap;
         }
@@ -17,11 +17,9 @@ namespace MazeResearcherWpf
         public BitmapImage Image()
         {
             BitmapImage convertedImage = new BitmapImage();
-            using (MemoryStream memoryStream = new MemoryStream())
+            using (MemoryStream memoryStream = new MemoryStream(image))
             {
-                image.Save(memoryStream, ImageFormat.Bmp);
                 convertedImage.BeginInit();
-                memoryStream.Seek(0, SeekOrigin.Begin);
                 convertedImage.StreamSource = memoryStream;
                 convertedImage.CacheOption = BitmapCacheOption.OnLoad;
                 convertedImage.EndInit();

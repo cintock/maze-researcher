@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,6 @@ namespace MazeResearcherWpf
     public partial class MainWindow : Window
     {
         private IMazeView maze;
-        private Bitmap mazeBitmap;
 
         public MainWindow()
         {
@@ -42,16 +42,15 @@ namespace MazeResearcherWpf
             maze = mazeGenerator.Generate(rowCount, colCount);
 
             IMazeDrawer drawer =
-                MazeDrawersFactory.Instance.Create(MazeDrawersEnum.StandardMazeDrawer);
+                MazeDrawersFactory.Instance.Create(MazeDrawersEnum.SimpleMazeDrawer);
 
             MazeDrawingSettings drawingSettings = MazeDrawingSettings.BlackWhile;
-            drawingSettings.BackgroundColor = System.Drawing.Color.LightBlue;
+            drawingSettings.BackgroundColor = 0xADD8E6u;
 
             drawer.SetDrawingSettings(drawingSettings);
 
-            mazeBitmap = drawer.Draw(maze);
-
-            BitmapSource source = (new BitmapImageConverter(mazeBitmap)).Image();
+            byte[] img = drawer.Draw(maze);
+            BitmapSource source = (new BitmapImageConverter(img)).Image();
 
             mazeImage.Source = source;
         }

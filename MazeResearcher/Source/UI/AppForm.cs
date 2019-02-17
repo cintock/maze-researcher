@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Windows.Forms;
 using Maze.Logic;
 
@@ -14,7 +16,7 @@ namespace Maze.UI
 
         private MazeDrawersEnum drawingAlgo;
         private MazeClusterersEnum clustererAlgo;
-        private MazeRotateEnum mazeRotation;
+        // private MazeRotateEnum mazeRotation;
 
         private IMazeView maze;
         private MazeClusters clusters;
@@ -75,16 +77,16 @@ namespace Maze.UI
             {
                 CellHeight = 10,
                 CellWidth = 10,
-                BorderColor = Color.Black,
-                BackgroundColor = Color.Azure,
-                SideColor = Color.DarkGreen
+                BorderColor = 0x000000,
+                BackgroundColor = 0xF0FFFF,
+                SideColor = 0x006400
             };
 
             drawingAlgo = MazeDrawersEnum.StandardMazeDrawer;
 
             clustererAlgo = MazeClusterersEnum.MazeClustererCyclic;
 
-            mazeRotation = MazeRotateEnum.Rotate0;
+            //mazeRotation = MazeRotateEnum.Rotate0;
         }
 
         void FindClusters()
@@ -101,12 +103,12 @@ namespace Maze.UI
                 clustersCountStr));
         }
 
-        private Bitmap RenderMaze()
+        private Image RenderMaze()
         {
-            Bitmap mazeImage = null;
+            byte[] mazeBmpImage = null;
             IMazeDrawer drawer = MazeDrawersFactory.Instance.Create(drawingAlgo);
             drawer.SetDrawingSettings(drawingSettings);
-            drawer = new MazeDrawerRotateDecorator(drawer, mazeRotation);
+            // drawer = new MazeDrawerRotateDecorator(drawer, mazeRotation);
 
             try
             {
@@ -114,11 +116,11 @@ namespace Maze.UI
                 {
                     if (showMazeClustersCheckbox.Checked)
                     {
-                        mazeImage = drawer.Draw(maze, clusters);
+                        mazeBmpImage = drawer.Draw(maze, clusters);
                     }
                     else
                     {
-                        mazeImage = drawer.Draw(maze);
+                        mazeBmpImage = drawer.Draw(maze);
                     }
                 }
             }
@@ -126,6 +128,11 @@ namespace Maze.UI
             {
                 DebugConsole.Instance.Error(
                     string.Format("Возникло исключение: {0}", ex.ToString()));
+            }
+            Image mazeImage;
+            using (MemoryStream ms = new MemoryStream(mazeBmpImage))
+            {
+                mazeImage = new Bitmap(Image.FromStream(ms));
             }
             return mazeImage;
         }
@@ -231,14 +238,14 @@ namespace Maze.UI
                 DrawingSettings = drawingSettings,
                 Clusterer = clustererAlgo,
                 DebugLogging = IsDebugConsoleEnabled(),
-                Rotation = mazeRotation
+                //Rotation = mazeRotation
             };
 
             if (dialog.ShowDialog(this) == DialogResult.OK)
             {
                 drawingAlgo = dialog.Drawer;
                 clustererAlgo = dialog.Clusterer;
-                mazeRotation = dialog.Rotation;
+                //mazeRotation = dialog.Rotation;
                 SetDebugConsoleState(dialog.DebugLogging);
 
                 ClearClusters();
@@ -254,14 +261,14 @@ namespace Maze.UI
                 {
                     SaveFileDialog dialog = new SaveFileDialog
                     {
-                        Filter = "Рисунок PNG (*.png)|*.png"
+                        Filter = "Рисунок PNG (*.png)|*.png|Рисунок BMP (*.bmp)|*.bmp"
                     };
                     if (dialog.ShowDialog(this) == DialogResult.OK)
                     {
-                        Bitmap mazeBitmap = RenderMaze();
+                        Image mazeBitmap = RenderMaze();
                         if (mazeBitmap != null)
                         {
-                            mazeBitmap.Save(dialog.FileName);
+                            mazeBitmap.Save(dialog.FileName, ImageFormatByFilename(dialog.FileName));
                         }
                         else
                         {
@@ -281,6 +288,31 @@ namespace Maze.UI
                 DebugConsole.Instance.Error(mes);
                 MessageBox.Show(this, "Ошибка при сохранении");
             }
+        }
+
+        private ImageFormat ImageFormatByFilename(string fileName)
+        {
+            ImageFormat format = ImageFormat.Bmp;
+            String extension = Path.GetExtension(fileName).ToLower();
+            switch (extension)
+            {
+                case ".png":
+                    format = ImageFormat.Png;
+                    break;
+
+                case ".bmp":
+                    format = ImageFormat.Bmp;
+                    break;
+
+                // не содержит расширения
+                case "":
+                    break;
+
+                default:
+                    throw new ArgumentException("Данный формат файла не поддерживается");
+            }
+
+            return format;
         }
 
         private void AboutDialog(object sender, EventArgs e)

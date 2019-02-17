@@ -11,9 +11,9 @@ namespace Maze.Logic
                 {
                     CellWidth = 10,
                     CellHeight = 10,
-                    SideColor = Color.Black,
-                    BackgroundColor = Color.White,
-                    BorderColor = Color.Black
+                    SideColor = 0x000000,
+                    BackgroundColor = 0xffffff,
+                    BorderColor = 0x000000
                 };
                 return settings;
             }
@@ -21,8 +21,8 @@ namespace Maze.Logic
 
         public int CellWidth { get; set; }
         public int CellHeight { get; set; }
-        public Color SideColor { get; set; }
-        public Color BackgroundColor { get; set; }
-        public Color BorderColor { get; set; }
+        public uint SideColor { get; set; }
+        public uint BackgroundColor { get; set; }
+        public uint BorderColor { get; set; }
     }
 }

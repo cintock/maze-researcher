@@ -30,6 +30,7 @@
                     mazeDrawer = new SimpleMazeDrawer();
                     break;
 
+                /*
                 case MazeDrawersEnum.StandardMazeDrawer:
                     mazeDrawer = new StandardMazeDrawer();
                     break;
@@ -45,6 +46,7 @@
                 case MazeDrawersEnum.SolidSidesDrawer:
                     mazeDrawer = new SolidSidesDrawer();
                     break;
+               */
 
                 default:
                     throw new MazeException("Не предусмотрено создание отображения лабиринта такого типа");

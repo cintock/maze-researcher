@@ -11,16 +11,16 @@ namespace Maze.UI
         private MazeDrawingSettings drawingSettings;
 
         private ComboboxValues<MazeDrawersEnum> drawersComboboxValues;
-        private ComboboxValues<MazeRotateEnum> rotationComboboxValues;
+        //private ComboboxValues<MazeRotateEnum> rotationComboboxValues;
         private ComboboxValues<MazeClusterersEnum> clustererComboboxValues;
 
         private MazeDrawersEnum drawer;
         private MazeClusterersEnum clusterer;
-        private MazeRotateEnum rotation;
+        //private MazeRotateEnum rotation;
 
-        private Color backgroundColor;
-        private Color borderColor;
-        private Color sideColor;
+        private uint backgroundColor;
+        private uint borderColor;
+        private uint sideColor;
 
         public MazeDrawersEnum Drawer
         {
@@ -38,6 +38,7 @@ namespace Maze.UI
             }
         }
 
+        /*
         public MazeRotateEnum Rotation
         {
             get
@@ -52,6 +53,22 @@ namespace Maze.UI
                 rotationCombobox.SelectedIndex = rotationComboboxValues.IndexByValue(rotation);
                 rotationCombobox.Enabled = true;
             }
+        }
+        */
+
+        private Color ColorFromValue(uint colorValue)
+        {
+            return Color.FromArgb(
+                (byte)((colorValue & 0xFF0000u) >> 16),
+                (byte)((colorValue & 0x00FF00u) >> 8),
+                (byte)(colorValue & 0x0000FFu));
+        }
+
+        private uint ValueFromColor(Color color)
+        {
+            uint colorValue = unchecked((uint)color.ToArgb());
+            colorValue = colorValue & 0xFFFFFFu;
+            return colorValue;
         }
 
         public MazeDrawingSettings DrawingSettings
@@ -72,13 +89,13 @@ namespace Maze.UI
                 cellHeightNumericUpDown.Enabled = true;
 
                 backgroundColor = drawingSettings.BackgroundColor;
-                SetupColorButton(backgroundColorButton, backgroundColor);
+                SetupColorButton(backgroundColorButton, ColorFromValue(backgroundColor));
 
                 borderColor = drawingSettings.BorderColor;
-                SetupColorButton(borderColorButton, borderColor);
+                SetupColorButton(borderColorButton, ColorFromValue(borderColor));
 
                 sideColor = drawingSettings.SideColor;
-                SetupColorButton(sideColorButton, sideColor);
+                SetupColorButton(sideColorButton, ColorFromValue(sideColor));
             }
         }
 
@@ -121,6 +138,7 @@ namespace Maze.UI
 
         private void InitRotationComboboxValues()
         {
+            /*
             rotationComboboxValues = new ComboboxValues<MazeRotateEnum>();
 
             rotationComboboxValues.AddElement(MazeRotateEnum.Rotate0, "Без поворорта");
@@ -130,6 +148,7 @@ namespace Maze.UI
 
             rotationCombobox.Items.Clear();
             rotationCombobox.Items.AddRange(rotationComboboxValues.Names());
+            */
         }
 
         private void SetupColorButton(Button button, Color color)
@@ -183,20 +202,20 @@ namespace Maze.UI
 
         private void BackgroundColorSelect(Object sender, EventArgs e)
         {
-            backgroundColor = SelectColorDialog(
-                backgroundColorButton, backgroundColor);
+            backgroundColor = ValueFromColor(SelectColorDialog(
+                backgroundColorButton, ColorFromValue(backgroundColor)));
         }
 
         private void BorderColorSelect(Object sender, EventArgs e)
         {
-            borderColor = SelectColorDialog(
-                borderColorButton, borderColor);
+            borderColor = ValueFromColor(SelectColorDialog(
+                borderColorButton, ColorFromValue(borderColor)));
         }
 
         private void SideColorSelect(Object sender, EventArgs e)
         {
-            sideColor = SelectColorDialog(
-                sideColorButton, sideColor);
+            sideColor = ValueFromColor(SelectColorDialog(
+                sideColorButton, ColorFromValue(sideColor)));
         }
 
         private Color SelectColorDialog(Control colorView, Color previousColor)
@@ -231,7 +250,7 @@ namespace Maze.UI
             int rotationIndex = rotationCombobox.SelectedIndex;
             if (rotationIndex >= 0)
             {
-                rotation = rotationComboboxValues.ValueByIndex(rotationIndex);
+                //rotation = rotationComboboxValues.ValueByIndex(rotationIndex);
             }
 
             drawingSettings.CellHeight = (int)cellHeightNumericUpDown.Value;

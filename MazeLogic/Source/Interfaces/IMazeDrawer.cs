@@ -15,6 +15,6 @@ namespace Maze.Logic
         void SetDrawingSettings(MazeDrawingSettings settings);
 
         // todo: надо отказаться от использования Bitmap
-        Bitmap Draw(IMazeView maze, MazeClusters clusters = null);
+        byte[] Draw(IMazeView maze, MazeClusters clusters = null);
     }
 }
