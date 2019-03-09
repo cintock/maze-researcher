@@ -5,26 +5,20 @@ using System.Windows.Media.Imaging;
 
 namespace MazeResearcherWpf
 {
-    // todo: про этот момент надо основательно подумать
     internal class BitmapImageConverter 
     {
-        byte[] image;
-        public BitmapImageConverter(byte[] bitmap)
+        static public BitmapImage FromBytes(byte[] bytes)
         {
-            image = bitmap;
-        }
+            BitmapImage bitmapImage = new BitmapImage();
 
-        public BitmapImage Image()
-        {
-            BitmapImage convertedImage = new BitmapImage();
-            using (MemoryStream memoryStream = new MemoryStream(image))
+            using (MemoryStream memoryStream = new MemoryStream(bytes))
             {
-                convertedImage.BeginInit();
-                convertedImage.StreamSource = memoryStream;
-                convertedImage.CacheOption = BitmapCacheOption.OnLoad;
-                convertedImage.EndInit();
+                bitmapImage.BeginInit();
+                bitmapImage.StreamSource = memoryStream;
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.EndInit();
             }
-            return convertedImage;
+            return bitmapImage;
         }
     }
 }
