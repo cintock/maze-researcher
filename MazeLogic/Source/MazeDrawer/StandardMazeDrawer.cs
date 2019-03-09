@@ -1,4 +1,7 @@
-﻿using System.Drawing;
+﻿using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
+using Maze.Logic;
 
 namespace Maze.Logic
 {
@@ -8,7 +11,7 @@ namespace Maze.Logic
         protected int rowCount;
         protected int colCount;
 
-        public Bitmap Draw(IMazeView maze, MazeClusters clusters = null)
+        public byte[] Draw(IMazeView maze, MazeClusters clusters = null)
         {
             if (drawingSettings is null)
             {
@@ -19,37 +22,36 @@ namespace Maze.Logic
             rowCount = maze.RowCount;
             colCount = maze.ColCount;
 
-            Bitmap imageBitmap = new Bitmap(colCount * drawingSettings.CellWidth + 1,
-                rowCount * drawingSettings.CellHeight + 1);
-
-            using (Graphics painter = Graphics.FromImage(imageBitmap))
+            using (SimpleDrawer drawer = 
+                new SimpleDrawer(
+                    colCount * drawingSettings.CellWidth + 1,
+                    rowCount * drawingSettings.CellHeight + 1, 
+                    drawingSettings.BackgroundColor))
             {
-                painter.Clear(drawingSettings.BackgroundColor);
 
                 if (clusters != null)
                 {
-                    DrawClusters(painter, clusters);
+                    DrawClusters(drawer, clusters);
                 }
 
-                DrawMaze(painter, maze);
-                DrawBorder(painter);
+                DrawMaze(drawer, maze);
+
+                DrawBorder(drawer);
+
+                return drawer.ReadBmpImage();
             }
-
-            return imageBitmap;
         }
 
-        protected virtual void DrawBorder(Graphics graphics)
+        protected virtual void DrawBorder(SimpleDrawer drawer)
         {
-            Pen borderPen = new Pen(drawingSettings.BorderColor, 1);
-            graphics.DrawRectangle(borderPen,
-                new Rectangle(0, 0,
+            drawer.DrawRect(0, 0, 
                 drawingSettings.CellWidth * colCount,
-                drawingSettings.CellHeight * rowCount));
+                drawingSettings.CellHeight * rowCount, 
+                drawingSettings.BorderColor);
         }
 
-        protected virtual void DrawMaze(Graphics graphics, IMazeView maze)
+        protected virtual void DrawMaze(SimpleDrawer drawer, IMazeView maze)
         {
-            Pen sizePen = new Pen(drawingSettings.SideColor, 1);
             int cellWidth = drawingSettings.CellWidth;
             int cellHeight = drawingSettings.CellHeight;
             for (int row = 0; row < rowCount; row++)
@@ -60,9 +62,10 @@ namespace Maze.Logic
                     {
                         if (col < colCount - 1)
                         {
-                            graphics.DrawLine(sizePen,
-                                new Point((col + 1) * cellWidth, (row) * cellHeight),
-                                new Point((col + 1) * cellWidth, (row + 1) * cellHeight));
+                            drawer.DrawLine(
+                                (col + 1) * cellWidth, (row) * cellHeight,
+                                (col + 1) * cellWidth, (row + 1) * cellHeight,
+                                drawingSettings.SideColor);
                         }
                     }
 
@@ -70,22 +73,23 @@ namespace Maze.Logic
                     {
                         if (row < rowCount - 1)
                         {
-                            graphics.DrawLine(sizePen,
-                                new Point((col) * cellWidth, (row + 1) * cellHeight),
-                                new Point((col + 1) * cellWidth, (row + 1) * cellHeight));
+                            drawer.DrawLine(
+                                (col) * cellWidth, (row + 1) * cellHeight,
+                                (col + 1) * cellWidth, (row + 1) * cellHeight,
+                                drawingSettings.SideColor);
                         }
                     }
                 }
             }
         }
 
-        protected virtual void DrawClusters(Graphics graphics, MazeClusters clusters)
+        protected virtual void DrawClusters(SimpleDrawer drawer, MazeClusters clusters)
         {
             int clustersNumber = clusters.Count();
-            Brush[] brushes = new Brush[clustersNumber];
-            for (int i = 0; i < brushes.Length; i++)
+            uint[] clustersColors = new uint[clustersNumber];
+            for (int i = 0; i < clustersColors.Length; i++)
             {
-                brushes[i] = new SolidBrush(Palette.GetColor(i + 1));
+                clustersColors[i] = Palette.GetColor(i + 1);
             }
 
             int cellWidth = drawingSettings.CellWidth;
@@ -98,10 +102,9 @@ namespace Maze.Logic
                     int index = clusters.GetClusterIndex(row, col);
                     if (index > 0)
                     {
-                        Rectangle cellRect = new Rectangle(col * cellWidth, row * cellHeight,
-                            cellWidth, cellHeight);
-
-                        graphics.FillRectangle(brushes[index - 1], cellRect);
+                        drawer.DrawFilledRect(col * cellWidth, row * cellHeight,
+                            cellWidth, cellHeight,
+                            clustersColors[index - 1]);
                     }
                 }
             }

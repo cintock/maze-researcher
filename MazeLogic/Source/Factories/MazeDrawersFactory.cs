@@ -30,11 +30,11 @@
                     mazeDrawer = new SimpleMazeDrawer();
                     break;
 
-                /*
                 case MazeDrawersEnum.StandardMazeDrawer:
                     mazeDrawer = new StandardMazeDrawer();
                     break;
 
+                    /*
                 case MazeDrawersEnum.CellDebugMazeDrawer:
                     mazeDrawer = new CellDebugMazeDrawer();
                     break;

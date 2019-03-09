@@ -3,7 +3,6 @@
  * Date: 05.01.2019
  * Created by SharpDevelop.
  */
-using System.Drawing;
 
 namespace Maze.Logic
 {

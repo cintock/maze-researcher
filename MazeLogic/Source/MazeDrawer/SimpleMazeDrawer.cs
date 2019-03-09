@@ -90,7 +90,7 @@ namespace Maze.Logic
                     {
                         int rectShift = cellSize / 2 - rectSize / 2;
                         int colorIndex = clusters.GetClusterIndex(row, col) - 1;
-                        drawer.DrawRect(BaseX + rectShift,
+                        drawer.DrawFilledRect(BaseX + rectShift,
                             BaseY + rectShift,
                             rectSize, rectSize, colors[colorIndex]);
                     }

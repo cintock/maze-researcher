@@ -3,15 +3,12 @@ using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.Primitives;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Maze.Logic
 {
-    class SimpleDrawer : IDisposable
+    public class SimpleDrawer : IDisposable
     {
         private Image<Rgba32> image;
 
@@ -49,7 +46,7 @@ namespace Maze.Logic
             );
         }
 
-        public void DrawRect(int x, int y, int width, int height, 
+        public void DrawFilledRect(int x, int y, int width, int height, 
             uint color = 0x000000)
         {
             image.Mutate(imageContext =>
@@ -59,6 +56,22 @@ namespace Maze.Logic
                     new Rectangle(x, y, width, height));
             }
             );
+        }
+
+        public void DrawRect(int x, int y, int width, int height,
+            uint color = 0x000000, int thickness = 1)
+        {
+            image.Mutate(imageContext =>
+            {
+                imageContext.DrawLines(ConvertColor(color), thickness, new PointF[]
+                {
+                    new Vector2(x, y),
+                    new Vector2(x + width, y),
+                    new Vector2(x + width, y + height),
+                    new Vector2(x, y + height),
+                    new Vector2(x, y)
+                });
+            });
         }
 
         public byte[] ReadBmpImage()

@@ -85,6 +85,7 @@
     <Compile Include="Source\MazeData\EmptyMazeData.cs" />
     <Compile Include="Source\MazeData\MazeData.cs" />
     <Compile Include="Source\MazeDrawer\SimpleMazeDrawer.cs" />
+    <Compile Include="Source\MazeDrawer\StandardMazeDrawer.cs" />
     <Compile Include="Source\MazeDrawingSettings.cs" />
     <Compile Include="Source\MazeException.cs" />
     <Compile Include="Source\MazePoint.cs" />
