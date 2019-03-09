@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MazeResearcherWpf"
         mc:Ignorable="d"
         Title="Генерация лабиринтов" Height="577" Width="627" WindowStartupLocation="CenterScreen">
-    <Grid Margin="0,0,0,0">
+    <Grid Margin="0,0,0,0" Grid.ColumnSpan="1">
         <Grid.Background>
             <LinearGradientBrush>
                 <LinearGradientBrush.GradientStops>
@@ -16,29 +16,35 @@
                 </LinearGradientBrush.GradientStops>
             </LinearGradientBrush>
         </Grid.Background>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="360*"/>
-            <ColumnDefinition Width="259*"/>
-        </Grid.ColumnDefinitions>
-        <Button x:Name="createButton" Content="Создать" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" Width="75" Click="CreateMaze"/>
-        <Grid Height="100" Margin="0,0,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2">
+        <Grid Margin="0,0,0,0">
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="85"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Label Content="Высота (строк)" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-            <Label Content="Ширина (столбцов)" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Row="1"/>
-            <Slider x:Name="rowSlider" Margin="10,14,10,0" VerticalAlignment="Top" Minimum="1" Maximum="100" Value="30" Grid.Column="1"/>
-            <Slider x:Name="columnSlider" Margin="10,14,10,0" VerticalAlignment="Top" Minimum="1" Maximum="100" Value="30" Grid.Row="1" Grid.Column="1"/>
+            <Grid Height="Auto" Margin="0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Высота (строк)" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Center" />
+                <Label Content="Ширина (столбцов)" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Center" Grid.Row="1" />
+                <Slider x:Name="rowSlider" Margin="10,14,10,0" VerticalAlignment="Top" Minimum="1" Maximum="100" Value="30" Grid.Column="1"/>
+                <Slider x:Name="columnSlider" Margin="10,14,10,0" VerticalAlignment="Top" Minimum="1" Maximum="100" Value="30" Grid.Row="1" Grid.Column="1"/>
+            </Grid>
+            <Button x:Name="createButton" Content="Создать" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="75" Click="CreateMaze" Grid.Row="1"/>
+            <Border BorderBrush="Black" BorderThickness="1" Margin="10,10,10,10" Grid.ColumnSpan="2" Grid.Row="2">
+                <ScrollViewer VerticalScrollBarVisibility="Auto"  HorizontalScrollBarVisibility="Auto" >
+                    <Image x:Name="mazeImage" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,10,10" />
+                </ScrollViewer>
+            </Border>
+
         </Grid>
-        <Border BorderBrush="Black" BorderThickness="1" Margin="10,142,10,10" Grid.ColumnSpan="2">
-            <ScrollViewer VerticalScrollBarVisibility="Auto"  HorizontalScrollBarVisibility="Auto" >
-                <Image x:Name="mazeImage" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,10,10" />
-            </ScrollViewer>
-        </Border>
+
+
     </Grid>
 </Window>
