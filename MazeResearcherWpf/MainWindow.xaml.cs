@@ -8,11 +8,24 @@ namespace MazeResearcherWpf
     /// </summary>
     public partial class MainWindow : Window
     {
+        private IMazeClusterer clusterer;
+        private IMazeGenerator mazeGenerator;
+
         private IMazeView maze;
+        private MazeClusters clusters;
+        
+        private bool showClusters;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            mazeGenerator =
+                MazeGeneratorsFactory.Instance.Create(
+                    MazeGeneratorsEnum.EllerModMazeGenerator);
+
+            clusterer =
+                MazeClusterersFactory.Instance.Create(MazeClusterersEnum.MazeClustererCyclic);
         }
 
         private void CreateMaze(object sender, RoutedEventArgs e)
@@ -20,23 +33,57 @@ namespace MazeResearcherWpf
             int rowCount = (int)rowSlider.Value;
             int colCount = (int)columnSlider.Value;
 
-            IMazeGenerator mazeGenerator = 
-                MazeGeneratorsFactory.Instance.Create(
-                    MazeGeneratorsEnum.EllerModMazeGenerator);
-
             maze = mazeGenerator.Generate(rowCount, colCount);
+            clusters = null;
 
-            IMazeDrawer drawer =
-                MazeDrawersFactory.Instance.Create(MazeDrawersEnum.SimpleMazeDrawer);
-
-            MazeDrawingSettings drawingSettings = MazeDrawingSettings.BlackWhile;
-            drawingSettings.BackgroundColor = 0xADD8E6u;
-
-            drawer.SetDrawingSettings(drawingSettings);
-
-            byte[] img = drawer.Draw(maze);
-
-            mazeImage.Source = BitmapImageConverter.FromBytes(img);
+            DrawMaze();
         }
+
+        private void DrawMaze()
+        {
+            if (!(maze is null))
+            {
+                IMazeDrawer drawer =
+                    MazeDrawersFactory.Instance.Create(MazeDrawersEnum.StandardMazeDrawer);
+
+                MazeDrawingSettings drawingSettings = MazeDrawingSettings.BlackWhile;
+                drawingSettings.BackgroundColor = 0xADD8E6u;
+
+                if (showClusters)
+                {
+                    if (clusters is null)
+                    {
+                        clusters = clusterer.Cluster(maze);
+                    }
+                }
+
+                drawer.SetDrawingSettings(drawingSettings);
+
+                byte[] img;
+                if (showClusters)
+                {
+                    img = drawer.Draw(maze, clusters);
+                }
+                else
+                {
+                    img = drawer.Draw(maze);
+                }
+
+                mazeImage.Source = BitmapImageConverter.FromBytes(img);
+            }
+        }
+
+        private void ShowClustersChecked(object sender, RoutedEventArgs e)
+        {
+            showClusters = true;
+            DrawMaze();
+        }
+
+        private void ShowClustersUnchecked(object sender, RoutedEventArgs e)
+        {
+            showClusters = false;
+            DrawMaze();
+        }
+
     }
 }
